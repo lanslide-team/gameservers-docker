@@ -17,7 +17,7 @@ steamcmd/linux64
 steamcmd/package
 steamcmd/public
 steamcmd/siteserverui
-steamcmd/steamcmd/linux32
+steamcmd/steam/linux32
 steamcmd/update_hosts_cached.vdf
 tf2/data
 trackmania-forever/*.zip
