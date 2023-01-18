@@ -1,0 +1,21 @@
+sv_name "$SV_NAME"
+sv_rcon_password "$SV_RCON_PASSWORD"
+sv_password "$SV_PASSWORD"
+sv_public $SV_PUBLIC
+sv_motd "$SV_MOTD"
+sv_maxplayers $SV_MAXPLAYERS
+sv_friendly_fire $SV_FRIENDLY_FIRE
+sv_timelimit $SV_TIMELIMIT
+
+sv_mapcycle_timeout "$SV_MAPCYCLE_TIMEOUT"
+sv_tk_ban $SV_TK_BAN
+sv_tk_cooldown $SV_TK_COOLDOWN
+sv_tk_grace $SV_TK_GRACE
+sv_ban_penalty $SV_BAN_PENALTY
+load
+sv_mapvote $SV_MAPVOTE
+sv_mapcycle_timeout $SV_MAPCYCLE_TIMEOUT
+sv_mapcycle_add $SV_MAPCYCLE_ADD
+sv_mapcycle_begin
+
+antihalofp $ANTIHALOFP

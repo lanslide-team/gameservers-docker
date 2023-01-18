@@ -1,0 +1,54 @@
+worlds:
+  plotworld:
+    road:
+      width: 7
+      height: 64
+      block: oak_planks:100
+    plot:
+      size: 32
+      floor: grass_block
+      filling: dirt
+      height: 64
+      biome: FOREST
+      auto_merge: false
+      bedrock: true
+      create_signs: true
+    wall:
+      height: 64
+      filling: granite:100
+      block_claimed: sandstone_slab:100
+      block: stone_slab:100
+    home:
+      default: side
+      allow-nonmembers: false
+      nonmembers: side
+    schematic:
+      specify_on_claim: false
+      on_claim: false
+      file: 'null'
+      schematics: []
+    economy:
+      prices:
+        merge: 100
+        sell: 100
+        claim: 100
+      use: false
+    chat:
+      enabled: false
+    limits:
+      max-members: 128
+    world:
+      max_height: 256
+      gamemode: creative
+      min_height: 1
+      border: false
+    event:
+      spawn:
+        egg: false
+        breeding: false
+        custom: true
+    natural_mob_spawning: false
+    mob_spawner_spawning: false
+    flags: {}
+    misc_spawn_unowned: false
+configuration_version: post_flattening

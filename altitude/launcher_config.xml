@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServerLauncherConfig ip="" upnpEnabled="true" updatePort="$UPDATE_PORT">
+  <servers>
+    <AltitudeServerConfig port="$PORT" downloadMaxKilobytesPerSecond="$DOWNLOAD_MAX_KILOBYTES_PER_SECOND" downloadHttpSource="$DOWNLOAD_HTTP_SOURCE" serverName="$SERVER_NAME" maxPlayerCount="$MAX_PLAYER_COUNT" hardcore="$HARDCORE" autoBalanceTeams="$AUTO_BALANCE_TEAMS" preventTeamSwitching="$PREVENT_TEAM_SWITCHING" disableBalanceTeamsPopup="$DISABLE_BALANCE_TEAMS_POPUP" lanServer="$LAN_SERVER" callEndOfRoundVote="$CALL_END_OF_ROUND_VOTE" disallowDemoUsers="$DISALLOW_DEMO_USERS" rconEnabled="$RCON_ENABLED" rconPassword="$RCON_PASSWORD" maxPing="$MAX_PING" minLevel="$MIN_LEVEL" maxLevel="$MAX_LEVEL" secretCode="$SECRET_CODE" cameraViewScalePercent="$CAMERA_VIEW_SCALE_PERCENT">
+      <adminsByVaporID />
+      <mapList>
+        <String value="1bd_core" />
+        <String value="1bd_fallout" />
+        <String value="1bd_lostcity" />
+        <String value="1bd_pyramid" />
+        <String value="1de_asteroids" />
+        <String value="1de_cave" />
+        <String value="1de_darkwar" />
+        <String value="1de_lazer" />
+        <String value="1de_mayhem" />
+        <String value="1de_maze" />
+        <String value="1de_middleground" />
+        <String value="1dm_asteroids" />
+        <String value="1dm_asteroids2" />
+        <String value="1dm_cave" />
+        <String value="1dm_cave2" />
+        <String value="1dm_clocktower" />
+        <String value="1dm_core" />
+        <String value="1dm_fallout" />
+        <String value="1dm_grotto" />
+        <String value="1dm_locomotion" />
+        <String value="1dm_lostcity" />
+        <String value="1dm_mayhem" />
+        <String value="1dm_mayhem2" />
+        <String value="1dm_middleground" />
+        <String value="1dm_woods" />
+        <String value="ball_arcade" />
+        <String value="ball_asteroids" />
+        <String value="ball_atmosphere" />
+        <String value="ball_cave" />
+        <String value="ball_cavern" />
+        <String value="ball_channelpark" />
+        <String value="ball_core" />
+        <String value="ball_cross" />
+        <String value="ball_darkwar" />
+        <String value="ball_factory" />
+        <String value="ball_football" />
+        <String value="ball_fracas" />
+        <String value="ball_funnelpark" />
+        <String value="ball_gliderpark" />
+        <String value="ball_grotto" />
+        <String value="ball_hardcourt" />
+        <String value="ball_ice" />
+        <String value="ball_labyrinth" />
+        <String value="ball_lostcity" />
+        <String value="ball_mayhem2" />
+        <String value="ball_maze" />
+        <String value="ball_meteoroids" />
+        <String value="ball_pixelized" />
+        <String value="ball_planepark" />
+        <String value="ball_powder" />
+        <String value="ball_proton" />
+        <String value="ball_reef" />
+        <String value="ball_skylands" />
+        <String value="ball_ufo" />
+        <String value="ball_volcano" />
+        <String value="ffa_cave" />
+        <String value="ffa_channelpark" />
+        <String value="ffa_core" />
+        <String value="ffa_hills" />
+        <String value="ffa_lostcity" />
+        <String value="ffa_mayhem" />
+        <String value="ffa_trainingmayhem" />
+        <String value="ffa_tutorial_cave" />
+        <String value="tbd_assembly" />
+        <String value="tbd_asteroids" />
+        <String value="tbd_cave" />
+        <String value="tbd_cavern" />
+        <String value="tbd_channelpark" />
+        <String value="tbd_chess" />
+        <String value="tbd_core" />
+        <String value="tbd_fallout" />
+        <String value="tbd_focus" />
+        <String value="tbd_fracas" />
+        <String value="tbd_gliderpark" />
+        <String value="tbd_greywar" />
+        <String value="tbd_grotto" />
+        <String value="tbd_heights" />
+        <String value="tbd_hills" />
+        <String value="tbd_justice" />
+        <String value="tbd_locomotion" />
+        <String value="tbd_lostcity" />
+        <String value="tbd_mayhem" />
+        <String value="tbd_meteoroids" />
+        <String value="tbd_middleground" />
+        <String value="tbd_nuclear" />
+        <String value="tbd_origami_park" />
+        <String value="tbd_planepark" />
+        <String value="tbd_powder" />
+        <String value="tbd_proton" />
+        <String value="tbd_scrapyard" />
+        <String value="tbd_underpark" />
+        <String value="tbd_volcano" />
+        <String value="tbd_woods" />
+        <String value="tdm_asteroids" />
+        <String value="tdm_cave" />
+        <String value="tdm_core" />
+        <String value="|ball|" />
+        <String value="|ffa|" />
+        <String value="|tbd|" />
+        <String value="|tdm|" />
+      </mapList>
+      <mapRotationList>
+        <String value="|ball|" />
+        <String value="|ffa|" />
+        <String value="|tbd|" />
+        <String value="|tdm|" />
+      </mapRotationList>
+      <BotConfig numberOfBots="$NUMBER_OF_BOTS" botDifficulty="$BOT_DIFFICULTY" botsBalanceTeams="$BOTS_BALANCE_TEAMS" botSpectateThreshold="$BOT_SPECTATE_THRESHOLD" />
+      <disallowedPlaneRandomTypes />
+      <FreeForAllGameMode scoreLimit="$FFA_SCORE_LIMIT" RoundLimit="$FFA_ROUND_LIMIT" roundTimeSeconds="$FFA_ROUND_TIME_SECONDS" warmupTimeSeconds="$FFA_WARMUP_TIME_SECONDS" />
+      <BaseDestroyGameMode RoundLimit="$BD_ROUND_LIMIT" roundTimeSeconds="$BD_ROUND_TIME_SECONDS" warmupTimeSeconds="$BD_WARMUP_TIME_SECONDS" />
+      <ObjectiveGameMode gamesPerRound="$OBJ_GAMES_PER_ROUND" gamesPerSwitchSides="$OBJ_GAMES_PER_SWITCH_SIDES" gameWinMargin="$OBJ_GAMES_WIN_MARGIN" betweenGameTimeSeconds="$OBJ_BETWEEN_GAME_TIME_SECONDS" RoundLimit="$OBJ_ROUND_LIMIT" roundTimeSeconds="$OBJ_ROUND_TIME_SECONDS" warmupTimeSeconds="$OBJ_WARMUP_TIME_SECONDS" />
+      <PlaneBallGameMode goalsPerRound="$PLANE_GOALS_PER_ROUND" RoundLimit="$PLANE_ROUND_LIMIT" roundTimeSeconds="$PLANE_ROUND_TIME_SECONDS" warmupTimeSeconds="$PLANE_WARMUP_TIME_SECONDS" />
+      <TeamDeathmatchGameMode scoreLimit="$TDM_SCORE_LIMIT" RoundLimit="$TDM_ROUND_LIMIT" roundTimeSeconds="$TDM_ROUND_TIME_SECONDS" warmupTimeSeconds="$TDM_WARMUP_TIME_SECONDS" />
+      <customCAmmands />
+      <consoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="balanceTeams">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Vote" />
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="changeMap">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Vote" />
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="custom">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Vote" />
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="drop">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="kick">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Vote" />
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="startTournament">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="stopTournament">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Vote" />
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="addBan">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="addChatBlock">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="assignTeam">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="ban">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="castBallot">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+            <AltitudeConsoleGroup Group="Anonymous" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="chatBlock">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="listBans">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="listChatBlocks">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="listMaps">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+            <AltitudeConsoleGroup Group="Anonymous" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="listPlayers">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+            <AltitudeConsoleGroup Group="Anonymous" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="logPlanePositions">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="logServerStatus">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="modifyTournament">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="nextMap">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+            <AltitudeConsoleGroup Group="Anonymous" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="overrideBallScore">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="overrideSpawnPoint">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="rconPassword">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+            <AltitudeConsoleGroup Group="Anonymous" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="removeBan">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="removeChatBlock">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="serverMessage">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="serverRequestPlayerChangeServer">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="serverWhisper">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="testCameraViewScale">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="testDisableWeaponMode">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="testDS">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="testEM">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="testGravityMode">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="testHealthModifier">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="testPlaneScale">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+        <AltitudeServerConsoleCommandPermissions ConsoleCommand="vote">
+          <AllowedGroups>
+            <AltitudeConsoleGroup Group="Administrator" />
+            <AltitudeConsoleGroup Group="Anonymous" />
+          </AllowedGroups>
+        </AltitudeServerConsoleCommandPermissions>
+      </consoleCommandPermissions>
+    </AltitudeServerConfig>
+  </servers>
+</ServerLauncherConfig>
