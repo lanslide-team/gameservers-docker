@@ -12,13 +12,7 @@ minecraft-survival/.svn
 reflex-arena/data
 retrocycles/data
 rust/data
-steamcmd/linux32
-steamcmd/linux64
-steamcmd/package
-steamcmd/public
-steamcmd/siteserverui
-steamcmd/steam/linux32
-steamcmd/update_hosts_cached.vdf
+steamcmd/
 tf2/data
 trackmania-forever/*.zip
 trackmania-forever-rcon/.svn/*
