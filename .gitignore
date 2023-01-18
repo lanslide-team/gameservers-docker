@@ -13,6 +13,7 @@ reflex-arena/data
 retrocycles/data
 rust/data
 tf2/data
+steamcmd
 trackmania-forever/*.zip
 trackmania-forever-rcon/.svn/*
 trackmania-forever-rcon/RemoteControlExamples

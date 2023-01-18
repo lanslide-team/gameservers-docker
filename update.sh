@@ -166,6 +166,12 @@ steamcmd() {
     # games[satisfactory]="1690800 -beta experimental"
     games[wreckfest]=361580
 
+    ls ${gs_root}/${steamcmd}/${script} >/dev/null || (
+        mkdir -p ${gs_root}/${steamcmd} &&
+        wget -nc https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz -O ${gs_root}/${steamcmd}/steamcmd_linux.tar.gz &&
+        tar -xvzf ${gs_root}/${steamcmd}/steamcmd_linux.tar.gz -C ${gs_root}/${steamcmd}/ && rm ${gs_root}/${steamcmd}/steamcmd_linux.tar.gz
+    )
+
     for game in "${!games[@]}"
     do
         echo "Updating game [${game}]"
