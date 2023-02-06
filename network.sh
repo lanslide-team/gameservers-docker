@@ -1,7 +1,7 @@
 docker network create -d macvlan \
-   --subnet=192.168.1.1/24 \
-   --ip-range=192.168.1.128/25 \
-   --gateway=192.168.1.1 \
+   --subnet=10.20.0.1/22 \
+   --ip-range=10.20.0.1/24 \
+   --gateway=10.20.3.1 \
    -o parent=enp37s0 games
 
 ### Instructions on adding a bridge for the MACVLAN network ###
