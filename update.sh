@@ -3,6 +3,15 @@
 declare gs_root
 gs_root=`pwd`
 
+doom2() {
+    declare gs_root=$1
+    declare doom2_root="zdaemon"
+    declare sub_folder="wads"
+    declare wad_file="https://lanslide.com.au/storage/doom2/DOOM2.WAD"
+
+    wget -nc $wad_file -P $gs_root/$doom2_root/$sub_folder
+}
+
 haloce() {
     declare gs_root=$1
     declare haloce_folder="haloce"
@@ -184,6 +193,9 @@ steamcmd() {
         fi
     done
 }
+
+# Doom 2
+doom2 $gs_root
 
 # Halo CE
 haloce $gs_root
