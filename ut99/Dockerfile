@@ -1,9 +1,11 @@
 FROM base
 
+RUN mkdir /ut-server
+
 # Original Server v436
 ADD data/ut-server-linux-436.tar.gz /
 # Update to 469b
-ADD data/Patches/OldUnreal-UTPatch469b-Linux.tar.bz2 /ut-server/
+ADD data/Patches/OldUnreal-*-Linux.tar.bz2 /ut-server/
 # Fix for broken maps from the original file
 ADD data/Patches/BrokenMapsFix.tar.gz /ut-server/
 # Add the bonus packs
