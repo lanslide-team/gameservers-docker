@@ -1,7 +1,5 @@
 FROM base
 
-RUN mkdir /ut-server
-
 # Original Server v436
 ADD data/ut-server-linux-436.tar.gz /
 # Update to 469b
@@ -25,7 +23,7 @@ ENV UT_SERVERURL="CTF-Face?game=BotPack.CTFGame?mutator=BotPack.InstaGibDM,MapVo
 # Prepare the system
 RUN dpkg --add-architecture i386 \
     && apt update \
-    && apt install -y nano curl wget python3 jq libx11-6:i386 \
+    && apt install -y nano curl wget python3 jq libx11-6:i386 libxext-dev:i386 \
     && rm -rf /var/lib/apt/lists/*
 
 # Create a link of this file to the missing file
