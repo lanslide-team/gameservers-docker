@@ -18,4 +18,6 @@ sv_mapcycle_timeout $SV_MAPCYCLE_TIMEOUT
 sv_mapcycle_add $SV_MAPCYCLE_ADD
 sv_mapcycle_begin
 
+
 antihalofp $ANTIHALOFP
+scorelimit $SCORELIMIT
