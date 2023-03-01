@@ -186,19 +186,27 @@ components:
 
   - class: org.dynmap.ClientComponent
     type: logo
-    text: "DREAMHACK Melbourne"
-    logourl: "dreamhackmelbourne.png"
-    linkurl: "https://dreamhack.com/melbourne/"
+    text: "The Game Expo"
+    logourl: "thegameexpo.png"
+    linkurl: "https://www.thegameexpo.com/"
     Valid positions: top-left, top-right, bottom-left, bottom-right
     position: bottom-left
 
-  - class: org.dynmap.ClientComponent
-    type: logo
-    text: "The BIG LAN"
-    logourl: "big_lan.png"
-    linkurl: "https://www.thebiglan.com/"
-    Valid positions: top-left, top-right, bottom-left, bottom-right
-    position: bottom-right
+#  - class: org.dynmap.ClientComponent
+#    type: logo
+#    text: "DREAMHACK Melbourne"
+#    logourl: "dreamhackmelbourne.png"
+#    linkurl: "https://dreamhack.com/melbourne/"
+#    Valid positions: top-left, top-right, bottom-left, bottom-right
+#    position: bottom-left
+
+#  - class: org.dynmap.ClientComponent
+#    type: logo
+#    text: "The BIG LAN"
+#    logourl: "big_lan.png"
+#    linkurl: "https://www.thebiglan.com/"
+#    Valid positions: top-left, top-right, bottom-left, bottom-right
+#    position: bottom-right
 
   - class: org.dynmap.ClientComponent
     type: logo

@@ -40,7 +40,7 @@ RUN wget -O proto.zip https://ci.dmulloy2.net/job/ProtocolLib/lastSuccessfulBuil
 RUN unzip proto.zip
 RUN wget -O luckPerm.zip https://ci.lucko.me/view/LuckPerms/job/LuckPerms/lastSuccessfulBuild/artifact/bukkit/loader/build/libs/*zip*/libs.zip
 RUN unzip luckPerm.zip
-RUN wget https://dynmap.us/releases/Dynmap-3.4-beta-5-spigot.jar
+RUN wget https://dynmap.us/releases/Dynmap-3.5-beta-2-spigot.jar
 RUN wget https://github.com/MilkBowl/Vault/releases/download/1.7.3/Vault.jar
 RUN wget https://github.com/PryPurity/WorldBorder/releases/download/v2.1.5/WorldBorder.jar
 #RUN wget -O worldedit.jar https://dev.bukkit.org/projects/worldedit/files/latest
