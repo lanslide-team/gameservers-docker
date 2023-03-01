@@ -3,6 +3,30 @@
 declare gs_root
 gs_root=`pwd`
 
+csgo_surf() {
+    declare gs_root=$1
+    declare maps_url="https://lanslide.com.au/storage/csgo/maps"
+    declare surf_root=csgo-surf
+    declare maps_folder=maps
+
+    wget -nc "$maps_url/surf_colours.bsp" -P $gs_root/$surf_root/$maps_folder/
+    wget -nc "$maps_url/surf_colours.nav" -P $gs_root/$surf_root/$maps_folder/
+    wget -nc "$maps_url/surf_cubic.bsp" -P $gs_root/$surf_root/$maps_folder/
+    wget -nc "$maps_url/surf_edge.bsp" -P $gs_root/$surf_root/$maps_folder/
+    wget -nc "$maps_url/surf_edge.nav" -P $gs_root/$surf_root/$maps_folder/
+    wget -nc "$maps_url/surf_forbidden_ways_ksf.bsp" -P $gs_root/$surf_root/$maps_folder/
+    wget -nc "$maps_url/surf_how2surf.bsp" -P $gs_root/$surf_root/$maps_folder/
+    wget -nc "$maps_url/surf_kitsune.bsp" -P $gs_root/$surf_root/$maps_folder/
+    wget -nc "$maps_url/surf_luna2_.bsp" -P $gs_root/$surf_root/$maps_folder/
+    wget -nc "$maps_url/surf_luna2_.nav" -P $gs_root/$surf_root/$maps_folder/
+    wget -nc "$maps_url/surf_lux.bsp" -P $gs_root/$surf_root/$maps_folder/
+    wget -nc "$maps_url/surf_nyx.bsp" -P $gs_root/$surf_root/$maps_folder/
+    wget -nc "$maps_url/surf_pantheon.bsp" -P $gs_root/$surf_root/$maps_folder/
+    wget -nc "$maps_url/surf_resort_jk.bsp" -P $gs_root/$surf_root/$maps_folder/
+    wget -nc "$maps_url/surf_tendies.bsp" -P $gs_root/$surf_root/$maps_folder/
+    wget -nc "$maps_url/surf_training.bsp" -P $gs_root/$surf_root/$maps_folder/
+}
+
 doom2() {
     declare gs_root=$1
     declare doom2_root="zdaemon"
@@ -193,6 +217,9 @@ steamcmd() {
         fi
     done
 }
+
+# CS:GO Surf maps
+csgo_surf $gs_root
 
 # Doom 2
 doom2 $gs_root

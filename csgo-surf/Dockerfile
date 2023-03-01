@@ -77,27 +77,9 @@ RUN MYSQL_ROOT_PASSWORD=`echo -n l33t | sha256sum | base64 | head -c 32 ; echo` 
 # Compile plugins
 RUN csgo/addons/sourcemod/scripting/compile.sh && cp csgo/addons/sourcemod/scripting/compiled/* csgo/addons/sourcemod/plugins
 
-
-# Download Maps
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_colours.bsp" -O csgo/maps/surf_colours.bsp
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_colours.nav" -O csgo/maps/surf_colours.nav
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_cubic.bsp" -O csgo/maps/surf_cubic.bsp
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_edge.bsp" -O csgo/maps/surf_edge.bsp
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_edge.nav" -O csgo/maps/surf_edge.nav
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_forbidden_ways_ksf.bsp" -O csgo/maps/surf_forbidden_ways_ksf.bsp
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_how2surf.bsp" -O csgo/maps/surf_how2surf.bsp
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_kitsune.bsp" -O csgo/maps/surf_kitsune.bsp
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_luna2_.bsp" -O csgo/maps/surf_luna2_.bsp
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_luna2_.nav" -O csgo/maps/surf_luna2_.nav
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_lux.bsp" -O csgo/maps/surf_lux.bsp
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_nyx.bsp" -O csgo/maps/surf_nyx.bsp
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_pantheon.bsp" -O csgo/maps/surf_pantheon.bsp
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_resort_jk.bsp" -O csgo/maps/surf_resort_jk.bsp
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_tendies.bsp" -O csgo/maps/surf_tendies.bsp
-RUN wget "https://lanslide.com.au/storage/csgo/maps/surf_training.bsp" -O csgo/maps/surf_training.bsp
-
 # Compile surf config and maps
 COPY --chown=steam:steam cfg csgo/cfg
+COPY --chown=steam:steam maps csgo/maps
 COPY --chown=steam:steam mapcycle.txt csgo/
 
 COPY --chown=steam:steam entrypoint.py defaultenv.ini stats.py ./
