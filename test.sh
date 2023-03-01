@@ -7,7 +7,7 @@ fi
 
 for (( i=1; i<=$limit; i++ ))
 do
-    id=`docker create --network "lanslide" -e "GAME_TYPE=0" -e "GAME_MODE=0" -e "MAXPLAYERS_OVERRIDE=14" -e "SERVER_NAME=LAN-slide CS:GO Server #${i}" -e "TICKRATE=128" -e "EVENT_NAME=LAN-slide" -e "TV_ENABLE=true" -e "TV_NAME=[TV] LAN-slide" -e "TV_TITLE=[TV] LAN-slide" -e "LS_CHALLONGE=2" -e "TEAM1=Unnamed #12" -e "TEAM2=Unnamed #8" "csgo-comp:latest"`
+    id=`docker create --network "games" -e "GAME_TYPE=0" -e "GAME_MODE=0" -e "MAXPLAYERS_OVERRIDE=14" -e "SERVER_NAME=LAN-slide CS:GO Server #${i}" -e "TICKRATE=128" -e "EVENT_NAME=LAN-slide" -e "TV_ENABLE=true" -e "TV_NAME=[TV] LAN-slide" -e "TV_TITLE=[TV] LAN-slide" -e "LS_CHALLONGE=2" -e "TEAM1=Unnamed #12" -e "TEAM2=Unnamed #8" "csgo-comp:latest"`
     docker start ${id}
 done
 
