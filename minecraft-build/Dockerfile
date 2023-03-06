@@ -32,7 +32,7 @@ RUN rm ./libs/*-javadoc.jar
 RUN rm ./libs/*-sources.jar
 RUN wget -O ess.zip https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/*zip*/jars.zip
 RUN unzip ess.zip
-RUN wget -O join.zip https://jenkins.sirblobman.xyz/job/SirBlobman/job/Join%20Commands/lastSuccessfulBuild/artifact/target/*zip*/target.zip
+RUN wget -O join.zip https://jenkins.sirblobman.xyz/job/SirBlobman/job/JoinCommands/job/main/lastSuccessfulBuild/artifact/*zip*/target.zip
 RUN unzip join.zip
 RUN wget -O mv.zip http://ci.onarandombox.com/job/Multiverse-Core/lastSuccessfulBuild/artifact/target/*zip*/target.zip
 RUN unzip mv.zip
@@ -59,7 +59,7 @@ COPY --from=build /build/WorldBorder.jar plugins/
 COPY --from=build /build/libs/Plot2Dynmap-*.jar plugins/
 COPY --from=build /build/target/ProtocolLib*.jar plugins/
 COPY --from=build /build/target/Multiverse-Core-*-SNAPSHOT.jar plugins/
-COPY --from=build /build/target/JoinCommands-*.jar plugins/
+COPY --from=build /build/archive/builder/build/libs/JoinCommands-*.jar plugins/
 COPY --from=build /build/jars/EssentialsX-*.jar plugins/
 COPY --from=build /build/jars/EssentialsXAntiBuild*.jar plugins/
 COPY --from=build /build/jars/EssentialsXChat*.jar plugins/
