@@ -48,6 +48,8 @@ RUN wget -O worldedit.jar https://edge.forgecdn.net/files/4162/203/worldedit-buk
 #RUN wget https://github.com/kangarko/ChatControl-Pro/releases/download/8.10.5/ChatControl-8.10.5.jar
 ## Moved to Premium version see README for more details
 
+# server.properties
+
 FROM jdk as final
 ADD server.properties commands.yml start.sh advertise.py stats.py /spigot/
 COPY plugins plugins/

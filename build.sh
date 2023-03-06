@@ -6,6 +6,7 @@ STARTT=$(date +%s.%N)
 # ls csgo-base/csgo
 
 mkdir -p /demos -m a+rwX
+mkdir -p /opt/minecraft/plotworld -m a+rwX
 
 docker image prune -f
 
