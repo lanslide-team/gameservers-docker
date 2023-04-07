@@ -17,6 +17,7 @@ GAME_OPTS="$MAP?MaxPlayers=$MAXPLAYERS?$@"
 
 [[ -n $SV_HOSTNAME ]] && sed -i "s/ServerName=.*/ServerName=$SV_HOSTNAME/" /ut2004/System/UT2004.ini
 [[ $LAN -eq "1" ]] && sed -i "s/DoUplink=.*/DoUplink=False/" /ut2004/System/UT2004.ini
+[[ $WEBADMIN -eq "1" ]] && sed -i "s/bEnabled=.*/bEnabled=True/" /ut2004/System/UT2004.ini
 
 # GameSpy is dead. Long Live Game Spy
 sed -i "s/UplinkToGamespy=.*/UplinkToGamespy=False/" /ut2004/System/UT2004.ini
