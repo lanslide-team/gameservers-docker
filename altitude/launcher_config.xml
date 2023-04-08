@@ -106,10 +106,7 @@
         <String value="|tdm|" />
       </mapList>
       <mapRotationList>
-        <String value="|ball|" />
-        <String value="|ffa|" />
-        <String value="|tbd|" />
-        <String value="|tdm|" />
+$MAPLIST
       </mapRotationList>
       <BotConfig numberOfBots="$NUMBER_OF_BOTS" botDifficulty="$BOT_DIFFICULTY" botsBalanceTeams="$BOTS_BALANCE_TEAMS" botSpectateThreshold="$BOT_SPECTATE_THRESHOLD" />
       <disallowedPlaneRandomTypes />
