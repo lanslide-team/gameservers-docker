@@ -15,6 +15,8 @@ export MYSQL_ROOT_PASSWORD=`echo -n l33t | sha256sum | base64 | head -c 32 ; ech
 docker pull mariadb:latest
 docker start mariadb || docker run --name mariadb --network games -e MYSQL_ROOT_PASSWORD="$MYSQL_ROOT_PASSWORD" -d mariadb
 
+docker build -t='base:latest' base/
+
 docker build -t='csgo-base:latest' csgo-base/
 docker build -t='sourcemod:latest' sourcemod/
 docker build -t='ls-warmod:latest' ls-warmod/
@@ -24,7 +26,6 @@ docker build -t='csgo-ar:latest' csgo-ar/
 docker build -t='csgo-surf:latest' csgo-surf/
 docker build -t='csgo-wingman:latest' csgo-wingman/
 
-docker build -t='base:latest' base/
 docker build -t='wine:latest' wine/
 docker build -t='wineconsole/lite:latest' wineconsole/
 

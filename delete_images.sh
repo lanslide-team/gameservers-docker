@@ -1,2 +1,2 @@
 #!/bin/bash
-docker rmi $(docker images -a -q)
+docker rmi $(docker images -a -q) -f
