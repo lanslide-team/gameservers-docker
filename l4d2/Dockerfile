@@ -1,21 +1,10 @@
 FROM sourcemod
-FROM almalinux:latest
+FROM base
 
 MAINTAINER LAN-slide
 
 
 RUN useradd steam && mkdir /l4d2 && chown steam:steam /l4d2
-
-RUN yum update -y && yum install -y epel-release
-
-RUN yum install -y \
-    glibc.i686 \
-    libstdc++.i686 \
-    zlib.i686 \
-    python39 \ 
-    python39-pip 
-
-RUN pip3.9 install asyncio opengsq
 
 USER steam
 

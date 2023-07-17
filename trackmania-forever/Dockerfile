@@ -3,7 +3,7 @@ FROM base
 ## Put Trackmania Server zip file in this directory
 ## Download from http://files2.trackmaniaforever.com/TrackmaniaServer_2011-02-21.zip
 
-RUN apt-get install -y apache2 php php-zip php-xml unzip
+RUN apt-get install -y apache2 php php-zip php-xml
 RUN adduser tm && mkdir /tm && chown tm:tm /tm
 
 WORKDIR /tm

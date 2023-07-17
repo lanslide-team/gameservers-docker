@@ -1,7 +1,5 @@
 FROM ls-warmod as warmod
-
 FROM sourcemod as sourcemod
-
 FROM csgo-base
 MAINTAINER LAN-slide
 

@@ -1,9 +1,7 @@
-FROM almalinux:latest
+FROM base
 MAINTAINER LAN-slide
 
 RUN useradd steam && mkdir /rust && chown steam:steam /rust
-
-RUN yum update -y && yum install -y epel-release
 
 USER steam
 

@@ -216,6 +216,9 @@ steamcmd() {
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login} +app_update ${games[$game]} +quit
         fi
     done
+
+#    mv ${gs_root}/csgo-base/data/bin/libgcc_s.so.1 ${gs_root}/csgo-base/data/bin/libgcc_s.so.1.old
+#    mv ${gs_root}/csgo-base/data/bin/libstdc++.so.6 ${gs_root}/csgo-base/data/bin/libstdc++.so.6.old
 }
 
 # CS:GO Surf maps

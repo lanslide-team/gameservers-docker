@@ -4,7 +4,7 @@ FROM csgo-base
 MAINTAINER LAN-slide
 
 USER root
-RUN yum install -y wget mysql
+RUN apt-get install -y wget mysql-client
 
 USER steam
 WORKDIR /csgo
@@ -56,8 +56,8 @@ RUN wget "https://github.com/GAMMACASE/HeadBugFix/archive/refs/heads/master.zip"
 RUN unzip headbugfix.zip && find HeadBugFix-master/* -maxdepth 0 -type f -delete && cp HeadBugFix-master/* csgo/ -R && rm headbugfix.zip && rm HeadBugFix-master/ -rf
 
 # Install PushFixDE
-RUN wget "https://github.com/GAMMACASE/PushFixDE/archive/refs/heads/master.zip" -O pushfix.zip
-RUN unzip pushfix.zip && find PushFixDE-master/* -maxdepth 0 -type f -delete && cp PushFixDE-master/* csgo/ -R && rm pushfix.zip && rm PushFixDE-master/ -rf
+#RUN wget "https://github.com/GAMMACASE/PushFixDE/archive/refs/heads/master.zip" -O pushfix.zip
+#RUN unzip pushfix.zip && find PushFixDE-master/* -maxdepth 0 -type f -delete && cp PushFixDE-master/* csgo/ -R && rm pushfix.zip && rm PushFixDE-master/ -rf
 
 # Install crouchboostfix
 # RUN wget "https://github.com/t5mat/crouchboostfix/blob/master/crouchboostfix.sp" -O csgo/addons/sourcemod/scripting/crouchboostfix.sp

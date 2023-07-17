@@ -10,3 +10,4 @@ RUN chmod +x /entrypoint.sh
 EXPOSE 2302/udp 2303/udp
 
 CMD "/entrypoint.sh"
+

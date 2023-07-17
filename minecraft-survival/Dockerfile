@@ -13,9 +13,6 @@ RUN echo "yes" | apt-get install -y openjdk-${JAVA_VERSION}-jdk
 RUN adduser spigot && mkdir /spigot && chown spigot:spigot /spigot -R
 WORKDIR /spigot
 
-RUN apt-get install -y git python3.9 python3-pip
-RUN python3 -m pip install asyncio opengsq
-
 RUN git clone https://github.com/Tiiffi/mcrcon.git /tmp/mcrcon
 RUN cd /tmp/mcrcon && make && make install && rm /tmp/mcrcon -rf
 
@@ -28,8 +25,7 @@ RUN wget -O BuildTools.jar \
     java -jar BuildTools.jar --rev $SPIGOT_VERSION
 RUN  wget -O ess.zip https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/*zip*/jars.zip
 RUN unzip ess.zip
-RUN wget -O proto.zip https://ci.dmulloy2.net/job/ProtocolLib/lastSuccessfulBuild/artifact/target/*zip*/target.zip
-RUN unzip proto.zip
+RUN wget https://ci.dmulloy2.net/job/ProtocolLib/lastStableBuild/artifact/build/libs/ProtocolLib.jar
 RUN wget -O luckPerm.zip https://ci.lucko.me/view/LuckPerms/job/LuckPerms/lastSuccessfulBuild/artifact/bukkit/loader/build/libs/*zip*/libs.zip
 RUN unzip luckPerm.zip
 RUN wget https://dynmap.us/releases/Dynmap-3.4-spigot.jar
@@ -40,7 +36,7 @@ ADD server.properties commands.yml start.sh stats.py advertise.py /spigot/
 COPY plugins plugins/
 COPY --from=build /build/spigot-*.jar .
 COPY --from=build /build/Dynmap*.jar plugins/
-COPY --from=build /build/target/ProtocolLib*.jar plugins/
+COPY --from=build /build/ProtocolLib*.jar plugins/
 COPY --from=build /build/jars/EssentialsX-*.jar plugins/
 COPY --from=build /build/jars/EssentialsXAntiBuild*.jar plugins/
 COPY --from=build /build/jars/EssentialsXChat*.jar plugins/

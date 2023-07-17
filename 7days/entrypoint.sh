@@ -22,6 +22,6 @@ sed -i "s/\$SERVER_VISIBILITY/$SERVER_VISIBILITY/" serverconfig.xml
 sed -i "s/\$SERVER_MAX_PLAYER_COUNT/$SERVER_MAX_PLAYER_COUNT/" serverconfig.xml
 sed -i "s/\$GAME_NAME/$GAME_NAME/" serverconfig.xml
 
-hostname -i | python3 stats.py &
+hostname -I | python3 stats.py &
 
 ./startserver.sh -configfile=serverconfig.xml

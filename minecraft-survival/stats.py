@@ -17,10 +17,10 @@ class Query:
         return result
 
     @classmethod
-    async def process_game(cls, protocol: callable, response_keys: list[str], address: str, query_port: int, timeout: float = 5.0) -> dict:
+    async def process_game(cls, protocol: callable, response_keys: list[str], host: str, port: int, timeout: float = 5.0) -> dict:
         while True:
             try:
-                response = protocol(address=address, query_port=query_port, timeout=timeout)
+                response = protocol(host=host, port=port, timeout=timeout)
                 response = await response.get_status()
                 processed_response = cls.__process_info(response=response, response_keys=response_keys)
             except asyncio.exceptions.TimeoutError:
@@ -36,6 +36,6 @@ class Query:
 
 
 if __name__ == '__main__':
-    ip = input()
-    asyncio.run(Query.process_game(protocol=Minecraft, response_keys=Query.MINECRAFT_RESPONSE, address=ip, query_port=int(os.environ['SERVER_PORT']), timeout=1))
+    host = input().strip()
+    asyncio.run(Query.process_game(protocol=Minecraft, response_keys=Query.MINECRAFT_RESPONSE, host=host, port=int(os.environ['SERVER_PORT']), timeout=1))
 

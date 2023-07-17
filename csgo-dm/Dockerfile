@@ -46,9 +46,7 @@ RUN cd /csgo/csgo/addons/sourcemod && \
 #        nominations.smx
 
 COPY --chown=steam:steam de_dust2.txt /csgo/csgo/addons/sourcemod/configs/deathmatch/spawns/
-
 COPY --chown=steam:steam cfg /csgo/cfg
-
 COPY --chown=steam:steam entrypoint.py defaultenv.ini stats.py /csgo/
 
 ENTRYPOINT ["./entrypoint.py"]

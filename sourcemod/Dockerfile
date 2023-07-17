@@ -1,8 +1,6 @@
-FROM alpine:latest
+FROM base
 
-RUN apk update
-
-RUN apk add curl
+RUN apt-get update && apt-get install -y curl
 
 RUN mkdir /csgo
 

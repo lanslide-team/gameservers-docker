@@ -19,7 +19,6 @@ COPY --from=warmod --chown=steam:steam /ls-sourcemod/compiled/lanslide.smx /csgo
 COPY --from=warmod --chown=steam:steam /ls-sourcemod/compiled/warmod.smx /csgo/csgo/addons/sourcemod/plugins/
 
 COPY --chown=steam:steam cfg /csgo/csgo/cfg
-
 COPY --chown=steam:steam entrypoint.py defaultenv.ini stats.py /csgo/
 
 ENV PYTHONUNBUFFERED=0

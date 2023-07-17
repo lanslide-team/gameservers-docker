@@ -1,9 +1,7 @@
-FROM almalinux:latest
+FROM base
 MAINTAINER LAN-slide
 
-RUN useradd steam && mkdir /retrocycles && chown steam:steam /retrocycles
-
-RUN yum update -y && yum install -y epel-release
+RUN useradd steam && mkdir /retrocycles /home/steam && chown steam:steam /retrocycles /home/steam -R
 
 USER steam
 

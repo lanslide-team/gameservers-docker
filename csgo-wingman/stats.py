@@ -28,15 +28,15 @@ class Query:
         return output
 
     @classmethod
-    async def process_game(cls, protocol: callable, response_keys: list[str], address: str, query_port: int, rcon_password: str, timeout: float = 5.0) -> dict:
+    async def process_game(cls, protocol: callable, response_keys: list[str], host: str, port: int, rcon_password: str, timeout: float = 5.0) -> dict:
         while True:
             try:
-                response = protocol(address=address, query_port=query_port, timeout=timeout)
+                response = protocol(host=host, port=port, timeout=timeout)
                 response = await response.get_info()
                 processed_response = cls.__process_info(response=response, response_keys=response_keys)
 
                 score = ls_status = None
-                with Client(address, int(query_port), passwd=rcon_password) as client:
+                with Client(host, int(port), passwd=rcon_password) as client:
                     score = cls.__process_command(client, 'score')
                     ls_status = cls.__process_command(client, 'ls_status')
 
@@ -53,6 +53,6 @@ class Query:
 
 
 if __name__ == '__main__':
-    ip = input()
-    asyncio.run(Query.process_game(protocol=Source, response_keys=Query.SOURCE_RESPONSE, address=ip, query_port=os.environ['PORT'], rcon_password=os.environ['RCON_PASSWORD'], timeout=1))
+    host = input().strip()
+    asyncio.run(Query.process_game(protocol=Source, response_keys=Query.SOURCE_RESPONSE, host=host, port=os.environ['PORT'], rcon_password=os.environ['RCON_PASSWORD'], timeout=1))
 

@@ -25,6 +25,6 @@ sed -i "s/\$SERVER_NAME/$SERVER_NAME/" $SERVER_CFG
 sed -i "s/\$MAP/$MAP/" $SERVER_CFG
 sed -i "s/\$NEXT_MAP/$NEXT_MAP/" $SERVER_CFG
 
-hostname -i | python3 stats.py &
+hostname -I | python3 stats.py &
 
-~/ioquake3/ioq3ded.x86_64 +set dedicated $DEDICATED +set com_hunkmegs $HUNK_MEMORY +set fs_game baseq3 +exec server.cfg +g_gametype $GAME_TYPE +set bot_min_players $BOT_MIN_PLAYERS +set g_allowvote $ALLOW_VOTE +set net_port $NET_PORT
+./ioq3ded.x86_64 +set dedicated $DEDICATED +set com_hunkmegs $HUNK_MEMORY +set fs_game baseq3 +exec server.cfg +g_gametype $GAME_TYPE +set bot_min_players $BOT_MIN_PLAYERS +set g_allowvote $ALLOW_VOTE +set net_port $NET_PORT

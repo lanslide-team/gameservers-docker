@@ -13,9 +13,6 @@ RUN echo "yes" | apt-get install -y openjdk-${JAVA_VERSION}-jdk
 RUN adduser spigot && mkdir /spigot && chown spigot:spigot /spigot -R
 WORKDIR /spigot
 
-RUN apt-get install -y git python3.9 python3-pip
-RUN python3 -m pip install asyncio opengsq
-
 RUN git clone https://github.com/Tiiffi/mcrcon.git /tmp/mcrcon
 RUN cd /tmp/mcrcon && make && make install && rm /tmp/mcrcon -rf
 
@@ -36,8 +33,7 @@ RUN wget -O join.zip https://jenkins.sirblobman.xyz/job/SirBlobman/job/JoinComma
 RUN unzip join.zip
 RUN wget -O mv.zip http://ci.onarandombox.com/job/Multiverse-Core/lastSuccessfulBuild/artifact/target/*zip*/target.zip
 RUN unzip mv.zip
-RUN wget -O proto.zip https://ci.dmulloy2.net/job/ProtocolLib/lastSuccessfulBuild/artifact/target/*zip*/target.zip
-RUN unzip proto.zip
+RUN wget https://ci.dmulloy2.net/job/ProtocolLib/lastStableBuild/artifact/build/libs/ProtocolLib.jar
 RUN wget -O luckPerm.zip https://ci.lucko.me/view/LuckPerms/job/LuckPerms/lastSuccessfulBuild/artifact/bukkit/loader/build/libs/*zip*/libs.zip
 RUN unzip luckPerm.zip
 RUN wget https://dynmap.us/releases/Dynmap-3.5-beta-2-spigot.jar

@@ -1,18 +1,7 @@
-FROM almalinux:latest
+FROM base
 MAINTAINER LAN-slide
 
-RUN useradd steam && mkdir /7days && chown steam:steam /7days
-
-RUN yum update -y && yum install -y epel-release
-
-RUN yum install -y \
-    glibc.i686 \
-    libstdc++.i686 \
-    zlib.i686 \
-    python39 \
-    python39-pip
-
-RUN pip3.9 install asyncio opengsq
+RUN useradd -m steam && mkdir /7days && chown steam:steam /7days
 
 USER steam
 

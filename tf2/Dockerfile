@@ -6,9 +6,6 @@ RUN useradd steam && mkdir /tf2 && chown steam:steam /tf2
 
 RUN dpkg --add-architecture i386; apt-get update;  apt-get install -y libstdc++6:i386 libcurl4-gnutls-dev:i386
 
-RUN apt-get install -y python3-pip
-RUN pip3 install asyncio opengsq
-
 USER steam
 
 COPY --chown=steam:steam data /tf2

@@ -31,4 +31,4 @@ $(env | grep '^CVAR_' | sed "s/^CVAR_/set /" | tr '=' ' ')
 EOF
 
 
-exec ./zserv -cfg ffa-template.cfg
+exec ./zserv -cfg ffa-template.cfg -iwad DOOM2.WAD
