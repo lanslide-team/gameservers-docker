@@ -184,13 +184,13 @@ components:
    # Valid positions: top-left, top-right, bottom-left, bottom-right
    # position: bottom-left
 
-  - class: org.dynmap.ClientComponent
-    type: logo
-    text: "The Game Expo"
-    logourl: "thegameexpo.png"
-    linkurl: "https://www.thegameexpo.com/"
-    Valid positions: top-left, top-right, bottom-left, bottom-right
-    position: bottom-left
+#  - class: org.dynmap.ClientComponent
+#    type: logo
+#    text: "The Game Expo"
+#    logourl: "thegameexpo.png"
+#    linkurl: "https://www.thegameexpo.com/"
+#    Valid positions: top-left, top-right, bottom-left, bottom-right
+#    position: bottom-left
 
 #  - class: org.dynmap.ClientComponent
 #    type: logo

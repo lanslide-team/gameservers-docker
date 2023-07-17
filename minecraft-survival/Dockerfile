@@ -23,26 +23,11 @@ USER spigot
 RUN wget -O BuildTools.jar \
     https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar && \
     java -jar BuildTools.jar --rev $SPIGOT_VERSION
-RUN  wget -O ess.zip https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/*zip*/jars.zip
-RUN unzip ess.zip
-RUN wget https://ci.dmulloy2.net/job/ProtocolLib/lastStableBuild/artifact/build/libs/ProtocolLib.jar
-RUN wget -O luckPerm.zip https://ci.lucko.me/view/LuckPerms/job/LuckPerms/lastSuccessfulBuild/artifact/bukkit/loader/build/libs/*zip*/libs.zip
-RUN unzip luckPerm.zip
-RUN wget https://dynmap.us/releases/Dynmap-3.4-spigot.jar
-## Plugins missing see README for more details
 
 FROM jdk as final
 ADD server.properties commands.yml start.sh stats.py advertise.py /spigot/
 COPY plugins plugins/
 COPY --from=build /build/spigot-*.jar .
-COPY --from=build /build/Dynmap*.jar plugins/
-COPY --from=build /build/ProtocolLib*.jar plugins/
-COPY --from=build /build/jars/EssentialsX-*.jar plugins/
-COPY --from=build /build/jars/EssentialsXAntiBuild*.jar plugins/
-COPY --from=build /build/jars/EssentialsXChat*.jar plugins/
-COPY --from=build /build/jars/EssentialsXProtect*.jar plugins/
-COPY --from=build /build/jars/EssentialsXSpawn*.jar plugins/
-COPY --from=build /build/libs/LuckPerms-Bukkit*.jar plugins/
 
 RUN echo "eula=true" > eula.txt
 

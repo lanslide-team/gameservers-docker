@@ -1,0 +1,26 @@
+Install BuildTools [https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar]
+Download spigot
+
+Paidi Plugins
+- ChatControlRed
+- PlotSquared-Bukkit
+
+Free Plugins
+- Dynmap [https://dynmap.us/releases/Dynmap-3.5-beta-2-spigot.jar]
+  	Allows you to view it in your browser
+- EssentialX [https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/*zip*/jars.zip]
+  	Whole load of essential commands 
+- JoinCommands [https://jenkins.sirblobman.xyz/job/SirBlobman/job/JoinCommands/job/main/lastSuccessfulBuild/artifact/*zip*/target.zip]
+  	Plugin to execute commands on join
+- LuckPerms [https://ci.lucko.me/view/LuckPerms/job/LuckPerms/lastSuccessfulBuild/artifact/bukkit/loader/build/libs/*zip*/libs.zip]
+  	Better permission system
+- Multiverse-Core [http://ci.onarandombox.com/job/Multiverse-Core/lastSuccessfulBuild/artifact/target/*zip*/target.zip]
+  	World Generation
+- Plot2Dynmap [https://ci.athion.net/job/Plot2Dynmap/lastSuccessfulBuild/artifact/build/libs/*zip*/libs.zip]
+  	Plot allocation
+- Vault [https://github.com/MilkBowl/Vault/releases/download/1.7.3/Vault.jar]
+  	Permissions and chat
+- WorldBorder [https://github.com/PryPurity/WorldBorder/releases/download/v2.1.5/WorldBorder.jar]
+  	Border around the World
+- WorldEdit [https://dev.bukkit.org/projects/worldedit/files/latest]
+  	Dynamically edit the World
