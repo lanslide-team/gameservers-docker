@@ -26,7 +26,7 @@ RUN wget -O BuildTools.jar \
 
 FROM jdk as final
 ADD server.properties commands.yml start.sh stats.py advertise.py /spigot/
-COPY plugins plugins/
+#COPY plugins plugins/
 COPY --from=build /build/spigot-*.jar .
 
 RUN echo "eula=true" > eula.txt
