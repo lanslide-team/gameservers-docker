@@ -63,4 +63,9 @@ done
 
 # Start server itself
 
+if [ -z "$(ls -A /$SERVER_DIR/world)" ]; then
+    echo "World folder is empty"
+    mv $SERVER_DIR/deathrun/* "$SERVER_DIR/world" && rm -f $SERVER_DIR/deathrun
+fi
+
 exec java -Xms${XMS} -Xmx${XMX} -jar $SERVER_DIR/spigot-*.jar nogui
