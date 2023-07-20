@@ -70,6 +70,12 @@ mc() {
     fi	
 }
 
+mc_vols() {
+    mkdir -p /opt/minecraft/creative/plotworld
+    mkdir -p /opt/minecraft/survival/world
+    chmod 777 /opt/minecraft -R
+}
+
 tmf() {
     declare gs_root=$1
     declare server_zip_file="TrackmaniaServer_2011-02-21.zip"
@@ -230,8 +236,8 @@ doom2 $gs_root
 # Halo CE
 haloce $gs_root
 
-# Minecraft
-# mc $gs_root
+# Minecraft volumes
+mc_vols
 
 # TrackMania Forever
 tmf $gs_root
