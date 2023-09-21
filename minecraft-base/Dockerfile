@@ -24,10 +24,16 @@ RUN wget -O BuildTools.jar \
     https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar && \
     java -jar BuildTools.jar --rev $SPIGOT_VERSION
 
+RUN wget https://dynmap.us/releases/Dynmap-3.6-spigot.jar
+
 FROM jdk as final
 ADD server.properties advertise.py stats.py /spigot/
+COPY plugins plugins
+
 #COPY --from=build /build/ChatControl-*.jar plugins/
 COPY --from=build /build/spigot-*.jar .
+COPY --from=build /build/Dynmap*.jar plugins/
+
 RUN echo "eula=true" > eula.txt
 
 RUN apt-get install nano
