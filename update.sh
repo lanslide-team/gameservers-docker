@@ -211,6 +211,8 @@ steamcmd() {
         tar -xvzf ${gs_root}/${steamcmd}/steamcmd_linux.tar.gz -C ${gs_root}/${steamcmd}/ && rm ${gs_root}/${steamcmd}/steamcmd_linux.tar.gz
     )
 
+    read -p "Steam Username: " username
+    read -s -p "Steam Password: " password
 
     for game in "${!games[@]}"
     do
@@ -219,8 +221,6 @@ steamcmd() {
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login_user} +app_update ${games[$game]} +quit
         elif [ "${game}" = "cs2-base" ]; then
             cp ${gs_root}/${steamcmd}/linux64/steamclient.so ${gs_root}/${game}/ -f 
-            read -p "Steam Username: " username
-            read -s -p "Steam Password: " password
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${username} ${password} +app_update ${games[$game]} +quit
         elif [ "${game}" = "wreckfest" -o "${game}" = "reflex-arena" ]; then
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login} +@sSteamCmdForcePlatformType windows +app_update ${games[$game]} +quit
