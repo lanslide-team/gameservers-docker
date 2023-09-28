@@ -17,14 +17,18 @@ docker start mariadb || docker run --name mariadb --network games -e MYSQL_ROOT_
 
 docker build -t='base:latest' base/
 
-docker build -t='csgo-base:latest' csgo-base/
-docker build -t='sourcemod:latest' sourcemod/
-docker build -t='ls-warmod:latest' ls-warmod/
-docker build -t='csgo-comp:latest' csgo-comp/
-docker build -t='csgo-dm:latest' csgo-dm/
-docker build -t='csgo-ar:latest' csgo-ar/
-docker build -t='csgo-surf:latest' csgo-surf/
-docker build -t='csgo-wingman:latest' csgo-wingman/
+docker build -t='cs2-base:latest' cs2-base/
+docker build -t='cs2-comp:latest' cs2-comp/
+docker build -t='cs2-wingman:latest' cs2-wingman/
+
+#docker build -t='csgo-base:latest' csgo-base/
+#docker build -t='sourcemod:latest' sourcemod/
+#docker build -t='ls-warmod:latest' ls-warmod/
+#docker build -t='csgo-comp:latest' csgo-comp/
+#docker build -t='csgo-dm:latest' csgo-dm/
+#docker build -t='csgo-ar:latest' csgo-ar/
+#docker build -t='csgo-surf:latest' csgo-surf/
+#docker build -t='csgo-wingman:latest' csgo-wingman/
 
 docker build -t='wine:latest' wine/
 docker build -t='wineconsole/lite:latest' wineconsole/

@@ -17,6 +17,8 @@ For example:
 ```
 apt-get install git svn w3m wget unzip
 dnf install docker git svn w3m wget unzip
+
+pip install steamctl
 ```
 
 Docker should be enabled on startup.

@@ -193,16 +193,16 @@ steamcmd() {
     login_user="stupidsteamlogin ssl_2022"
 
     # Declare games to update here
+    games[cs2-base]=730
     games[altitude]=41300
     games[7days]=294420
-    games[csgo-base]=740
+#    games[csgo-base]=740
     games[hl2]=232370
     games[l4d2]=222860
     games[reflex-arena]=329740
     games[retrocycles]=1306180
     games[rust]=258550
     games[tf2]=232250
-    # games[satisfactory]="1690800 -beta experimental"
     games[wreckfest]=361580
 
     ls ${gs_root}/${steamcmd}/${script} >/dev/null || (
@@ -211,11 +211,17 @@ steamcmd() {
         tar -xvzf ${gs_root}/${steamcmd}/steamcmd_linux.tar.gz -C ${gs_root}/${steamcmd}/ && rm ${gs_root}/${steamcmd}/steamcmd_linux.tar.gz
     )
 
+
     for game in "${!games[@]}"
     do
         echo "Updating game [${game}]"
         if [ "${game}" = "altitude" -o "${game}" = "retrocycles" ]; then
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login_user} +app_update ${games[$game]} +quit
+        elif [ "${game}" = "cs2-base" ]; then
+            cp ${gs_root}/${steamcmd}/linux64/steamclient.so ${gs_root}/${game}/ -f 
+            read -p "Steam Username: " username
+            read -s -p "Steam Password: " password
+            ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${username} ${password} +app_update ${games[$game]} +quit
         elif [ "${game}" = "wreckfest" -o "${game}" = "reflex-arena" ]; then
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login} +@sSteamCmdForcePlatformType windows +app_update ${games[$game]} +quit
         else
