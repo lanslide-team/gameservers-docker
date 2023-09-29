@@ -1,7 +1,10 @@
+#!/usr/bin/python3
+
 import asyncio
+import json
 import os
+import sys
 import time
-from opengsq.protocols import Source
 from rcon.source import Client
 
 
@@ -10,49 +13,50 @@ class Query:
     DEFAULT_SLEEP: int = 5
 
     @classmethod
-    def __process_info(cls, response: dict, response_keys: list[str]) -> dict:
-        result = {}
-        for tag in response_keys:
-            result[tag] = response[tag]
-        return result
-
-    @classmethod
     def __process_command(cls, client, command):
         lines = client.run(command).split('\n')
         output = ""
 
         for line in lines:
-            if not line.startswith('L '):
-                output += line.strip()
+             tokens = line.split('=')
+             if len(tokens) == 2:
+                 output += tokens[1].strip()
+             else:
+                 output += line.strip();
 
         return output
 
     @classmethod
-    async def process_game(cls, protocol: callable, response_keys: list[str], host: str, port: int, rcon_password: str, timeout: float = 5.0) -> dict:
+    async def process_game(cls, host: str, port: int, rcon_password: str) -> dict:
+        pr = {}
         while True:
             try:
-                response = protocol(host=host, port=port, timeout=timeout)
-                response = await response.get_info()
-                processed_response = cls.__process_info(response=response, response_keys=response_keys)
-
-                score = ls_status = None
+                status_json = None
                 with Client(host, int(port), passwd=rcon_password) as client:
-                    score = cls.__process_command(client, 'score')
-                    ls_status = cls.__process_command(client, 'ls_status')
+                    hostname = cls.__process_command(client, 'hostname')
+                    mp_teamname_1 = cls.__process_command(client, 'mp_teamname_1')
+                    mp_teamname_2 = cls.__process_command(client, 'mp_teamname_2')
+                    mp_teamscore_1 = cls.__process_command(client, 'mp_teamscore_1')
+                    mp_teamscore_2 = cls.__process_command(client, 'mp_teamscore_2')
+                    status_json = json.loads(cls.__process_command(client, 'status_json'))
+                    sv_visiblemaxplayers = cls.__process_command(client, 'sv_visiblemaxplayers')
 
-                processed_response['score'] = score
-                processed_response['ls_status'] = ls_status
+                    pr['Name'] = hostname
+                    pr['MaxPlayers'] = sv_visiblemaxplayers
+                    pr['Players'] = status_json['server']['clients_human']
+                    pr['Map'] = status_json['server']['map']
+
             except asyncio.exceptions.TimeoutError:
-                processed_response = {'Error': 'Timeout'}
+                pr = {'Error': 'Timeout'}
 
-            f = open('stats.json', 'w')
-            f.write(str(processed_response))
-            f.close()
+            with open('/cs2/stats.json', 'w', encoding='utf-8') as f:
+                json.dump(pr, f, ensure_ascii=False, indent=4)
 
             time.sleep(cls.DEFAULT_SLEEP)
 
 
 if __name__ == '__main__':
     host = input().strip()
-    asyncio.run(Query.process_game(protocol=Source, response_keys=Query.SOURCE_RESPONSE, host=host, port=os.environ['PORT'], rcon_password=os.environ['RCON_PASSWORD'], timeout=1))
+    time.sleep(Query.DEFAULT_SLEEP)
+    asyncio.run(Query.process_game(host=host, port=os.environ['PORT'], rcon_password=os.environ['RCON_PASSWORD']))
 

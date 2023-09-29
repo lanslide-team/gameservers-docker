@@ -2,6 +2,7 @@
 import os
 import subprocess
 import configparser
+import time
 
 
 base = ["./game/bin/linuxsteamrt64/cs2", "-dedicated", "-console", "-usercon", "+ip 0.0.0.0"]
@@ -131,7 +132,7 @@ if os.path.exists('csgo/scripts/mysql-files/fresh_install.sql'):
     os.system('mysql -uroot -p"{}" -hmariadb sourcemod < csgo/addons/sourcemod/configs/sql-init-scripts/mysql/create_admins.sql'.format(mysql_root_password))
     os.system('mysql -uroot -p"{}" -hmariadb < csgo/scripts/mysql-files/fresh_install.sql'.format(mysql_root_password))
 
-#os.system("hostname -I | python3 stats.py &")
+os.system("hostname -I | python3 stats.py &")
 
-print(base)
+# print(base)
 subprocess.call(base)

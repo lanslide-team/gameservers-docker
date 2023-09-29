@@ -20,5 +20,6 @@ COPY --chown=steam:steam entrypoint.py defaultenv.ini stats.py /cs2/
 COPY --chown=steam:steam cfg /cs2/game/csgo/cfg
 
 ENV PYTHONUNBUFFERED=0
+RUN chmod +x entrypoint.py
 
 ENTRYPOINT ["./entrypoint.py"]
