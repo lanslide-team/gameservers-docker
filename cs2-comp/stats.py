@@ -10,6 +10,7 @@ from rcon.source import Client
 
 class Query:
     SOURCE_RESPONSE: list[str] = ['Name', 'Map', 'Players', 'MaxPlayers', 'GamePort']
+    INITIAL_SLEEP: int = 10
     DEFAULT_SLEEP: int = 5
 
     @classmethod
@@ -57,6 +58,6 @@ class Query:
 
 if __name__ == '__main__':
     host = input().strip()
-    time.sleep(Query.DEFAULT_SLEEP)
+    time.sleep(Query.INITIAL_SLEEP)
     asyncio.run(Query.process_game(host=host, port=os.environ['PORT'], rcon_password=os.environ['RCON_PASSWORD']))
 
