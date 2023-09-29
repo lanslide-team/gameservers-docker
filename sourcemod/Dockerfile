@@ -16,4 +16,4 @@ RUN sm_minor_version=$(curl -s https://sm.alliedmods.net/smdrop/ | grep -Eo "\"1
 
 ADD admins_simple.ini /csgo/addons/sourcemod/configs/
 
-RUN cd /csgo/addons/sourcemod/plugins && rm -fv funcommands.smx funvotes.smx nextmap.smx
+RUN cd /cs2/addons/sourcemod/plugins && rm -fv funcommands.smx funvotes.smx nextmap.smx
