@@ -36,7 +36,8 @@ RUN unzip mv.zip
 RUN wget https://ci.dmulloy2.net/job/ProtocolLib/lastStableBuild/artifact/build/libs/ProtocolLib.jar
 RUN wget -O luckPerm.zip https://ci.lucko.me/view/LuckPerms/job/LuckPerms/lastSuccessfulBuild/artifact/bukkit/loader/build/libs/*zip*/libs.zip
 RUN unzip luckPerm.zip
-RUN wget https://dynmap.us/releases/Dynmap-3.6-spigot.jar
+RUN wget https://cdn.modrinth.com/data/fRQREgAc/versions/UXqPUg7D/Dynmap-3.7-beta-2-spigot.jar
+#https://dynmap.us/releases/Dynmap-3.6-spigot.jar
 RUN wget https://github.com/MilkBowl/Vault/releases/download/1.7.3/Vault.jar
 RUN wget https://github.com/PryPurity/WorldBorder/releases/download/v2.1.5/WorldBorder.jar
 RUN wget -O worldedit.jar https://dev.bukkit.org/projects/worldedit/files/latest
