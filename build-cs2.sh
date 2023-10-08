@@ -6,7 +6,7 @@ STARTT=$(date +%s.%N)
 # ls csgo-base/csgo
 
 docker build -t='base:latest' base/
-docker build -t='cs2-base:latest' cs2-base/
+docker build -t='cs2-base:latest' cs2-base/ --no-cache
 #docker build -t='sourcemod:latest' sourcemod/
 #docker build -t='ls-warmod:latest' ls-warmod/
 docker build -t='cs2-comp:latest' cs2-comp/
