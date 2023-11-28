@@ -9,12 +9,9 @@ RUN mkdir -p /game/csgo/replays && chown -R steam:steam  /game/csgo/replays && c
 USER steam
 WORKDIR /cs2
 
-# Get sourcemod files
-# COPY --from=sourcemod --chown=steam:steam /cs2 /cs2/game/csgo
-
-# Get compiled sourcemod plugins
-#COPY --from=warmod --chown=steam:steam /ls-sourcemod/compiled/lanslide.smx /csgo/csgo/addons/sourcemod/plugins/
-#COPY --from=warmod --chown=steam:steam /ls-sourcemod/compiled/warmod.smx /csgo/csgo/addons/sourcemod/plugins/
+# Get counter-strike-source files
+COPY --from=counter-strike-sharp --chown=steam:steam /css /cs2/game/csgo
+RUN sed -i "/Game_LowViolence/a\ \t\t\tGame\tcsgo/addons/metamod" /cs2/game/csgo/gameinfo.gi
 
 COPY --chown=steam:steam entrypoint.py defaultenv.ini stats.py /cs2/
 COPY --chown=steam:steam cfg /cs2/game/csgo/cfg

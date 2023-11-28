@@ -23,6 +23,7 @@ docker build -t='cs2-wingman:latest' cs2-wingman/
 
 #docker build -t='csgo-base:latest' csgo-base/
 docker build -t='sourcemod:latest' sourcemod/
+docker build -t='counter-strike-sharp:latest' counter-strike-sharp
 #docker build -t='ls-warmod:latest' ls-warmod/
 #docker build -t='csgo-comp:latest' csgo-comp/
 #docker build -t='csgo-dm:latest' csgo-dm/
