@@ -3,7 +3,13 @@ set -e
 
 STARTT=$(date +%s.%N)
 
-# ls csgo-base/csgo
+if [ "$1" != "cached" ]; then
+	gs_root=`pwd`
+	steamcmd=steamcmd
+	login_user="stupidsteamlogin ssl_2022"
+
+	${gs_root}/steamcmd/steamcmd.sh +force_install_dir ${gs_root}/cs2-base/data +login ${login_user} +app_update 730 +quit
+fi
 
 docker build -t='base:latest' base/
 docker build -t='cs2-base:latest' cs2-base/ --no-cache
