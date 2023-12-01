@@ -1,7 +1,7 @@
 #FROM wine
 FROM base
 
-RUN useradd -m steam && mkdir /cs2 && chown steam:steam /cs2
+RUN useradd -lm steam && mkdir /cs2 && chown steam:steam /cs2
 
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
 

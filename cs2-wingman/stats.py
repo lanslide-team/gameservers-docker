@@ -10,7 +10,7 @@ from rcon.source import Client
 
 class Query:
     SOURCE_RESPONSE: list[str] = ['Name', 'Map', 'Players', 'MaxPlayers', 'GamePort']
-    INITIAL_SLEEP: int = 10
+    INITIAL_SLEEP: int = 5
     DEFAULT_SLEEP: int = 5
 
     @classmethod
@@ -23,7 +23,7 @@ class Query:
              if len(tokens) == 2:
                  output += tokens[1].strip()
              else:
-                 output += line.strip();
+                 output += line.strip()
 
         return output
 
@@ -44,10 +44,20 @@ class Query:
 
                     pr['Name'] = hostname
                     pr['MaxPlayers'] = sv_visiblemaxplayers
-                    pr['Players'] = status_json['server']['clients_human']
-                    pr['Map'] = status_json['server']['map']
+                    
+                    try:
+                        pr['Players'] = status_json['server']['clients_human']
+                    except KeyError:
+                        pr['Players'] = None
+
+                    try:
+                        pr['Map'] = status_json['server']['map']
+                    except KeyError:
+                        pr['Map'] = None
 
             except asyncio.exceptions.TimeoutError:
+                pr = {'Error': 'Timeout'}
+            except: 
                 pr = {'Error': 'Timeout'}
 
             with open('/cs2/stats.json', 'w', encoding='utf-8') as f:
