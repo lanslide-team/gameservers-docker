@@ -13,6 +13,9 @@ WORKDIR /cs2
 COPY --from=counter-strike-sharp --chown=steam:steam /css /cs2/game/csgo
 RUN sed -i "/Game_LowViolence/a\ \t\t\tGame\tcsgo/addons/metamod" /cs2/game/csgo/gameinfo.gi
 
+RUN mkdir -p /cs2/game/csgo/PugSharp/Config
+RUN mkdir -p /cs2/game/csgo/PugSharp/Demo
+
 COPY --chown=steam:steam entrypoint.py defaultenv.ini stats.py /cs2/
 COPY --chown=steam:steam cfg /cs2/game/csgo/cfg
 

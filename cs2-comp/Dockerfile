@@ -1,5 +1,3 @@
-#FROM ls-warmod as warmod
-#FROM sourcemod as sourcemod
 FROM cs2-base
 MAINTAINER LAN-slide
 
@@ -15,6 +13,9 @@ RUN sed -i "/Game_LowViolence/a\ \t\t\tGame\tcsgo/addons/metamod" /cs2/game/csgo
 
 COPY --chown=steam:steam entrypoint.py defaultenv.ini stats.py /cs2/
 COPY --chown=steam:steam cfg /cs2/game/csgo/cfg
+
+RUN mkdir -p /cs2/game/csgo/PugSharp/Config
+RUN mkdir -p /cs2/game/csgo/PugSharp/Demo
 
 ENV PYTHONUNBUFFERED=0
 RUN chmod +x entrypoint.py

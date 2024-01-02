@@ -37,14 +37,22 @@ class Query:
                     hostname = cls.__process_command(client, 'hostname')
                     mp_teamname_1 = cls.__process_command(client, 'mp_teamname_1')
                     mp_teamname_2 = cls.__process_command(client, 'mp_teamname_2')
-                    mp_teamscore_1 = cls.__process_command(client, 'mp_teamscore_1')
-                    mp_teamscore_2 = cls.__process_command(client, 'mp_teamscore_2')
                     status_json = json.loads(cls.__process_command(client, 'status_json'))
                     sv_visiblemaxplayers = cls.__process_command(client, 'sv_visiblemaxplayers')
+                    match_state = cls.__process_command(client, 'ps_matchstate')
+                    mapscore_json = cls.__process_command(client, 'ps_mapscore_json')
+
+                    if 'match is running' in match_state.lower():
+                        match_state = None
+                    if 'match is running' in mapscore_json.lower():
+                        mapscore_json = None
 
                     pr['Name'] = hostname
                     pr['MaxPlayers'] = sv_visiblemaxplayers
                     
+                    pr['MatchState'] = None if 'Unknown command' in match_state else match_state
+                    pr['MapScoreJSON'] = None if 'Unknown command' in mapscore_json else mapscore_json
+
                     try:
                         pr['Players'] = status_json['server']['clients_human']
                     except KeyError:

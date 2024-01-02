@@ -128,11 +128,18 @@ if 'TV_NAME' in vars:
 
 if os.path.exists('csgo/scripts/mysql-files/fresh_install.sql'):
     mysql_root_password = os.popen('echo -n l33t | sha256sum | base64 | head -c 32 ; echo').read().strip()
-    os.system('mysql -uroot -p"{}" -hmariadb -e "CREATE DATABASE IF NOT EXISTS sourcemod;"'.format(mysql_root_password))
-    os.system('mysql -uroot -p"{}" -hmariadb sourcemod < csgo/addons/sourcemod/configs/sql-init-scripts/mysql/create_admins.sql'.format(mysql_root_password))
-    os.system('mysql -uroot -p"{}" -hmariadb < csgo/scripts/mysql-files/fresh_install.sql'.format(mysql_root_password))
+#    os.system('mysql -uroot -p"{}" -hmariadb -e "CREATE DATABASE IF NOT EXISTS sourcemod;"'.format(mysql_root_password))
+#    os.system('mysql -uroot -p"{}" -hmariadb sourcemod < csgo/addons/sourcemod/configs/sql-init-scripts/mysql/create_admins.sql'.format(mysql_root_password))
+#    os.system('mysql -uroot -p"{}" -hmariadb < csgo/scripts/mysql-files/fresh_install.sql'.format(mysql_root_password))
 
 os.system("hostname -I | python3 stats.py &")
+os.system("python3 config_admins.py > game/csgo/addons/counterstrikesharp/configs/admins.json")
+#os.makedirs("game/csgo/PugSharp/Config")
+os.system("python3 config_match.py > game/csgo/PugSharp/Config/match.json")
+
 
 # print(base)
 subprocess.call(base)
+
+while True:
+    time.sleep(1)
