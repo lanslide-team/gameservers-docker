@@ -36,6 +36,7 @@ def generate_config() -> None:
     side_type: str = process_env('SIDE_TYPE', 'standard')
     veto_first: str = process_env('VETO_FIRST', 'team1')
     skip_veto: bool = process_env('SKIP_VETO', '0') == '1'
+    eventula_apistats_token: str = process_env('EVENTULA_APISTATS_TOKEN', '');
 
     config: dict = {}
     # 'de_ancient', 'de_anubis', 'de_inferno', 'de_mirage', 'de_nuke', 'de_overpass', 'de_vertigo'
@@ -51,7 +52,7 @@ def generate_config() -> None:
     config['max_overtime_rounds'] = int(max_overtime_rounds)   # 6 = wingman, 6 = comp
     config['vote_timeout'] = int(vote_timeout)
     config['eventula_apistats_url'] = None # f"https://dev.lan2play.de/api/matchmaking/{config['matchid']}/"
-    config['eventula_apistats_token'] = "Bearer AgysgEsiZ7ZNaFs74xWC"
+    config['eventula_apistats_token'] = "Bearer " + eventula_apistats_token
     config['eventula_demo_upload_url'] = "https://portal.lanslide.com.au/g5-demo-upload"
     config['allow_suicide'] = allow_suicide == '1'
     config['vote_map'] = veto_map

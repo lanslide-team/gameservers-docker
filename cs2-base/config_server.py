@@ -11,8 +11,8 @@ def process_env(key: str, default_value = None):
 
 
 def generate_config() -> None:
-    allow_players_without_match: str|None = process_env('ALLOW_PLAYERS_WITHOUT_MATCH', True);
-    autoload_match_config_file: str|None = process_env('AUTOLOAD_MATCH_CONFIG_FILE', True);
+    allow_players_without_match: bool = process_env('ALLOW_PLAYERS_WITHOUT_MATCH', '1') == '1';
+    autoload_match_config_file: bool = process_env('AUTOLOAD_MATCH_CONFIG_FILE', '1') == '1';
 
     config = {
         'local': 'en',
