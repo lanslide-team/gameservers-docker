@@ -9,7 +9,7 @@ WORKDIR /cs2
 
 COPY --chown=steam:steam entrypoint.py defaultenv.ini stats.py /cs2/
 
-RUN rm /cs2/config_match.py && rm /cs2/config_admins.py
+RUN rm /cs2/config_match.py && rm /cs2/config_server.py && rm /cs2/config_admins.py
 
 ENV PYTHONUNBUFFERED=0
 RUN chmod +x entrypoint.py

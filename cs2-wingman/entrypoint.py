@@ -136,6 +136,7 @@ os.system("hostname -I | python3 stats.py &")
 os.system("python3 config_admins.py > game/csgo/addons/counterstrikesharp/configs/admins.json")
 os.makedirs("game/csgo/PugSharp/Config")
 os.system("python3 config_match.py > game/csgo/PugSharp/Config/match.json")
+os.system("python3 config_server.py > game/csgo/PugSharp/Config/server.json")
 
 # print(base)
 subprocess.call(base)

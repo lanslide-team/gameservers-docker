@@ -24,7 +24,7 @@ def generate_config() -> None:
     num_maps: int|None = process_env('NUM_MAPS', 1)
     team_mode: int = process_env('TEAM_MODE', 0)
     allow_suicide: bool|None = process_env('ALLOW_SUICIDE', '1')
-    veto_map: str|None = process_env('VETO_MAP', None)
+    veto_map: str|None = process_env('VETO_MAP', 'de_dust2')
     veto_map_pool: str|None = process_env('VETO_MAP_POOL', None)
 
     is_wingman: bool = process_env('IS_WINGMAN', '0') == '1'
@@ -51,8 +51,8 @@ def generate_config() -> None:
     config['max_overtime_rounds'] = int(max_overtime_rounds)   # 6 = wingman, 6 = comp
     config['vote_timeout'] = int(vote_timeout)
     config['eventula_apistats_url'] = None # f"https://dev.lan2play.de/api/matchmaking/{config['matchid']}/"
-    config['eventula_apistats_token'] = None # 'Bearer S0XRU0UhIExFQ0tFUiEK'
-    config['eventula_demo_upload_url'] = None # f"https://dev.lan2play.de/api/matchmaking/{config['matchid']}/demo"
+    config['eventula_apistats_token'] = "Bearer AgysgEsiZ7ZNaFs74xWC"
+    config['eventula_demo_upload_url'] = "https://portal.lanslide.com.au/g5-demo-upload"
     config['allow_suicide'] = allow_suicide == '1'
     config['vote_map'] = veto_map
     config['team_mode'] = int(team_mode)

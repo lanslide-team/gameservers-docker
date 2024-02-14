@@ -43,9 +43,9 @@ class Query:
                     mapscore_json = cls.__process_command(client, 'ps_mapscore_json')
 
                     if 'match is running' in match_state.lower():
-                        match_state = None
+                        match_state = ''
                     if 'match is running' in mapscore_json.lower():
-                        mapscore_json = None
+                        mapscore_json = ''
 
                     pr['Name'] = hostname
                     pr['MaxPlayers'] = sv_visiblemaxplayers

@@ -91,10 +91,10 @@ elif vars.get('HOSTNAME'):
 base.append('+servercfgfile {SERVERCFGFILE}'.format(**vars))
 
 # Set Teamnames
-if vars.get('TEAM1') and vars.get('TEAM2'):
-    f = open(f'{CONFIG_DIR}/' + vars['SERVERCFGFILE'], 'a')
-    f.write('\nmp_teamname_1 {TEAM1}\nmp_teamname_2 {TEAM2}'.format(**vars))
-    f.close()
+#if vars.get('TEAM1') and vars.get('TEAM2'):
+#    f = open(f'{CONFIG_DIR}/' + vars['SERVERCFGFILE'], 'a')
+#    f.write('\nmp_teamname_1 {TEAM1}\nmp_teamname_2 {TEAM2}'.format(**vars))
+#    f.close()
 
 # Set Event Name
 #if vars.get('EVENT_NAME') and vars['EVENT_NAME'].strip() != '' and os.path.exists('/csgo/csgo/cfg/warmod/on_map_load.cfg'):
@@ -136,6 +136,7 @@ os.system("hostname -I | python3 stats.py &")
 os.system("python3 config_admins.py > game/csgo/addons/counterstrikesharp/configs/admins.json")
 #os.makedirs("game/csgo/PugSharp/Config")
 os.system("python3 config_match.py > game/csgo/PugSharp/Config/match.json")
+os.system("python3 config_server.py > game/csgo/PugSharp/Config/server.json")
 
 
 # print(base)
