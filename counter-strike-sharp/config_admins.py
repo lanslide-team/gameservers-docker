@@ -13,7 +13,7 @@ def generate_admins():
     admin_json = {}
     for admin in admin_list:
         admin = admin.strip()
-        admin_json[admin] = {'identity': admin, 'flags': ['@css/root', '@pugsharp/matchadmin']}
+        admin_json[admin] = {'identity': admin, 'flags': ['@css/root']}
     admin_json = json.dumps(admin_json, indent=4)
 
     print(admin_json)

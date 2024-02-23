@@ -39,19 +39,22 @@ class Query:
                     mp_teamname_2 = cls.__process_command(client, 'mp_teamname_2')
                     status_json = json.loads(cls.__process_command(client, 'status_json'))
                     sv_visiblemaxplayers = cls.__process_command(client, 'sv_visiblemaxplayers')
-                    match_state = cls.__process_command(client, 'ps_matchstate')
-                    mapscore_json = cls.__process_command(client, 'ps_mapscore_json')
+#                    match_state = cls.__process_command(client, 'ps_matchstate')
+#                    mapscore_json = cls.__process_command(client, 'ps_mapscore_json')
+                    get5_status = json.loads(cls.__process_command(client, 'get5_status'))
 
-                    if 'match is running' in match_state.lower():
-                        match_state = ''
-                    if 'match is running' in mapscore_json.lower():
-                        mapscore_json = ''
+#                    if 'match is running' in match_state.lower():
+#                        match_state = ''
+#                    if 'match is running' in mapscore_json.lower():
+#                        mapscore_json = ''
 
                     pr['Name'] = hostname
                     pr['MaxPlayers'] = sv_visiblemaxplayers
                     
-                    pr['MatchState'] = None if 'Unknown command' in match_state else match_state
-                    pr['MapScoreJSON'] = None if 'Unknown command' in mapscore_json else mapscore_json
+#                    pr['MatchState'] = None if 'Unknown command' in match_state else match_state
+#                    pr['MapScoreJSON'] = None if 'Unknown command' in mapscore_json else mapscore_json
+                    pr['Get5Status'] = None if 'Unknown command' in get5_status else get5_status
+                     
 
                     try:
                         pr['Players'] = status_json['server']['clients_human']
