@@ -31,7 +31,7 @@ def generate_config() -> None:
     is_wingman: bool = process_env('IS_WINGMAN', '0') == '1'
     players_per_team: int = process_env('PLAYERS_PER_TEAM', 5)
     min_players_to_ready: int = process_env('MIN_PLAYERS_TO_READY', 5)
-    max_rounds: int = 9*2 if is_wingman else 12*2
+    max_rounds: int = 8*2 if is_wingman else 12*2
     max_overtime_rounds: int = process_env('MAX_OVERTIME_ROUNDS', 6)
  #   vote_timeout: int = process_env('VOTE_TIMEOUT', 60 * 1000)
     side_type: str = process_env('SIDE_TYPE', 'standard')
@@ -64,11 +64,11 @@ def generate_config() -> None:
  #   config['eventula_demo_upload_url'] = "https://portal.lanslide.com.au/g5-demo-upload"
  #   config['allow_suicide'] = allow_suicide == '1'
 #    config['vote_map'] = veto_map
-    config['wingman'] = "true" if is_wingman else "false"
+    config['wingman'] = is_wingman
     config['side_type'] = side_type
     config['veto_first'] = veto_first
-    config['skip_veto'] = "true" if skip_veto else "false"
-    config['clinch_series'] = "true" if clinch_series else "false"
+    config['skip_veto'] = skip_veto
+    config['clinch_series'] = clinch_series
 #    config['team_mode'] = int(team_mode)
 
     if 'MAP_SIDES' in os.environ:
@@ -78,7 +78,7 @@ def generate_config() -> None:
     cvars['get5_remote_log_url'] = 'https://g5.lanslide.com.au/api'
     cvars['get5_remote_log_header_key'] = 'Authorization'
     cvars['get5_remote_log_header_value'] = match_api_key
-    cvars['mp_maxrounds'] =  16 if is_wingman else 24
+    cvars['mp_maxrounds'] = int(max_rounds)
     cvars['mp_freezetime'] = 10 if is_wingman else 20
     cvars['mp_overtime_startmoney'] = 12500
     cvars['sv_competitive_official_5v5'] = 0 if is_wingman else 1

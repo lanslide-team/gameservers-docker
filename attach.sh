@@ -1,12 +1,14 @@
 #!/bin/bash
 
-containers=$(docker ps | awk '{if(NR>1) print $NF}')
-let target_i=$1-1
+containers=$(docker ps | awk '{if(NR>1) print $1}')
+let target_count=$1
+let count=1
 
-for i in "${!containers[@]}"
+for container in $containers
 do
-	if [ $i -eq "$target_i" ];then
-		docker attach ${containers[$i]}
+	if [ $count = "$target_count" ];then
+		docker attach $container
 		exit;
 	fi
+	count=$((count+1))
 done
