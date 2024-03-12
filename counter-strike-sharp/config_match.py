@@ -49,8 +49,8 @@ def generate_config() -> None:
     # 'de_inferno', 'de_nuke', 'de_overpass', 'de_vertigo'
     config['maplist'] = [] if veto_map_pool is None else veto_map_pool.rstrip(',').split(',')
     config['veto_mode'] = [] if veto_mode is None else veto_mode.rstrip(',').split(',')
-    config['team1'] = {'id': team1_id, 'name': team1, 'tag': team1_tag, 'flag': team1_flag, 'players': player_nuke}
-    config['team2'] = {'id': team2_id, 'name': team2, 'tag': team2_tag, 'flag': team2_flag, 'players': player_papa}
+    config['team1'] = {'id': team1_id, 'name': team1, 'tag': team1_tag, 'flag': team1_flag, 'players': None}
+    config['team2'] = {'id': team2_id, 'name': team2, 'tag': team2_tag, 'flag': team2_flag, 'players': None}
     config['matchid'] = str(match_id)
     config['num_maps'] = int(num_maps)
     config['players_per_team'] = int(players_per_team)         # 2 = wingman, 5 = comp

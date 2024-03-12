@@ -28,8 +28,20 @@ class Query:
         return output
 
     @classmethod
+    def load_match_config(cls, host: str, port: int, rcon_password: str) -> None:
+        try:
+            with Client(host, int(port), passwd=rcon_password) as client:
+                cls.__process_command(client, 'matchzy_loadmatch match.json')
+        except:
+            pr = {'Error': 'Timeout'}
+
+    @classmethod
     async def process_game(cls, host: str, port: int, rcon_password: str) -> dict:
         pr = {}
+
+        # Load the match config
+        cls.load_match_config(host, port, rcon_password)
+
         while True:
             try:
                 status_json = None

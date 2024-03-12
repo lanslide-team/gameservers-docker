@@ -153,6 +153,9 @@ os.system(f"sed -i '/matchzy_demo_upload_url/c\matchzy_demo_upload_url \"{vars['
 os.system(f"sed -i '/matchzy_autostart_mode/c\matchzy_autostart_mode {vars['AUTOSTART_MODE']}' {matchzy_cfg}")
 os.system(f"sed -i '/matchzy_use_pause_command_for_tactical_pause/c\matchzy_use_pause_command_for_tactical_pause {'true' if vars['USE_PAUSE_FOR_TECH'] == '1' else 'false'}' {matchzy_cfg}")
 
+# Add new command
+os.system(f"echo '\nmatchzy_enable_match_scrim true' >> {matchzy_cfg}")
+
 # Add exta commands to the end
 os.system(f"echo 'matchzy_remote_log_url \"https://portal.lanslide.com.au/api/v1/matches/{vars['MATCH_ID']}\"' >> {warmup_cfg}")
 os.system(f"echo 'matchzy_remote_log_header_key Authorization' >> {warmup_cfg}")
