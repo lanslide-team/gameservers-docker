@@ -178,7 +178,7 @@ find_or_replace(matchzy_cfg, 'matchzy_use_pause_command_for_tactical_pause', f"m
 
 # Add new command
 #os.system(f"echo '\nmatchzy_enable_match_scrim true' >> {matchzy_cfg}")
-find_or_replace(matchzy_cfg, 'matchzy_enable_match_scrim', f"matchzy_enable_match_scrim true")
+find_or_replace(matchzy_cfg, 'matchzy_enable_match_scrim', f"matchzy_enable_match_scrim {'true' if vars['ENABLE_MATCH_SCRIM'] == '1' else 'false'}")
 
 # Add exta commands to the end
 #os.system(f"echo 'matchzy_remote_log_url \"https://portal.lanslide.com.au/api/v1/matches/{vars['MATCH_ID']}\"' >> {warmup_cfg}")
