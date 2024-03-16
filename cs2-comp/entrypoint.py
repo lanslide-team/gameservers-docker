@@ -188,6 +188,8 @@ find_or_replace(matchzy_cfg, 'matchzy_enable_match_scrim', f"matchzy_enable_matc
 find_or_replace(warmup_cfg, 'matchzy_remote_log_url', f"matchzy_remote_log_url \"https://portal.lanslide.com.au/api/v1/matches/{vars['MATCH_ID']}\"")
 find_or_replace(warmup_cfg, 'matchzy_remote_log_header_key', f"matchzy_remote_log_header_key Authorization")
 find_or_replace(warmup_cfg, 'matchzy_remote_log_header_value', f"matchzy_remote_log_header_value \"6583bac9a2455\"")
+find_or_replace(warmup_cfg, 'sv_logfile', 'sv_logfile 1')
+find_or_replace(warmup_cfg, 'log on', 'log on')
 
 # Update live config
 #os.system(f"sed -i '/mp_team_timeout_max/c\mp_team_timeout_max 3' {live_cfg}")
