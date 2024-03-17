@@ -10,8 +10,10 @@ def already_in_config(file: str, search_txt: str) -> bool:
             return True
     return False
 
-def find_or_replace(file: str, search_txt: str, replace_txt: str) -> None:
+def find_or_replace(file: str, search_txt: str, replace_txt: str, line_start: bool=False) -> None:
     if already_in_config(file, search_txt):
+        if line_start:
+            search_txt = f"^{search_txt}"
         os.system(f"sed -i '/{search_txt}/c\{replace_txt}' {file}")
     else:
         os.system(f"echo '\n{replace_txt}' >> {file}")
@@ -191,7 +193,7 @@ find_or_replace(matchzy_cfg, 'matchzy_minimum_ready_required', f"matchzy_minimum
 find_or_replace(matchzy_cfg, 'matchzy_chat_prefix', f"matchzy_chat_prefix [{{Green}}{vars['EVENT_NAME']}{{Default}}]")
 find_or_replace(matchzy_cfg, 'matchzy_playout_enabled_default', f"matchzy_playout_enabled_default {'true' if vars['PLAYOUT_ENABLED'] == '1' else 'false'}")
 find_or_replace(matchzy_cfg, 'matchzy_demo_upload_url', f"matchzy_demo_upload_url \"{vars['DEMO_UPLOAD_URL']}\"")
-find_or_replace(matchzy_cfg, 'matchzy_demo_path', f'matchzy_demo_path \"LAN_DEMOS\"')
+find_or_replace(matchzy_cfg, 'matchzy_demo_path', f"matchzy_demo_path \"LAN_DEMOS\"", True)
 find_or_replace(matchzy_cfg, 'matchzy_autostart_mode', f"matchzy_autostart_mode {vars['AUTOSTART_MODE']}")
 find_or_replace(matchzy_cfg, 'matchzy_use_pause_command_for_tactical_pause', f"matchzy_use_pause_command_for_tactical_pause {'true' if vars['USE_PAUSE_FOR_TECH'] == '1' else 'false'}")
 
