@@ -20,8 +20,11 @@ def find_or_replace(file: str, search_txt: str, replace_txt: str) -> None:
 # echo 'matchzy_remote_log_url \"https://portal.lanslide.com.au/api/v1/matches/{vars['MATCH_ID']}\"' >> {warmup_cfg}
 
 
-
-base = ["./game/bin/linuxsteamrt64/cs2", "-dedicated", "-console", "-usercon", "+ip 0.0.0.0"]
+# insecure?
+# sv_load_forced_client_names_file
+base = ["./game/bin/linuxsteamrt64/cs2", "-dedicated", "-console", "-usercon", "+rcon_connected_clients_allow 1", "-serverlogging", "+sv_logsdir LAN_LOGS",
+        "+sv_logfile 1", "-maxplayers_override 13", "+sv_pure 0", "+sv_reliableavatardata 2", "+sv_lan 1", "-nomaster", 
+        "+ip 0.0.0.0", "+net_public_adr 0.0.0.0", "+sv_logsdir LAN_LOGS", "-net_port_try 1"]
 
 vars = {}
 
@@ -55,6 +58,7 @@ if not vars.get('SERVERCFGFILE'):
 # Set server port
 if vars.get('PORT'):
     base.append('-port {PORT}'.format(**vars))
+    base.append('-hostport {PORT}'.format(**vars))
 
 if vars.get('SV_LAN'):
     base.append('-sv_lan {SV_LAN}'.format(**vars))
@@ -128,10 +132,31 @@ if vars.get('STEAMTOKEN'):
 
 # Enable TV
 if vars.get('TV_ENABLE') and vars['TV_ENABLE'] == '1':
+    base.append('-addhltv1')
+    base.append('+tv_delay 0')
+    base.append('+tv_delay1 7')
+    base.append('+tv_advertise_watchable 0')
     base.append('+tv_enable 1')
+    base.append('+tv_delaymapchange 1')
+    base.append('+tv_dispatchmode 1')
+    base.append('+tv_enable1 1')
+    base.append('+tv_max_clients 30')
+    base.append('+tv_nochat 1')
+    base.append('+tv_show_allchat 0')
+    base.append('+tv_port 27020')
+    base.append('+tv_port1 27021')
+    base.append('+tv_snapshot_rate 128')
+    base.append('+tv_snapshot_rate1 128')
+    base.append('+tv_password sadge')
+    base.append('+tv_relaypassword relaypwdsadge')
+    base.append('+tv_relayradio 0')
+    base.append('+tv_relayvoice 0')
 
 # Set TV name
 if 'TV_NAME' in vars:
+    if vars['TV_NAME'] == 'GOTV':
+        vars['TV_NAME'] = '[TV] ' + vars['HOSTNAME']
+
     base.append('+tv_name {TV_NAME}'.format(**vars))
     base.append('+tv_title {TV_NAME}'.format(**vars))
 
@@ -159,53 +184,50 @@ live_cfg = config_root + '/live.cfg'
 warmup_cfg = config_root + '/warmup.cfg'
 
 # Modify MatchZy Settings
-#os.system(f"sed -i '/matchzy_knife_enabled_default/c\matchzy_knife_enabled_default {'true' if vars['ENABLE_KNIFE'] == '1' else 'false'}' {matchzy_cfg}")
-#os.system(f"sed -i '/matchzy_minimum_ready_required/c\matchzy_minimum_ready_required {vars['MIN_PLAYERS_TO_READY']}' {matchzy_cfg}")
-#os.system(f"sed -i '/matchzy_chat_prefix/c\matchzy_chat_prefix [{{Green}}{vars['EVENT_NAME']}{{Default}}]' {matchzy_cfg}")
-#os.system(f"sed -i '/matchzy_playout_enabled_default/c\matchzy_playout_enabled_default {'true' if vars['PLAYOUT_ENABLED'] == '1' else 'false'}' {matchzy_cfg}")
-#os.system(f"sed -i '/matchzy_demo_upload_url/c\matchzy_demo_upload_url \"{vars['DEMO_UPLOAD_URL']}\"' {matchzy_cfg}")
-#os.system(f"sed -i '/matchzy_autostart_mode/c\matchzy_autostart_mode {vars['AUTOSTART_MODE']}' {matchzy_cfg}")
-#os.system(f"sed -i '/matchzy_use_pause_command_for_tactical_pause/c\matchzy_use_pause_command_for_tactical_pause {'true' if vars['USE_PAUSE_FOR_TECH'] == '1' else 'false'}' {matchzy_cfg}")
-
 # find_or_replace(file, search_txt, replace_txt)
+
 find_or_replace(matchzy_cfg, 'matchzy_knife_enabled_default', f"matchzy_knife_enabled_default {'true' if vars['ENABLE_KNIFE'] == '1' else 'false'}")
 find_or_replace(matchzy_cfg, 'matchzy_minimum_ready_required', f"matchzy_minimum_ready_required {vars['MIN_PLAYERS_TO_READY']}")
 find_or_replace(matchzy_cfg, 'matchzy_chat_prefix', f"matchzy_chat_prefix [{{Green}}{vars['EVENT_NAME']}{{Default}}]")
 find_or_replace(matchzy_cfg, 'matchzy_playout_enabled_default', f"matchzy_playout_enabled_default {'true' if vars['PLAYOUT_ENABLED'] == '1' else 'false'}")
 find_or_replace(matchzy_cfg, 'matchzy_demo_upload_url', f"matchzy_demo_upload_url \"{vars['DEMO_UPLOAD_URL']}\"")
+find_or_replace(matchzy_cfg, 'matchzy_demo_path', f'matchzy_demo_path \"LAN_DEMOS\"')
 find_or_replace(matchzy_cfg, 'matchzy_autostart_mode', f"matchzy_autostart_mode {vars['AUTOSTART_MODE']}")
 find_or_replace(matchzy_cfg, 'matchzy_use_pause_command_for_tactical_pause', f"matchzy_use_pause_command_for_tactical_pause {'true' if vars['USE_PAUSE_FOR_TECH'] == '1' else 'false'}")
 
 # Add new command
-#os.system(f"echo '\nmatchzy_enable_match_scrim true' >> {matchzy_cfg}")
 find_or_replace(matchzy_cfg, 'matchzy_enable_match_scrim', f"matchzy_enable_match_scrim {'true' if vars['ENABLE_MATCH_SCRIM'] == '1' else 'false'}")
 
 # Add exta commands to the end
-#os.system(f"echo 'matchzy_remote_log_url \"https://portal.lanslide.com.au/api/v1/matches/{vars['MATCH_ID']}\"' >> {warmup_cfg}")
-#os.system(f"echo 'matchzy_remote_log_header_key Authorization' >> {warmup_cfg}")
-#os.system(f"echo 'matchzy_remote_log_header_value \"6583bac9a2455\"' >> {warmup_cfg}")
-
 find_or_replace(warmup_cfg, 'matchzy_remote_log_url', f"matchzy_remote_log_url \"https://portal.lanslide.com.au/api/v1/matches/{vars['MATCH_ID']}\"")
 find_or_replace(warmup_cfg, 'matchzy_remote_log_header_key', f"matchzy_remote_log_header_key Authorization")
 find_or_replace(warmup_cfg, 'matchzy_remote_log_header_value', f"matchzy_remote_log_header_value \"6583bac9a2455\"")
-find_or_replace(warmup_cfg, 'sv_logfile', 'sv_logfile 1')
+find_or_replace(warmup_cfg, 'sv_auto_full_alltalk_during_warmup_half_end', 'sv_auto_full_alltalk_during_warmup_half_end 1')
+find_or_replace(warmup_cfg, 'sv_deadtalk', 'sv_deadtalk 1')
+find_or_replace(warmup_cfg, 'tv_relayvoice', 'tv_relayvoice 0')
+
+# Logging
 find_or_replace(warmup_cfg, 'log on', 'log on')
+find_or_replace(warmup_cfg, 'mp_logdetail', 'mp_logdetail 3')
+find_or_replace(warmup_cfg, 'mp_logmoney', 'mp_logmoney')
+find_or_replace(warmup_cfg, 'mp_logdetail_items', 'mp_logdetail_items 1')
+find_or_replace(warmup_cfg, 'mp_disconnect_kills_players', 'mp_disconnect_kills_players 0')
 
 # Update live config
-#os.system(f"sed -i '/mp_team_timeout_max/c\mp_team_timeout_max 3' {live_cfg}")
-#os.system(f"sed -i '/mp_freezetime/c\mp_freezetime {vars['FREEZETIME']}' {live_cfg}")
-#os.system(f"sed -i '/mp_overtime_startmoney/c\mp_overtime_startmoney {vars['OVERTIME_STARTMONEY']}' {live_cfg}")
-
 find_or_replace(live_cfg, 'mp_team_timeout_max', f"mp_team_timeout_max 3")
 find_or_replace(live_cfg, 'mp_freezetime', f"mp_freezetime {vars['FREEZETIME']}")
 find_or_replace(live_cfg, 'mp_overtime_startmoney', f"mp_overtime_startmoney {vars['OVERTIME_STARTMONEY']}")
+find_or_replace(live_cfg, 'mp_team_timeout_ot_max', 'mp_team_timeout_ot_max 1')
+find_or_replace(live_cfg, 'mp_team_timeout_ot_add_once', 'mp_team_timeout_ot_add_once 1')
+find_or_replace(live_cfg, 'mp_team_timeout_ot_add_each', 'mp_team_timeout_ot_add_each 1')
+find_or_replace(live_cfg, 'mp_technical_timeout_duration_s', 'mp_technical_timeout_duration_s 300')
+find_or_replace(live_cfg, 'sv_auto_full_alltalk_during_warmup_half_end', 'sv_auto_full_alltalk_during_warmup_half_end 1')
+find_or_replace(live_cfg, 'sv_deadtalk', 'sv_deadtalk 0')
+find_or_replace(live_cfg, 'tv_relayvoice', 'tv_relayvoice 0')
 
-#os.system(f"echo '\nmp_technical_timeout_duration_s 300' >> {live_cfg}")
-find_or_replace(live_cfg, 'nmp_technical_timeout_duration_s', f"mp_technical_timeout_duration_s 300")
 
+os.system(f"echo \"{base}\" >> cmd_params")
 
-
-# print(base)
 subprocess.call(base)
 
 while True:

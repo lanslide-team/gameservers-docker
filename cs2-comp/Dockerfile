@@ -16,6 +16,7 @@ RUN sed -i "/Game_LowViolence/a\ \t\t\tGame\tcsgo/addons/metamod" /cs2/game/csgo
 
 COPY --chown=steam:steam entrypoint.py defaultenv.ini stats.py /cs2/
 COPY --chown=steam:steam cfg /cs2/game/csgo/cfg
+RUN rm -rf /cs2/game/csgo/cfg/gamemode_competitive.cfg
 
 #RUN mkdir -p /cs2/game/csgo/PugSharp/Config
 #RUN mkdir -p /cs2/game/csgo/PugSharp/Demo
