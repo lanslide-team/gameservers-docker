@@ -18,18 +18,6 @@ def find_or_replace(file: str, search_txt: str, replace_txt: str, line_start: bo
     else:
         os.system(f"echo '\n{replace_txt}' >> {file}")
 
-#    os.system(f"sed -i '/matchzy_knife_enabled_default/c\matchzy_knife_enabled_default {'true' if vars['ENABLE_KNIFE'] == '1' else 'false'}' {matchzy_cfg}")
-# echo 'matchzy_remote_log_url \"https://portal.lanslide.com.au/api/v1/matches/{vars['MATCH_ID']}\"' >> {warmup_cfg}
-
-
-# insecure?
-# sv_load_forced_client_names_file
-base = ["./game/bin/linuxsteamrt64/cs2", "-dedicated", "-console", "-usercon", "+rcon_connected_clients_allow 1", "-serverlogging", "+sv_logsdir LAN_LOGS",
-        "+sv_logfile 1", "-maxplayers_override 13", "+sv_pure 0", "+sv_reliableavatardata 2", "+sv_lan 1", "-nomaster", 
-        "+ip 0.0.0.0", "+net_public_adr 0.0.0.0", "+sv_logsdir LAN_LOGS", "-net_port_try 1"]
-
-vars = {}
-
 # Read defaultenv config
 configpaser = configparser.ConfigParser()
 configpaser.read('defaultenv.ini')
@@ -37,6 +25,7 @@ config = configpaser['env']
 CONFIG_DIR = '/cs2/game/csgo/cfg'
 
 # Add default envvars into vars variable
+vars = {}
 for k, v in config.items():
     try:
 	# Since the value from configparser will be a string, match "None" and set Nonetype
@@ -53,6 +42,14 @@ for k, v in vars.items():
         vars[k] = os.environ[k]
     except KeyError:
         continue
+
+max_players = 5 if 'IS_WINGMAN' in vars and vars['IS_WINGMAN'] else 13
+
+# insecure?
+# sv_load_forced_client_names_file
+base = ["./game/bin/linuxsteamrt64/cs2", "-dedicated", "-console", "-usercon", "+rcon_connected_clients_allow 1", "-serverlogging", "+sv_logsdir LAN_LOGS",
+        "+sv_logfile 1", f"-maxplayers_override {max_players}", "+sv_pure 0", "+sv_reliableavatardata 2", "+sv_lan 1", "-nomaster", 
+        "+ip 0.0.0.0", "+net_public_adr 0.0.0.0", "-net_port_try 1"]
 
 if not vars.get('SERVERCFGFILE'):
     vars['SERVERCFGFILE'] = 'server.cfg'

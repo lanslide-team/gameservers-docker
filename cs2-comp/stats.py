@@ -28,10 +28,10 @@ class Query:
         return output
 
     @classmethod
-    def load_match_config(cls, host: str, port: int, rcon_password: str) -> None:
+    def run_command(cls, host: str, port: int, rcon_password: str, command: str) -> None:
         try:
             with Client(host, int(port), passwd=rcon_password) as client:
-                cls.__process_command(client, 'matchzy_loadmatch match.json')
+                cls.__process_command(client, command)
         except:
             pr = {'Error': 'Timeout'}
 
@@ -39,34 +39,25 @@ class Query:
     async def process_game(cls, host: str, port: int, rcon_password: str) -> dict:
         pr = {}
 
+        if 'IS_WINGMAN' in os.environ and os.environ['IS_WINGMAN'] == '1':
+            cls.run_command(host, port, rcon_password, f"map {os.environ['MAP']}")
+            time.sleep(Query.INITIAL_SLEEP)
+
         # Load the match config
-        cls.load_match_config(host, port, rcon_password)
+        cls.run_command(host, port, rcon_password, 'matchzy_loadmatch match.json')
 
         while True:
             try:
                 status_json = None
                 with Client(host, int(port), passwd=rcon_password) as client:
+                    get5_status = json.loads(cls.__process_command(client, 'get5_status'))
                     hostname = cls.__process_command(client, 'hostname')
-                    mp_teamname_1 = cls.__process_command(client, 'mp_teamname_1')
-                    mp_teamname_2 = cls.__process_command(client, 'mp_teamname_2')
                     status_json = json.loads(cls.__process_command(client, 'status_json'))
                     sv_visiblemaxplayers = cls.__process_command(client, 'sv_visiblemaxplayers')
-#                    match_state = cls.__process_command(client, 'ps_matchstate')
-#                    mapscore_json = cls.__process_command(client, 'ps_mapscore_json')
-                    get5_status = json.loads(cls.__process_command(client, 'get5_status'))
-
-#                    if 'match is running' in match_state.lower():
-#                        match_state = ''
-#                    if 'match is running' in mapscore_json.lower():
-#                        mapscore_json = ''
 
                     pr['Name'] = hostname
                     pr['MaxPlayers'] = sv_visiblemaxplayers
-                    
-#                    pr['MatchState'] = None if 'Unknown command' in match_state else match_state
-#                    pr['MapScoreJSON'] = None if 'Unknown command' in mapscore_json else mapscore_json
                     pr['Get5Status'] = None if 'Unknown command' in get5_status else get5_status
-                     
 
                     try:
                         pr['Players'] = status_json['server']['clients_human']
@@ -92,5 +83,6 @@ class Query:
 if __name__ == '__main__':
     host = input().strip()
     time.sleep(Query.INITIAL_SLEEP)
+
     asyncio.run(Query.process_game(host=host, port=os.environ['PORT'], rcon_password=os.environ['RCON_PASSWORD']))
 
