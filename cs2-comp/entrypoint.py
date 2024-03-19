@@ -54,8 +54,8 @@ max_players = 5 if 'IS_WINGMAN' in vars and vars['IS_WINGMAN'] == '1' else 13
 # sv_pure 0
 # net_port_try 1
 base = ["./game/bin/linuxsteamrt64/cs2", "-dedicated", "-console", "-usercon", "-serverlogging", "+sv_logsdir LAN_LOGS",
-        "+sv_logfile 1", f"-maxplayers_override {max_players}", "+sv_reliableavatardata 2", "+sv_lan 1", "-nomaster", 
-        "+ip 0.0.0.0"]
+        "+sv_logfile 1", f"-maxplayers_override {max_players}", "+sv_reliableavatardata 2", "+sv_lan 1", 
+        "+ip 0.0.0.0", "+sv_pure 0", "+rcon_connected_clients_allow 0", "-net_port_try 1"]
 
 if not vars.get('SERVERCFGFILE'):
     vars['SERVERCFGFILE'] = 'server.cfg'
