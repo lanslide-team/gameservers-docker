@@ -5,9 +5,12 @@ import configparser
 import time
 
 def already_in_config(file: str, search_txt: str) -> bool:
-    with open(file) as f:
-        if search_txt in f.read():
-            return True
+    try: 
+        with open(file) as f:
+            if search_txt in f.read():
+                return True
+    except:
+        pass
     return False
 
 def find_or_replace(file: str, search_txt: str, replace_txt: str, line_start: bool=False) -> None:
@@ -47,9 +50,12 @@ max_players = 5 if 'IS_WINGMAN' in vars and vars['IS_WINGMAN'] == '1' else 13
 
 # insecure?
 # sv_load_forced_client_names_file
-base = ["./game/bin/linuxsteamrt64/cs2", "-dedicated", "-console", "-usercon", "+rcon_connected_clients_allow 1", "-serverlogging", "+sv_logsdir LAN_LOGS",
-        "+sv_logfile 1", f"-maxplayers_override {max_players}", "+sv_pure 0", "+sv_reliableavatardata 2", "+sv_lan 1", "-nomaster", 
-        "+ip 0.0.0.0", "+net_public_adr 0.0.0.0", "-net_port_try 1"]
+# rcon_connected_clients_allow
+# sv_pure 0
+# net_port_try 1
+base = ["./game/bin/linuxsteamrt64/cs2", "-dedicated", "-console", "-usercon", "-serverlogging", "+sv_logsdir LAN_LOGS",
+        "+sv_logfile 1", f"-maxplayers_override {max_players}", "+sv_reliableavatardata 2", "+sv_lan 1", "-nomaster", 
+        "+ip 0.0.0.0"]
 
 if not vars.get('SERVERCFGFILE'):
     vars['SERVERCFGFILE'] = 'server.cfg'

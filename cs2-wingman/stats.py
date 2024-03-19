@@ -40,6 +40,8 @@ class Query:
         pr = {}
 
         if 'IS_WINGMAN' in os.environ and os.environ['IS_WINGMAN'] == '1':
+            cls.run_command(host, port, rcon_password, f"game_mode 2")
+            time.sleep(1)
             cls.run_command(host, port, rcon_password, f"map {os.environ['MAP']}")
             time.sleep(Query.INITIAL_SLEEP)
 
