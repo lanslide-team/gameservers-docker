@@ -51,8 +51,8 @@
 		<autosave_replays>False</autosave_replays>
 		<autosave_validation_replays>False</autosave_validation_replays>
 
-		<referee_password></referee_password>
-		<referee_validation_mode>0</referee_validation_mode>		<!-- value is 0 (only validate top3 players),  1 (validate all players) -->
+		<referee_password>lanslide</referee_password>
+		<referee_validation_mode>1</referee_validation_mode>		<!-- value is 0 (only validate top3 players),  1 (validate all players) -->
 
 		<use_changing_validation_seed>False</use_changing_validation_seed>
 	</server_options>
