@@ -9,16 +9,32 @@ def process_env(key: str, default_value = None):
     except KeyError:
         return default_value
 
+def process_team_logo(team_name: str) -> str|None:
+    team_lookup = {
+        'knowsbears': 'KnowsBeersnoselogo.png', 
+        'kzg': None,
+        'vantage': 'Vantage_Esports.png',
+        'vexx': 'VEXXMAIN.png'
+    }
+
+    team_name = team_name.lower().replace(' ', '')
+
+    if team_name in team_lookup:
+        return team_lookup[team_name]
+
+    return None
 
 def generate_config() -> None:
     team1: str|None = process_env('TEAM1')
     team1_id: str|None = process_env('TEAM1_ID', '1')
     team1_tag: str|None = process_env('TEAM1_TAG', None)
     team1_flag: str|None = process_env('TEAM1_FLAG', 'AU')
+    team1_logo: str|None = process_team_logo(team1)
     team2: str|None = process_env('TEAM2')
     team2_id: str|None = process_env('TEAM2_ID', '2')
     team2_tag: str|None = process_env('TEAM2_TAG', None)
     team2_flag: str|None = process_env('TEAM2_FLAG', 'AU')
+    team2_logo: str|None = process_team_logo(team2)
     match_id: str = process_env('MATCH_ID', '1')
     match_api_key: str = process_env('MATCH_API_KEY', 'casper')
     num_maps: int|None = process_env('NUM_MAPS', 1)
@@ -49,8 +65,8 @@ def generate_config() -> None:
     # 'de_inferno', 'de_nuke', 'de_overpass', 'de_vertigo'
     config['maplist'] = [] if veto_map_pool is None else veto_map_pool.rstrip(',').split(',')
     config['veto_mode'] = [] if veto_mode is None else veto_mode.rstrip(',').split(',')
-    config['team1'] = {'id': team1_id, 'name': team1, 'tag': team1_tag, 'flag': team1_flag, 'players': None}
-    config['team2'] = {'id': team2_id, 'name': team2, 'tag': team2_tag, 'flag': team2_flag, 'players': None}
+    config['team1'] = {'id': team1_id, 'name': team1, 'tag': team1_tag, 'flag': team1_flag, 'logo': team1_logo, 'players': None}
+    config['team2'] = {'id': team2_id, 'name': team2, 'tag': team2_tag, 'flag': team2_flag, 'logo': team2_logo, 'players': None}
     config['matchid'] = str(match_id)
     config['num_maps'] = int(num_maps)
     config['players_per_team'] = int(players_per_team)         # 2 = wingman, 5 = comp

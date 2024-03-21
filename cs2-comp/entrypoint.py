@@ -53,8 +53,13 @@ max_players = 5 if 'IS_WINGMAN' in vars and vars['IS_WINGMAN'] == '1' else 13
 # rcon_connected_clients_allow
 # sv_pure 0
 # net_port_try 1
-base = ["./game/bin/linuxsteamrt64/cs2", "-dedicated", "-console", "-usercon", "-serverlogging", "+sv_logsdir LAN_LOGS",
-        "+sv_logfile 1", f"-maxplayers_override {max_players}", "+sv_reliableavatardata 2", "+sv_lan 1", 
+
+logs_folder = 'LAN_LOGS'
+if vars.get('MATCH_ID'):
+    logs_folder = f"{logs_folder}/{vars.get('MATCH_ID')}"
+
+base = ["./game/bin/linuxsteamrt64/cs2", "-dedicated", "-console", "-usercon", "-serverlogging", f"+sv_logsdir {logs_folder}",
+        "+sv_logfile 1", f"-maxplayers_override {max_players}", "+sv_reliableavatardata 2", 
         "+ip 0.0.0.0", "+sv_pure 0", "+rcon_connected_clients_allow 0", "-net_port_try 1"]
 
 if not vars.get('SERVERCFGFILE'):
@@ -66,7 +71,7 @@ if vars.get('PORT'):
     base.append('-hostport {PORT}'.format(**vars))
 
 if vars.get('SV_LAN'):
-    base.append('-sv_lan {SV_LAN}'.format(**vars))
+    base.append('+sv_lan {SV_LAN}'.format(**vars))
 
 # Set Tickrate
 if vars.get('TICKRATE'):

@@ -35,6 +35,25 @@ class Query:
         except:
             pr = {'Error': 'Timeout'}
 
+    @staticmethod
+    def process_team_logo(team_name: str) -> str|None:
+        if team_name is None:
+            return None
+
+        team_lookup = {
+            'knowsbears': 'KnowsBeersnoselogo.png',
+            'kzg': None,
+            'vantage': 'Vantage_Esports.png',
+            'vexx': 'VEXX MAIN.png'
+        }
+
+        team_name = team_name.lower().replace(' ', '').replace('_', '')
+
+        if team_name in team_lookup:
+            return team_lookup[team_name]
+
+        return None
+
     @classmethod
     async def process_game(cls, host: str, port: int, rcon_password: str) -> dict:
         pr = {}
@@ -47,6 +66,17 @@ class Query:
 
         # Load the match config
         cls.run_command(host, port, rcon_password, 'matchzy_loadmatch match.json')
+                   
+        team1_logo = None
+        if 'TEAM1' in os.environ:
+            team1_logo = cls.process_team_logo(os.environ['TEAM1'])
+        if 'TEAM2' in os.environ:
+            team2_logo = cls.process_team_logo(os.environ['TEAM2'])
+
+        if team1_logo is not None:
+            cls.__process_command(f"mp_teamlogo_1 {team1_logo}")
+        if team2_logo is not None:
+            cls.__process_command(f"mp_teamlogo_2 {team2_logo}")
 
         while True:
             try:
@@ -56,6 +86,7 @@ class Query:
                     hostname = cls.__process_command(client, 'hostname')
                     status_json = json.loads(cls.__process_command(client, 'status_json'))
                     sv_visiblemaxplayers = cls.__process_command(client, 'sv_visiblemaxplayers')
+
 
                     pr['Name'] = hostname
                     pr['MaxPlayers'] = sv_visiblemaxplayers
