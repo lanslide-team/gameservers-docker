@@ -60,7 +60,7 @@ if vars.get('MATCH_ID'):
 
 base = ["./game/bin/linuxsteamrt64/cs2", "-dedicated", "-console", "-usercon", "-serverlogging", f"+sv_logsdir {logs_folder}",
         "+sv_logfile 1", f"-maxplayers_override {max_players}", "+sv_reliableavatardata 2", 
-        "+ip 0.0.0.0", "+sv_pure 0", "+rcon_connected_clients_allow 0", "-net_port_try 1"]
+        "+ip 0.0.0.0", "+sv_pure 0", "+rcon_connected_clients_allow 1", "-net_port_try 1"]
 
 if not vars.get('SERVERCFGFILE'):
     vars['SERVERCFGFILE'] = 'server.cfg'
