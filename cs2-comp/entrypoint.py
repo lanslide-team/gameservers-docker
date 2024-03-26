@@ -134,6 +134,7 @@ base.append('+servercfgfile {SERVERCFGFILE}'.format(**vars))
 
 # Add STEAMTOKEN if required
 if vars.get('STEAMTOKEN'):
+    vars['STEAMTOKEN'] = '8AE67B67BCCE2900094448F53C665FDF'
     base.append('+sv_setsteamaccount {STEAMTOKEN}'.format(**vars))
 #else:
 #    f = open(f'{CONFIG_DIR}/' + vars['SERVERCFGFILE'], 'a')
