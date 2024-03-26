@@ -134,7 +134,6 @@ base.append('+servercfgfile {SERVERCFGFILE}'.format(**vars))
 
 # Add STEAMTOKEN if required
 if vars.get('STEAMTOKEN'):
-#    vars['STEAMTOKEN'] = '8AE67B67BCCE2900094448F53C665FDF'
     base.append('+sv_setsteamaccount {STEAMTOKEN}'.format(**vars))
 #else:
 #    f = open(f'{CONFIG_DIR}/' + vars['SERVERCFGFILE'], 'a')
@@ -241,5 +240,5 @@ os.system(f"echo \"{base}\" >> cmd_params")
 
 subprocess.call(base)
 
-while True:
-    time.sleep(1)
+#while True:
+#    time.sleep(1)
