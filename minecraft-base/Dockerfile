@@ -1,7 +1,7 @@
 FROM base:latest AS jdk
-ARG spigot_version=latest
+ARG spigot_version=1.21
 ENV SPIGOT_VERSION=${spigot_version}
-ARG java_version=17
+ARG java_version=21
 ENV JAVA_VERSION=${java_version}
 # todo: collapse these to single command
 RUN sed --in-place --regexp-extended "s/(\/\/)(archive\.ubuntu)/\1au.\2/" /etc/apt/sources.list \
@@ -24,7 +24,8 @@ RUN wget -O BuildTools.jar \
     https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar && \
     java -jar BuildTools.jar --rev $SPIGOT_VERSION
 
-RUN wget https://cdn.modrinth.com/data/fRQREgAc/versions/5F9fwzR1/Dynmap-3.7-beta-4-spigot.jar
+#RUN wget https://cdn.modrinth.com/data/fRQREgAc/versions/QtTWJjW6/Dynmap-3.7-beta-6-spigot.jar
+#https://cdn.modrinth.com/data/fRQREgAc/versions/5F9fwzR1/Dynmap-3.7-beta-6-spigot.jar
 #https://dynmap.us/releases/Dynmap-3.6-spigot.jar
 
 FROM jdk as final
