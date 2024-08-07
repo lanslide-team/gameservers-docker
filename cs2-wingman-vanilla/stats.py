@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 
+from __future__ import annotations
 import asyncio
 import json
 import os
 import sys
 import time
 from rcon.source import Client
-
 
 class Query:
     SOURCE_RESPONSE: list[str] = ['Name', 'Map', 'Players', 'MaxPlayers', 'GamePort']
@@ -82,7 +82,7 @@ class Query:
             try:
                 status_json = None
                 with Client(host, int(port), passwd=rcon_password) as client:
-        #            get5_status = json.loads(cls.__process_command(client, 'get5_status'))
+#                    get5_status = json.loads(cls.__process_command(client, 'get5_status'))
                     hostname = cls.__process_command(client, 'hostname')
                     status_json = json.loads(cls.__process_command(client, 'status_json'))
                     sv_visiblemaxplayers = cls.__process_command(client, 'sv_visiblemaxplayers')
@@ -90,7 +90,7 @@ class Query:
 
                     pr['Name'] = hostname
                     pr['MaxPlayers'] = sv_visiblemaxplayers
-        #            pr['Get5Status'] = None if 'Unknown command' in get5_status else get5_status
+#                    pr['Get5Status'] = None if 'Unknown command' in get5_status else get5_status
 
                     try:
                         pr['Players'] = status_json['server']['clients_human']
@@ -104,7 +104,8 @@ class Query:
 
             except asyncio.exceptions.TimeoutError:
                 pr = {'Error': 'Timeout'}
-            except: 
+            except Exception as e:
+                print(e)
                 pr = {'Error': 'Timeout'}
 
             with open('/cs2/stats.json', 'w', encoding='utf-8') as f:
