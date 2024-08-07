@@ -188,56 +188,6 @@ os.system("python3 config_admins.py > game/csgo/cfg/MatchZy/admins.json")
 os.system("python3 config_admins.py > game/csgo/addons/counterstrikesharp/configs/admins.json")
 os.system("python3 config_match.py > game/csgo/match.json")
 
-config_root = 'game/csgo/cfg/MatchZy'
-matchzy_cfg = config_root + '/config.cfg'
-live_cfg = config_root + '/live.cfg'
-warmup_cfg = config_root + '/warmup.cfg'
-
-# Modify MatchZy Settings
-# find_or_replace(file, search_txt, replace_txt)
-
-find_or_replace(matchzy_cfg, 'matchzy_knife_enabled_default', f"matchzy_knife_enabled_default {'true' if vars['ENABLE_KNIFE'] == '1' else 'false'}")
-find_or_replace(matchzy_cfg, 'matchzy_minimum_ready_required', f"matchzy_minimum_ready_required {vars['MIN_PLAYERS_TO_READY']}")
-find_or_replace(matchzy_cfg, 'matchzy_chat_prefix', f"matchzy_chat_prefix [{{Green}}{vars['EVENT_NAME']}{{Default}}]")
-find_or_replace(matchzy_cfg, 'matchzy_playout_enabled_default', f"matchzy_playout_enabled_default {'true' if vars['PLAYOUT_ENABLED'] == '1' else 'false'}")
-find_or_replace(matchzy_cfg, 'matchzy_demo_upload_url', f"matchzy_demo_upload_url \"{vars['DEMO_UPLOAD_URL']}\"")
-find_or_replace(matchzy_cfg, 'matchzy_demo_path', f"matchzy_demo_path \"LAN_DEMOS\"", True)
-find_or_replace(matchzy_cfg, 'matchzy_autostart_mode', f"matchzy_autostart_mode {vars['AUTOSTART_MODE']}")
-find_or_replace(matchzy_cfg, 'matchzy_use_pause_command_for_tactical_pause', f"matchzy_use_pause_command_for_tactical_pause {'true' if vars['USE_PAUSE_FOR_TECH'] == '1' else 'false'}")
-
-# Add new command
-find_or_replace(matchzy_cfg, 'matchzy_enable_match_scrim', f"matchzy_enable_match_scrim {'true' if vars['ENABLE_MATCH_SCRIM'] == '1' else 'false'}")
-
-# Add exta commands to the end
-find_or_replace(warmup_cfg, 'matchzy_remote_log_url', f"matchzy_remote_log_url \"https://portal.lanslide.com.au/api/v1/matches/{vars['MATCH_ID']}\"")
-find_or_replace(warmup_cfg, 'matchzy_remote_log_header_key', f"matchzy_remote_log_header_key Authorization")
-find_or_replace(warmup_cfg, 'matchzy_remote_log_header_value', f"matchzy_remote_log_header_value \"6583bac9a2455\"")
-find_or_replace(warmup_cfg, 'sv_auto_full_alltalk_during_warmup_half_end', 'sv_auto_full_alltalk_during_warmup_half_end 1')
-find_or_replace(warmup_cfg, 'sv_deadtalk', 'sv_deadtalk 1')
-find_or_replace(warmup_cfg, 'tv_relayvoice', 'tv_relayvoice 0')
-
-# Logging
-find_or_replace(warmup_cfg, 'log on', 'log on')
-find_or_replace(warmup_cfg, 'mp_logdetail', 'mp_logdetail 3')
-find_or_replace(warmup_cfg, 'mp_logmoney', 'mp_logmoney')
-find_or_replace(warmup_cfg, 'mp_logdetail_items', 'mp_logdetail_items 1')
-find_or_replace(warmup_cfg, 'mp_disconnect_kills_players', 'mp_disconnect_kills_players 0')
-
-# Update live config
-find_or_replace(live_cfg, 'mp_team_timeout_max', f"mp_team_timeout_max 3")
-find_or_replace(live_cfg, 'mp_freezetime', f"mp_freezetime {vars['FREEZETIME']}")
-find_or_replace(live_cfg, 'mp_overtime_startmoney', f"mp_overtime_startmoney {vars['OVERTIME_STARTMONEY']}")
-find_or_replace(live_cfg, 'mp_team_timeout_ot_max', 'mp_team_timeout_ot_max 1')
-find_or_replace(live_cfg, 'mp_team_timeout_ot_add_once', 'mp_team_timeout_ot_add_once 1')
-find_or_replace(live_cfg, 'mp_team_timeout_ot_add_each', 'mp_team_timeout_ot_add_each 1')
-find_or_replace(live_cfg, 'mp_technical_timeout_duration_s', 'mp_technical_timeout_duration_s 300')
-find_or_replace(live_cfg, 'sv_auto_full_alltalk_during_warmup_half_end', 'sv_auto_full_alltalk_during_warmup_half_end 1')
-find_or_replace(live_cfg, 'sv_deadtalk', 'sv_deadtalk 0')
-find_or_replace(live_cfg, 'tv_relayvoice', 'tv_relayvoice 0')
-
-
-os.system(f"echo \"{base}\" >> cmd_params")
-
 subprocess.call(base)
 
 while True:
