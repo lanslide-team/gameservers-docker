@@ -196,16 +196,31 @@ warmup_cfg = config_root + '/warmup.cfg'
 # Modify MatchZy Settings
 # find_or_replace(file, search_txt, replace_txt)
 
+find_or_replace(matchzy_cfg, 'matchzy_whitelist_enabled_default', f"matchzy_whitelist_enabled_default {'true' if vars['WHITELIST_ENABLED'] == '1' else 'false'}")
 find_or_replace(matchzy_cfg, 'matchzy_knife_enabled_default', f"matchzy_knife_enabled_default {'true' if vars['ENABLE_KNIFE'] == '1' else 'false'}")
 find_or_replace(matchzy_cfg, 'matchzy_minimum_ready_required', f"matchzy_minimum_ready_required {vars['MIN_PLAYERS_TO_READY']}")
+find_or_replace(matchzy_cfg, 'matchzy_demo_path', f"matchzy_demo_path \"{vars['DEMO_PATH']}\"", True)
+find_or_replace(matchzy_cfg, 'matchzy_demo_name_format ', f"matchzy_demo_name_format \"{vars['DEMO_NAME_FORMAT']}\"", True)
+find_or_replace(matchzy_cfg, 'matchzy_stop_command_available', f"matchzy_stop_command_available {'true' if vars['ENABLE_STOP_COMMAND'] == '1' else 'false'}", True)
+find_or_replace(matchzy_cfg, 'matchzy_use_pause_command_for_tactical_pause', f"matchzy_use_pause_command_for_tactical_pause {'true' if vars['USE_PAUSE_COMMAND_FOR_TAC'] == '1' else 'false'}", True)
+find_or_replace(matchzy_cfg, 'matchzy_enable_tech_pause', f"matchzy_enable_tech_pause {'true' if vars['ENABLE_TECH_PAUSE'] == '1' else 'false'}")
+find_or_replace(matchzy_cfg, 'matchzy_tech_pause_duration', f"matchzy_tech_pause_duration {vars['TECH_PAUSE_DURATION']}")
+find_or_replace(matchzy_cfg, 'matchzy_max_tech_pauses_allowed', f"matchzy_max_tech_pauses_allowed {vars['MAX_TECH_PAUSES']}")
+find_or_replace(matchzy_cfg, 'matchzy_pause_after_restore', f"matchzy_pause_after_restore {'true' if vars['PAUSE_AFTER_RESTORE'] == '1' else 'false'}")
 find_or_replace(matchzy_cfg, 'matchzy_chat_prefix', f"matchzy_chat_prefix [{{Green}}{vars['EVENT_NAME']}{{Default}}]")
+find_or_replace(matchzy_cfg, 'matchzy_admin_chat_prefix', f"matchzy_admin_chat_prefix {vars['ADMIN_CHAT_PREFIX']}")
+find_or_replace(matchzy_cfg, 'matchzy_chat_messages_timer_delay', f"matchzy_chat_messages_timer_delay {vars['CHAT_MESSAGES_TIMER_DELAY']}")
 find_or_replace(matchzy_cfg, 'matchzy_playout_enabled_default', f"matchzy_playout_enabled_default {'true' if vars['PLAYOUT_ENABLED'] == '1' else 'false'}")
+find_or_replace(matchzy_cfg, 'matchzy_kick_when_no_match_loaded', f"matchzy_kick_when_no_match_loaded {'true' if vars['KICK_WHEN_NO_MATCH'] == '1' else 'false'}")
+find_or_replace(matchzy_cfg, 'matchzy_reset_cvars_on_series_end', f"matchzy_reset_cvars_on_series_end {'true' if vars['RESET_CVARS_ON_SERIES_END'] == '1' else 'false'}")
 find_or_replace(matchzy_cfg, 'matchzy_demo_upload_url', f"matchzy_demo_upload_url \"{vars['DEMO_UPLOAD_URL']}\"")
-find_or_replace(matchzy_cfg, 'matchzy_demo_path', f"matchzy_demo_path \"LAN_DEMOS\"", True)
 find_or_replace(matchzy_cfg, 'matchzy_autostart_mode', f"matchzy_autostart_mode {vars['AUTOSTART_MODE']}")
-find_or_replace(matchzy_cfg, 'matchzy_use_pause_command_for_tactical_pause', f"matchzy_use_pause_command_for_tactical_pause {'true' if vars['USE_PAUSE_FOR_TECH'] == '1' else 'false'}")
-
-# Add new command
+find_or_replace(matchzy_cfg, 'matchzy_save_nades_as_global_enabled', f"matchzy_save_nades_as_global_enabled {'true' if vars['SAVE_NADES_AS_GLOBAL'] == '1' else 'false'}")
+find_or_replace(matchzy_cfg, 'matchzy_allow_force_ready', f"matchzy_allow_force_ready {'true' if vars['ALLOW_FORCE_READY'] == '1' else 'false'}")
+find_or_replace(matchzy_cfg, 'matchzy_max_saved_last_grenades', f"matchzy_max_saved_last_grenades {vars['MAX_SAVED_LAST_GRENADE']}")
+find_or_replace(matchzy_cfg, 'matchzy_smoke_color_enabled', f"matchzy_smoke_color_enabled {'true' if vars['SMOKE_COLOR_ENABLED'] == '1' else 'false'}")
+find_or_replace(matchzy_cfg, 'matchzy_everyone_is_admin', f"matchzy_everyone_is_admin {'true' if vars['EVERYONE_IS_ADMIN'] == '1' else 'false'}")
+find_or_replace(matchzy_cfg, 'matchzy_show_credits_on_match_start', f"matchzy_show_credits_on_match_start {'true' if vars['SHOW_CREDITS_AT_MATCH_START'] == '1' else 'false'}")
 find_or_replace(matchzy_cfg, 'matchzy_enable_match_scrim', f"matchzy_enable_match_scrim {'true' if vars['ENABLE_MATCH_SCRIM'] == '1' else 'false'}")
 
 # Add exta commands to the end
