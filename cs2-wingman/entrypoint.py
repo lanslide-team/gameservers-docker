@@ -202,6 +202,7 @@ find_or_replace(matchzy_cfg, 'matchzy_minimum_ready_required', f"matchzy_minimum
 find_or_replace(matchzy_cfg, 'matchzy_demo_path', f"matchzy_demo_path \"{vars['DEMO_PATH']}\"", True)
 find_or_replace(matchzy_cfg, 'matchzy_demo_name_format ', f"matchzy_demo_name_format \"{vars['DEMO_NAME_FORMAT']}\"", True)
 find_or_replace(matchzy_cfg, 'matchzy_stop_command_available', f"matchzy_stop_command_available {'true' if vars['ENABLE_STOP_COMMAND'] == '1' else 'false'}", True)
+find_or_replace(matchzy_cfg, 'matchzy_stop_command_no_damage', f"matchzy_stop_command_no_damage {'true' if vars['ENABLE_STOP_NO_DAMAGE'] == '1' else 'false'}", True)
 find_or_replace(matchzy_cfg, 'matchzy_use_pause_command_for_tactical_pause', f"matchzy_use_pause_command_for_tactical_pause {'true' if vars['USE_PAUSE_COMMAND_FOR_TAC'] == '1' else 'false'}", True)
 find_or_replace(matchzy_cfg, 'matchzy_enable_tech_pause', f"matchzy_enable_tech_pause {'true' if vars['ENABLE_TECH_PAUSE'] == '1' else 'false'}")
 find_or_replace(matchzy_cfg, 'matchzy_tech_pause_duration', f"matchzy_tech_pause_duration {vars['TECH_PAUSE_DURATION']}")
@@ -221,6 +222,10 @@ find_or_replace(matchzy_cfg, 'matchzy_max_saved_last_grenades', f"matchzy_max_sa
 find_or_replace(matchzy_cfg, 'matchzy_smoke_color_enabled', f"matchzy_smoke_color_enabled {'true' if vars['SMOKE_COLOR_ENABLED'] == '1' else 'false'}")
 find_or_replace(matchzy_cfg, 'matchzy_everyone_is_admin', f"matchzy_everyone_is_admin {'true' if vars['EVERYONE_IS_ADMIN'] == '1' else 'false'}")
 find_or_replace(matchzy_cfg, 'matchzy_show_credits_on_match_start', f"matchzy_show_credits_on_match_start {'true' if vars['SHOW_CREDITS_AT_MATCH_START'] == '1' else 'false'}")
+find_or_replace(matchzy_cfg, 'matchzy_hostname_format', f"matchzy_hostname_format \"{vars['HOSTNAME_FORMAT']}\"")
+
+find_or_replace(matchzy_cfg, 'matchzy_enable_damage_report', f"matchzy_enable_damage_report {'true' if vars['ENABLE_DAMAGE_REPORT'] == '1' else 'false'}")
+find_or_replace(matchzy_cfg, 'matchzy_match_start_message', f"matchzy_match_start_message {vars['MATCH_START_MESSAGE']}")
 find_or_replace(matchzy_cfg, 'matchzy_enable_match_scrim', f"matchzy_enable_match_scrim {'true' if vars['ENABLE_MATCH_SCRIM'] == '1' else 'false'}")
 
 # Add exta commands to the end
@@ -255,5 +260,5 @@ os.system(f"echo \"{base}\" >> cmd_params")
 
 subprocess.call(base)
 
-while True:
-    time.sleep(1)
+#while True:
+#    time.sleep(1)
