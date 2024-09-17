@@ -143,8 +143,8 @@ if vars.get('STEAMTOKEN'):
 # Enable TV
 if vars.get('TV_ENABLE') and vars['TV_ENABLE'] == '1':
     base.append('-addhltv1')
-    base.append('+tv_delay 0')
-    base.append('+tv_delay1 7')
+    base.append(f"+tv_delay {vars['TV_DELAY']}")
+    base.append(f"+tv_delay1 {vars['TV_DELAY1']}")
     base.append('+tv_advertise_watchable 0')
     base.append('+tv_enable 1')
     base.append('+tv_delaymapchange 1')
@@ -157,8 +157,8 @@ if vars.get('TV_ENABLE') and vars['TV_ENABLE'] == '1':
     base.append('+tv_port1 27021')
     base.append('+tv_snapshot_rate 128')
     base.append('+tv_snapshot_rate1 128')
-    base.append('+tv_password sadge')
-    base.append('+tv_relaypassword relaypwdsadge')
+    base.append(f"+tv_password {vars['TV_PASSWORD']}")
+    base.append(f"+tv_relaypassword {vars['TV_RELAYPASSWORD']}")
     base.append('+tv_relayradio 0')
     base.append('+tv_relayvoice 0')
 
