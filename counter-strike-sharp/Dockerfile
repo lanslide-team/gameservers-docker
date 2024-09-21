@@ -22,4 +22,4 @@ RUN wget -nc ${matchzy} -O m.zip && unzip m.zip -d /css && rm m.zip -f
 #COPY addons /css/addons`
 #COPY cfg /css/cfg
 COPY Lanslide /css/addons/counterstrikesharp/plugins/Lanslide
-#COPY MatchZy /css/addons/counterstrikesharp/plugins/MatchZy
+COPY MatchZy /css/addons/counterstrikesharp/plugins/MatchZy
