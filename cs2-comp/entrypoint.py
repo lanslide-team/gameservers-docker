@@ -133,8 +133,8 @@ base.append('+servercfgfile {SERVERCFGFILE}'.format(**vars))
 #    f.close()
 
 # Add STEAMTOKEN if required
-if vars.get('STEAMTOKEN'):
-    base.append('+sv_setsteamaccount {STEAMTOKEN}'.format(**vars))
+#if vars.get('STEAMTOKEN'):
+#    base.append('+sv_setsteamaccount {STEAMTOKEN}'.format(**vars))
 #else:
 #    f = open(f'{CONFIG_DIR}/' + vars['SERVERCFGFILE'], 'a')
 #    f.write('\nsv_lan 1\n')
