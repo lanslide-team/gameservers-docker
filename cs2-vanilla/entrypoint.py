@@ -152,7 +152,7 @@ if vars.get('TV_ENABLE') and vars['TV_ENABLE'] == '1':
     base.append('-addhltv1')
     base.append(f"+tv_delay {vars['TV_DELAY']}")
     base.append(f"+tv_delay1 {vars['TV_DELAY1']}")
-    base.append('+tv_advertise_watchable 1')
+    base.append('+tv_advertise_watchable 0')
     base.append('+tv_enable 1')
     base.append('+tv_delaymapchange 1')
     base.append('+tv_dispatchmode 1')
