@@ -70,13 +70,12 @@ class Query:
         team1_logo = None
         if 'TEAM1' in os.environ:
             team1_logo = cls.process_team_logo(os.environ['TEAM1'])
+            if team1_logo is not None:
+                cls.run_command(host, port, rcon_password, f"mp_teamlogo_1 {team1_logo}")
         if 'TEAM2' in os.environ:
             team2_logo = cls.process_team_logo(os.environ['TEAM2'])
-
-        if team1_logo is not None:
-            cls.run_command(host, port, rcon_password, f"mp_teamlogo_1 {team1_logo}")
-        if team2_logo is not None:
-            cls.run_command(host, port, rcon_password, f"mp_teamlogo_2 {team2_logo}")
+            if team2_logo is not None:
+                cls.run_command(host, port, rcon_password, f"mp_teamlogo_2 {team2_logo}")
 
         while True:
             try:
