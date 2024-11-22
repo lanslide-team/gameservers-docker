@@ -202,7 +202,7 @@ steamcmd() {
     games[reflex-arena]=329740
     games[retrocycles]=1306180
     games[rust]=258550
-    games[tf2]=232250
+#    games[tf2]=232250
     games[wreckfest]=361580
 
     ls ${gs_root}/${steamcmd}/${script} >/dev/null || (
