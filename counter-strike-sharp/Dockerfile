@@ -24,5 +24,5 @@ RUN wget -nc ${css} -O c.zip && unzip -o c.zip -d /css && rm c.zip -f
 
 #COPY addons /css/addons`
 #COPY cfg /css/cfg
-COPY Lanslide /css/addons/counterstrikesharp/plugins/Lanslide
+#COPY Lanslide /css/addons/counterstrikesharp/plugins/Lanslide
 COPY MatchZy /css/addons/counterstrikesharp/plugins/MatchZy

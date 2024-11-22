@@ -10,7 +10,7 @@ from rcon.source import Client
 
 class Query:
     SOURCE_RESPONSE: list[str] = ['Name', 'Map', 'Players', 'MaxPlayers', 'GamePort']
-    INITIAL_SLEEP: int = 5
+    INITIAL_SLEEP: int = 15
     DEFAULT_SLEEP: int = 5
 
     @classmethod
@@ -58,11 +58,11 @@ class Query:
     async def process_game(cls, host: str, port: int, rcon_password: str) -> dict:
         pr = {}
 
-        if 'IS_WINGMAN' in os.environ and os.environ['IS_WINGMAN'] == '1':
-            cls.run_command(host, port, rcon_password, f"game_mode 2")
-            time.sleep(1)
-            cls.run_command(host, port, rcon_password, f"map {os.environ['MAP']}")
-            time.sleep(Query.INITIAL_SLEEP)
+#        if 'IS_WINGMAN' in os.environ and os.environ['IS_WINGMAN'] == '1':
+#            cls.run_command(host, port, rcon_password, f"game_mode 2")
+#            time.sleep(1)
+#            cls.run_command(host, port, rcon_password, f"map {os.environ['MAP']}")
+#            time.sleep(Query.INITIAL_SLEEP)
 
         # Load the match config
         cls.run_command(host, port, rcon_password, 'matchzy_loadmatch match.json')
