@@ -24,7 +24,11 @@ RUN wget -O BuildTools.jar \
     https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar && \
     java -jar BuildTools.jar --rev $SPIGOT_VERSION
 
-RUN wget https://cdn.modrinth.com/data/fRQREgAc/versions/AdtrWcU2/Dynmap-3.7-beta-7-spigot.jar
+
+RUN wget https://github.com/user-attachments/files/17738419/Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip && \
+    unzip Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip && \
+    rm Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip -f
+#RUN wget https://cdn.modrinth.com/data/fRQREgAc/versions/AdtrWcU2/Dynmap-3.7-beta-7-spigot.jar
 #https://cdn.modrinth.com/data/fRQREgAc/versions/QtTWJjW6/Dynmap-3.7-beta-6-spigot.jar
 #https://cdn.modrinth.com/data/fRQREgAc/versions/5F9fwzR1/Dynmap-3.7-beta-6-spigot.jar
 #https://dynmap.us/releases/Dynmap-3.6-spigot.jar
