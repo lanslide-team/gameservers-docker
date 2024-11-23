@@ -17,6 +17,7 @@ docker start mariadb || docker run --name mariadb --network games -e MYSQL_ROOT_
 
 docker build -t='base:latest' base/
 
+docker build -t='cs-base:latest' cs-base/
 docker build -t='cs2-base:latest' cs2-base/
 docker build -t='cs2-armsrace:latest' cs2-armsrace/ --no-cache
 docker build -t='cs2-vanilla:latest' cs2-vanilla/
