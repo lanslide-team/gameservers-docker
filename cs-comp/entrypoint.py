@@ -7,7 +7,7 @@ vars = os.environ
 max_players = 5 if 'IS_WINGMAN' in vars and vars['IS_WINGMAN'] == '1' else 13
 
 CONFIG_DIR = '/cs/cstrike'
-base = ["./hlds_run", "-game cstrike", "-console", "-dev", "-usercon", "+ip 0.0.0.0"]
+base = ["./hlds_run", "-game cstrike", "-console", "-debug", "-usercon", "+ip 0.0.0.0"]
 
 if not vars.get('SERVERCFGFILE'):
     vars['SERVERCFGFILE'] = 'server.cfg'
@@ -73,6 +73,9 @@ if 'TV_NAME' in vars:
 
     base.append('+tv_name {TV_NAME}'.format(**vars))
     base.append('+tv_title {TV_NAME}'.format(**vars))
+
+os.system("python3 config_admins.py > /cs/cstrike/addons/amxmodx/configs/users.ini")
+os.system("python3 config_admins_mb.py >> /cs/cstrike/addons/matchbot/users.txt")
 
 subprocess.call(base)
 

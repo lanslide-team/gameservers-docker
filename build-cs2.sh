@@ -12,6 +12,10 @@ if [ "$1" != "cached" ]; then
 fi
 
 docker build -t='base:latest' base/
+docker build -t='cs-base:latest' cs-base/ --no-cache
+docker build -t='cs-vanilla:latest' cs-vanilla/ --no-cache
+docker build -t='amxx:latest' amxx/ --no-cache
+docker build -t='cs-comp:latest' cs-comp/ --no-cache
 docker build -t='cs2-base:latest' cs2-base/ --no-cache
 docker build -t='cs2-armsrace:latest' cs2-armsrace/ --no-cache
 docker build -t='counter-strike-sharp:latest' counter-strike-sharp/ --no-cache
