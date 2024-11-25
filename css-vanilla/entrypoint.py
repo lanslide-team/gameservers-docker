@@ -65,12 +65,23 @@ elif vars.get('HOSTNAME'):
 
 base.append('+servercfgfile {SERVERCFGFILE}'.format(**vars))
 
-if 'TV_NAME' in vars:
-    if vars['TV_NAME'] == 'GOTV':
-        vars['TV_NAME'] = '[TV] ' + vars['HOSTNAME']
+if vars['TV_ENABLE']:
+    base.append('+tv_enable 1')
+    try:
+        tv_name = vars['TV_NAME']
+    except KeyError:
+        tv_name = None
 
-    base.append('+tv_name {TV_NAME}'.format(**vars))
-    base.append('+tv_title {TV_NAME}'.format(**vars))
+    if tv_name is None or tv_name == 'GOTV':
+        tv_name = f"[TV] {vars['HOSTNAME']}"
+    
+    f = open(f'{CONFIG_DIR}/' + vars['SERVERCFGFILE'], 'a')
+    f.write(f'\ntv_name "{tv_name}"')
+    f.write(f'\ntv_title "{tv_name}"')
+    f.close()
+
+
+os.system("python3 /css/cstrike/config_admins.py >> /css/cstrike/addons/sourcemod/configs/admins_simple.ini && rm /css/cstrike/config_admins.py -f")
 
 subprocess.call(base)
 

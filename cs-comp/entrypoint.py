@@ -67,13 +67,6 @@ elif vars.get('HOSTNAME'):
 
 base.append('+servercfgfile {SERVERCFGFILE}'.format(**vars))
 
-if 'TV_NAME' in vars:
-    if vars['TV_NAME'] == 'GOTV':
-        vars['TV_NAME'] = '[TV] ' + vars['HOSTNAME']
-
-    base.append('+tv_name {TV_NAME}'.format(**vars))
-    base.append('+tv_title {TV_NAME}'.format(**vars))
-
 os.system("python3 config_admins.py > /cs/cstrike/addons/amxmodx/configs/users.ini")
 os.system("python3 config_admins_mb.py >> /cs/cstrike/addons/matchbot/users.txt")
 
