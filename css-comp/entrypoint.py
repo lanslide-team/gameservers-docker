@@ -65,7 +65,7 @@ elif vars.get('HOSTNAME'):
 
 base.append('+servercfgfile {SERVERCFGFILE}'.format(**vars))
 
-if vars['TV_ENABLE']:
+if vars['TV_ENABLE'] == '1':
     base.append('+tv_enable 1')
     try:
         tv_name = vars['TV_NAME']
