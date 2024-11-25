@@ -9,7 +9,7 @@ RUN dpkg --add-architecture i386; apt-get update;  apt-get install -y libstdc++6
 USER steam
 
 COPY --chown=steam:steam data /tf2
-COPY --from=sourcemod --chown=steam:steam /cs2 /tf2/tf/
+COPY --from=sourcemod --chown=steam:steam /sm /tf2/tf/
 
 WORKDIR /tf2
 

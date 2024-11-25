@@ -194,6 +194,7 @@ steamcmd() {
 
     # Declare games to update here
     games[cs-base]=90
+    games[css-base]=232330
     games[cs2-base]=730
     games[altitude]=41300
     games[7days]=294420

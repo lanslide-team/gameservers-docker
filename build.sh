@@ -19,8 +19,10 @@ docker build -t='base:latest' base/
 
 docker build -t='cs-base:latest' cs-base/ --no-cache
 docker build -t='cs-venilla:latest' cs-vanilla/ --no-cache
-docker build -t='amxx:latest' amxx/ --no-cache
 docker build -t='cs-comp:latest' cs-comp/ --no-cache
+docker build -t='css-base:latest' css-base/ --no-cache
+docker build -t='css-venilla:latest' css-vanilla/ --no-cache
+docker build -t='css-comp:latest' css-comp/ --no-cache
 docker build -t='cs2-base:latest' cs2-base/
 docker build -t='cs2-armsrace:latest' cs2-armsrace/ --no-cache
 docker build -t='cs2-vanilla:latest' cs2-vanilla/
