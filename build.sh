@@ -17,6 +17,8 @@ docker start mariadb || docker run --name mariadb --network games -e MYSQL_ROOT_
 
 docker build -t='base:latest' base/
 
+docker build -t='amxx:latest' amxx/
+docker build -t='sourcemod:latest' sourcemod/
 docker build -t='cs-base:latest' cs-base/ --no-cache
 docker build -t='cs-venilla:latest' cs-vanilla/ --no-cache
 docker build -t='cs-comp:latest' cs-comp/ --no-cache
@@ -32,8 +34,6 @@ docker build -t='cs2-comp:latest' cs2-comp/
 docker build -t='cs2-wingman:latest' cs2-wingman/
 
 #docker build -t='csgo-base:latest' csgo-base/
-docker build -t='amxx:latest' amxx/
-docker build -t='sourcemod:latest' sourcemod/
 #docker build -t='ls-warmod:latest' ls-warmod/
 #docker build -t='csgo-comp:latest' csgo-comp/
 #docker build -t='csgo-dm:latest' csgo-dm/
@@ -49,7 +49,7 @@ docker build -t='altitude:latest' altitude/
 docker pull factoriotools/factorio:latest
 docker build -t='haloce:latest' haloce/
 docker build -t='hl2:latest' hl2/
-docker build -t='l4d2:latest' l4d2/
+#docker build -t='l4d2:latest' l4d2/
 docker build -t='minecraft:latest' minecraft/
 docker build -t='minecraft-base:latest' minecraft-base/
 docker build -t='minecraft-build:latest' minecraft-build/

@@ -31,8 +31,8 @@ RUN wget -O ess.zip https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/ar
 RUN unzip ess.zip
 RUN wget -O join.zip https://jenkins.sirblobman.xyz/job/SirBlobman/job/JoinCommands/job/main/lastSuccessfulBuild/artifact/*zip*/target.zip
 RUN unzip join.zip
-RUN wget -O mv.zip http://ci.onarandombox.com/job/Multiverse-Core/lastSuccessfulBuild/artifact/target/*zip*/target.zip
-RUN unzip mv.zip
+#RUN wget -O mv.zip http://ci.onarandombox.com/job/Multiverse-Core/lastSuccessfulBuild/artifact/target/*zip*/target.zip
+#RUN unzip mv.zip
 RUN wget https://ci.dmulloy2.net/job/ProtocolLib/lastStableBuild/artifact/build/libs/ProtocolLib.jar
 RUN wget -O luckPerm.zip https://ci.lucko.me/view/LuckPerms/job/LuckPerms/lastSuccessfulBuild/artifact/bukkit/loader/build/libs/*zip*/libs.zip
 RUN unzip luckPerm.zip
@@ -55,8 +55,8 @@ COPY --from=build /build/Dynmap*.jar plugins/
 COPY --from=build /build/Vault.jar plugins/
 COPY --from=build /build/WorldBorder.jar plugins/
 COPY --from=build /build/libs/Plot2Dynmap-*.jar plugins/
-COPY --from=build /build/target/ProtocolLib*.jar plugins/
-COPY --from=build /build/target/Multiverse-Core-*-SNAPSHOT.jar plugins/
+#COPY --from=build /build/target/ProtocolLib*.jar plugins/
+#COPY --from=build /build/target/Multiverse-Core-*-SNAPSHOT.jar plugins/
 COPY --from=build /build/archive/builder/build/libs/JoinCommands-*.jar plugins/
 COPY --from=build /build/jars/EssentialsX-*.jar plugins/
 COPY --from=build /build/jars/EssentialsXAntiBuild*.jar plugins/

@@ -216,7 +216,7 @@ steamcmd() {
     for game in "${!games[@]}"
     do
         echo "Updating game [${game}]"
-        if [ "${game}" = "altitude" -o "${game}" = "retrocycles" ]; then
+        if [ "${game}" = "altitude" -o "${game}" = "retrocycles" -o "${game}" = "l4d2" ]; then
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login_user} +app_update ${games[$game]} +quit
         elif [ "${game}" = "cs-base" ]; then
 #            cp ${gs_root}/${steamcmd}/linux64/steamclient.so ${gs_root}/${game}/ -f 

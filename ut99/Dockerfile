@@ -13,7 +13,7 @@ ADD data/Mutators/* /ut-data/
 # Additional Mods
 ADD data/Mods/* /ut-data/
 # Additional Maps Packed
-ADD data/Maps-Packed/* /ut-data/
+ADD "data/Maps-Packed/*" /ut-data/
 # Customized Configs
 ADD data/Configs/* /ut-data/System/
 # Additional Single Maps
