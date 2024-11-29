@@ -17,9 +17,9 @@ For example:
 ```
 apt-get install git svn w3m wget unzip
 dnf install docker git svn w3m wget unzip
-
+```
 You may need requirements for steamcmd:
-
+```
 apt install lib32gcc-s1 libc6-i386 lib32stdc++6 curl wget tar
 dnf install glibc.i686 libstdc++.i686 curl wget tar
 ```
