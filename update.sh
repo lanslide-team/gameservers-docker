@@ -143,10 +143,9 @@ ut99() {
     declare ut_folder="ut99"
     declare sub_folder="data"
 
-    if [ -d $gs_root/$ut_folder/$sub_folder ]; then
-        svn update $gs_root/$ut_folder/$sub_folder
-    else
-        svn checkout $ut_server_root/trunk/files $gs_root/$ut_folder/$sub_folder
+
+    if [ !  -d $gs_root/$ut_folder/$sub_folder ]; then
+        git clone https://github.com/Roemer/ut99-server.git $gs_root/$ut_folder/clone && mv $gs_root/$ut_folder/clone/files $gs_root/$ut_folder/$sub_folder && rm $gs_root/$ut_folder/clone -rf
     fi
 }
 
