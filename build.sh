@@ -19,6 +19,7 @@ docker build -t='base:latest' base/
 
 docker build -t='amxx:latest' amxx/
 docker build -t='sourcemod:latest' sourcemod/
+docker build -t='counter-strike-sharp:latest' counter-strike-sharp
 docker build -t='cs-base:latest' cs-base/ --no-cache
 docker build -t='cs-venilla:latest' cs-vanilla/ --no-cache
 docker build -t='cs-comp:latest' cs-comp/ --no-cache
@@ -29,7 +30,6 @@ docker build -t='cs2-base:latest' cs2-base/
 docker build -t='cs2-armsrace:latest' cs2-armsrace/ --no-cache
 docker build -t='cs2-vanilla:latest' cs2-vanilla/
 docker build -t='cs2-wingman-vanilla:latest' cs2-wingman-vanilla/ --no-cache
-docker build -t='counter-strike-sharp:latest' counter-strike-sharp
 docker build -t='cs2-comp:latest' cs2-comp/
 docker build -t='cs2-wingman:latest' cs2-wingman/
 
