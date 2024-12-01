@@ -24,9 +24,11 @@ RUN wget -O BuildTools.jar \
     https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar && \
     java -jar BuildTools.jar --rev $SPIGOT_VERSION
 
-RUN wget -O ps.zip https://github.com/IntellectualSites/PlotSquared/archive/refs/tags/7.4.0.zip
-RUN unzip ps.zip
-RUN /build/PlotSquared-*/gradlew
+RUN git clone https://github.com/IntellectualSites/PlotSquared
+#RUN /build/PlotSquared-*/gradlew init --overwrite
+RUN cd PlotSquared && ./gradlew build
+#init --overwrite
+#RUN /build/PlotSquared/gradlew build
 
 #RUN wget -O plt2dyn.zip https://ci.athion.net/job/Plot2Dynmap/lastSuccessfulBuild/artifact/build/libs/*zip*/libs.zip
 #RUN unzip plt2dyn.zip
@@ -68,6 +70,7 @@ COPY --from=build /build/Dynmap*.jar plugins/
 COPY --from=build /build/Vault.jar plugins/
 COPY --from=build /build/WorldBorder.jar plugins/
 COPY --from=build /build/Plot2Dynmap-*.jar plugins/
+COPY --from=build /build/PlotSquared/Bukkit/build/libs/plotsquared-bukkit-*-SNAPSHOT.jar plugins/
 #COPY --from=build /build/target/ProtocolLib*.jar plugins/
 COPY --from=build /build/multiverse-Core-*.jar plugins/
 COPY --from=build /build/archive/builder/build/libs/JoinCommands-*.jar plugins/
