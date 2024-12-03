@@ -215,7 +215,7 @@ steamcmd() {
     for game in "${!games[@]}"
     do
         echo "Updating game [${game}]"
-        if [ "${game}" = "altitude" -o "${game}" = "retrocycles" -o "${game}" = "l4d2" ]; then
+        if [ "${game}" = "altitude" -o "${game}" = "retrocycles" ]; then
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login_user} +app_update ${games[$game]} +quit
         elif [ "${game}" = "cs-base" ]; then
 #            cp ${gs_root}/${steamcmd}/linux64/steamclient.so ${gs_root}/${game}/ -f 
@@ -225,6 +225,9 @@ steamcmd() {
 	    ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login_user} +app_update ${games[$game]} +quit
         elif [ "${game}" = "wreckfest" -o "${game}" = "reflex-arena" ]; then
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login} +@sSteamCmdForcePlatformType windows +app_update ${games[$game]} +quit
+        elif [ "${game}" = "l4d2" ]; then
+            ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login} +@sSteamCmdForcePlatformType windows +app_update ${games[$game]} +quit
+            ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login} +@sSteamCmdForcePlatformType linux +app_update ${games[$game]} +quit
         else
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login} +app_update ${games[$game]} +quit
         fi
