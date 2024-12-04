@@ -49,7 +49,9 @@ docker build -t='altitude:latest' altitude/
 docker pull factoriotools/factorio:latest
 docker build -t='haloce:latest' haloce/
 docker build -t='hl2:latest' hl2/
-docker build -t='l4d2:latest' l4d2/
+docker build -t='l4d2-base:latest' l4d2-base/
+docker build -t='l4d2-vanilla:latest' l4d2-vanilla/
+docker build -t='l4d2-super-versus:latest' l4d2-super-versus/
 docker build -t='minecraft:latest' minecraft/
 docker build -t='minecraft-base:latest' minecraft-base/
 docker build -t='minecraft-build:latest' minecraft-build/

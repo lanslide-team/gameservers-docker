@@ -14,9 +14,4 @@ COPY --from=sourcemod --chown=steam:steam /sm /l4d2/left4dead2/
 WORKDIR /l4d2
 
 COPY --chown=steam:steam cfg/server.cfg left4dead2/cfg/server.cfg
-COPY --chown=steam:steam entrypoint.sh entrypoint.sh
 COPY --chown=steam:steam stats.py stats.py
-
-RUN chmod +x entrypoint.sh
-
-ENTRYPOINT /l4d2/entrypoint.sh

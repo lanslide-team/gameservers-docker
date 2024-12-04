@@ -199,7 +199,7 @@ steamcmd() {
     games[7days]=294420
 #    games[csgo-base]=740
     games[hl2]=232370
-    games[l4d2]=222860
+    games[l4d2-base]=222860
     games[reflex-arena]=329740
     games[retrocycles]=1306180
     games[rust]=258550
