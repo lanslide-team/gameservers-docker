@@ -22,6 +22,6 @@ if [[ -n $MAPCYCLE ]]; then
 
 fi
 
-hostname -i | python3 stats.py &
+hostname -I | python3 stats.py &
 
 ./srcds_run -console -game hl2mp +port ${PORT} +maxplayers ${MAX_PLAYERS} +maxplayers_override ${MAX_PLAYERS} +exec ${SERVER_CFG} +map ${MAP}

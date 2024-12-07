@@ -4,7 +4,7 @@ ENV_VAR_ARR='SERVER_NAME RCON_PASSWORD SV_PASSWORD SV_FLAGS Z_DIFFICULTY'
 
 SERVER_NAME="${SERVER_NAME:-LAN-slide HL2DM}"
 MAX_PLAYERS="${MAX_PLAYERS:-8}"
-PORT="${PORT:-27015}"
+#PORT="${PORT:-27015}"
 MAP="${MAP:-c1m4_atrium}"
 RCON_PASSWORD="${RCON_PASSWORD:-lanslide}"
 SV_PASSOWRD="${SV_PASSWORD:-}"
@@ -27,6 +27,8 @@ done
 #    echo "mapcyclefile mapcycle_custom.txt" >> /hl2/hl2mp/cfg/server.cfg
 #fi
 
-hostname -i | python3 stats.py &
+hostname -I | python3 stats.py &
 
-./srcds_run -console -game ${GAME} +port ${PORT} +maxplayers ${MAX_PLAYERS} +maxplayers_override ${MAX_PLAYERS} +map ${MAP}
+python3 /l4d2/left4dead2/config_admins.py >> /l4d2/left4dead2/addons/sourcemod/configs/admins_simple.ini && rm /l4d2/left4dead2/config_admins.py -f
+
+./srcds_run -debug -console -game ${GAME} +maxplayers ${MAX_PLAYERS} +maxplayers_override ${MAX_PLAYERS} +map ${MAP}
