@@ -15,7 +15,7 @@ sv_ban_penalty $SV_BAN_PENALTY
 load
 sv_mapvote $SV_MAPVOTE
 sv_mapcycle_timeout $SV_MAPCYCLE_TIMEOUT
-sv_mapcycle_add $SV_MAPCYCLE_ADD
+sv_mapcycle_add $MAP "$GAMETYPE"
 sv_mapcycle_begin
 
 
