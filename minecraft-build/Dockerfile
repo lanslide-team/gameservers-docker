@@ -61,6 +61,8 @@ RUN wget -O worldedit.jar https://dev.bukkit.org/projects/worldedit/files/latest
 
 # server.properties
 
+RUN wget -O Geyser-Spigot.jar https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
+
 FROM jdk as final
 ADD server.properties commands.yml start.sh advertise.py stats.py /spigot/
 COPY plugins plugins/
@@ -69,6 +71,7 @@ COPY --from=build /build/spigot-*.jar .
 COPY --from=build /build/Dynmap*.jar plugins/
 COPY --from=build /build/Vault.jar plugins/
 COPY --from=build /build/WorldBorder.jar plugins/
+COPY --from=build /build/Geyser-*.jar plugins/
 COPY --from=build /build/Plot2Dynmap-*.jar plugins/
 COPY --from=build /build/PlotSquared/Bukkit/build/libs/plotsquared-bukkit-*-SNAPSHOT.jar plugins/
 #COPY --from=build /build/target/ProtocolLib*.jar plugins/

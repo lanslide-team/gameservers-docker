@@ -33,11 +33,14 @@ RUN wget https://github.com/user-attachments/files/17738419/Dynmap-3.7-beta-7_1.
 #https://cdn.modrinth.com/data/fRQREgAc/versions/5F9fwzR1/Dynmap-3.7-beta-6-spigot.jar
 #https://dynmap.us/releases/Dynmap-3.6-spigot.jar
 
+RUN wget -O Geyser-Spigot.jar https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
+
 FROM jdk as final
 ADD server.properties advertise.py stats.py /spigot/
 COPY plugins plugins
 
 #COPY --from=build /build/ChatControl-*.jar plugins/
+COPY --from=build /build/Geyser-*.jar plugins/
 COPY --from=build /build/spigot-*.jar .
 COPY --from=build /build/Dynmap*.jar plugins/
 
