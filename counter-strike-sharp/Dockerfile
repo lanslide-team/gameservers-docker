@@ -15,11 +15,11 @@ RUN curl -s https://mms.alliedmods.net/mmsdrop/2.0/mmsource-2.0.0-git1314-linux.
 #RUN wget -nc ${css_latest} -O css.zip && unzip css.zip -d /css && rm css.zip -f
 
 #RUN matchzy=$(curl -s "https://api.github.com/repos/shobhit-pathak/MatchZy/releases/latest" | grep -E "with-cssharp-linux.*zip" | cut -d : -f 2,3 | tr -d \" | sed -n '2p' | xargs)
-ARG version="0.8.6"
+ARG version="0.8.7"
 ARG matchzy="https://github.com/shobhit-pathak/MatchZy/releases/download/${version}/MatchZy-${version}-with-cssharp-linux.zip"
 RUN wget -nc ${matchzy} -O m.zip && unzip m.zip -d /css && rm m.zip -f
 
-ARG css="https://github.com/roflmuffin/CounterStrikeSharp/releases/download/v276/counterstrikesharp-with-runtime-build-276-linux-42dd270.zip"
+ARG css="https://github.com/roflmuffin/CounterStrikeSharp/releases/download/v294/counterstrikesharp-with-runtime-build-294-linux-466da1b.zip"
 RUN wget -nc ${css} -O c.zip && unzip -o c.zip -d /css && rm c.zip -f
 
 #COPY addons /css/addons`
