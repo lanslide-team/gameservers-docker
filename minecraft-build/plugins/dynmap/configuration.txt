@@ -174,15 +174,24 @@ components:
     label: "Location"
     hidey: false
     show-mcr: false
-    
+
    # Note: more than one logo component can be defined
-  - class: org.dynmap.ClientComponent
-    type: logo
-    text: "PAX"
-    logourl: "pax.png"
-    linkurl: "http://www.paxaustralia.com.au"
-    Valid positions: top-left, top-right, bottom-left, bottom-right
-    position: bottom-left
+#  - class: org.dynmap.ClientComponent
+#    type: logo
+#    text: "-FBCS-"
+#    logourl: "fbcs.jpg"
+#    linkurl: "https://www.facebook.com/Fatbeatscleanshapes"
+    # Valid positions: top-left, top-right, bottom-left, bottom-right
+#    position: bottom-left
+
+   # Note: more than one logo component can be defined
+#  - class: org.dynmap.ClientComponent
+#    type: logo
+#    text: "PAX"
+#    logourl: "pax.png"
+#    linkurl: "http://www.paxaustralia.com.au"
+#    Valid positions: top-left, top-right, bottom-left, bottom-right
+#    position: bottom-left
 
 #  - class: org.dynmap.ClientComponent
 #    type: logo
@@ -208,13 +217,13 @@ components:
 #    Valid positions: top-left, top-right, bottom-left, bottom-right
 #    position: bottom-right
 
-#  - class: org.dynmap.ClientComponent
-#    type: logo
-#    text: "LANSLIDE"
-#    logourl: "lanslide_logo.png"
-#    linkurl: "https://www.lanslide.com.au"
-#    Valid positions: top-left, top-right, bottom-left, bottom-right
-#    position: bottom-right
+  - class: org.dynmap.ClientComponent
+    type: logo
+    text: "LANSLIDE"
+    logourl: "lanslide_logo.png"
+    linkurl: "https://www.lanslide.com.au"
+    Valid positions: top-left, top-right, bottom-left, bottom-right
+    position: bottom-right
  
 #  - class: org.dynmap.ClientComponent
   #  type: logo

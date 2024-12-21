@@ -1,6 +1,6 @@
 FROM base:latest AS jdk
 ARG spigot_version=latest
-ENV SPIGOT_VERSION=${spigot_version}
+ENV SPIGOT_VERSION=1.21.4
 ARG java_version=21
 ENV JAVA_VERSION=${java_version}
 # todo: collapse these to single command
@@ -32,7 +32,10 @@ RUN cd PlotSquared && ./gradlew build
 
 #RUN wget -O plt2dyn.zip https://ci.athion.net/job/Plot2Dynmap/lastSuccessfulBuild/artifact/build/libs/*zip*/libs.zip
 #RUN unzip plt2dyn.zip
-RUN wget https://github.com/IntellectualSites/Plot2Dynmap/releases/download/7.0.0/Plot2Dynmap-7.0.0.jar
+RUN wget https://starcatcher.us/Jacob/Dynmap-3.7-beta-7-spigot.zip && \
+    unzip Dynmap-3.7-beta-7-spigot.zip && \
+    rm Dynmap-3.7-beta-7-spigot.zip -f
+
 #RUN rm ./libs/*-javadoc.jar
 #RUN rm ./libs/*-sources.jar
 RUN wget -O ess.zip https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/*zip*/jars.zip
@@ -49,9 +52,9 @@ RUN wget https://ci.dmulloy2.net/job/ProtocolLib/lastStableBuild/artifact/build/
 RUN wget https://download.luckperms.net/1561/bukkit/loader/LuckPerms-Bukkit-5.4.146.jar
 
 #https://dynmap.us/releases/Dynmap-3.6-spigot.jar
-RUN wget https://github.com/user-attachments/files/17738419/Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip && \
-    unzip Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip && \
-    rm Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip -f
+#RUN wget https://github.com/user-attachments/files/17738419/Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip && \
+#    unzip Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip && \
+#    rm Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip -f
 
 RUN wget https://github.com/MilkBowl/Vault/releases/download/1.7.3/Vault.jar
 RUN wget https://github.com/PryPurity/WorldBorder/releases/download/v2.1.5/WorldBorder.jar
