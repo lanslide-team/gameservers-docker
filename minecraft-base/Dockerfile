@@ -1,5 +1,5 @@
 FROM base:latest AS jdk
-ARG spigot_version=1.21.4
+ARG spigot_version=1.21.5
 ENV SPIGOT_VERSION=${spigot_version}
 ARG java_version=21
 ENV JAVA_VERSION=${java_version}
@@ -33,9 +33,11 @@ RUN wget -O BuildTools.jar \
 #    unzip Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip && \
 #    rm Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip -f
 
-RUN wget https://starcatcher.us/Jacob/Dynmap-3.7-beta-7-spigot.zip && \
-    unzip Dynmap-3.7-beta-7-spigot.zip && \
-    rm Dynmap-3.7-beta-7-spigot.zip -f
+#RUN wget https://starcatcher.us/Jacob/Dynmap-3.7-beta-7-spigot.zip && \
+#    unzip Dynmap-3.7-beta-7-spigot.zip && \
+#    rm Dynmap-3.7-beta-7-spigot.zip -f
+RUN wget https://cdn.modrinth.com/data/fRQREgAc/versions/ImNNT17B/Dynmap-3.7-beta-8-spigot.jar
+
 #RUN wget https://cdn.modrinth.com/data/fRQREgAc/versions/AdtrWcU2/Dynmap-3.7-beta-7-spigot.jar
 #https://cdn.modrinth.com/data/fRQREgAc/versions/QtTWJjW6/Dynmap-3.7-beta-6-spigot.jar
 #https://cdn.modrinth.com/data/fRQREgAc/versions/5F9fwzR1/Dynmap-3.7-beta-6-spigot.jar
