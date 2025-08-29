@@ -13,7 +13,7 @@ csgo-surf/maps
 haloce/data
 hl2/data
 l4d2-base/data
-minecraft-build/plugins/*.jar
+minecraft-build/paid/*.jar
 minecraft-build/.svn
 minecraft-survival/plugins/ChatControl*.jar
 minecraft-survival/.svn
