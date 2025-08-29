@@ -24,69 +24,92 @@ RUN wget -O BuildTools.jar \
     https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar && \
     java -jar BuildTools.jar --rev $SPIGOT_VERSION
 
-RUN git clone https://github.com/IntellectualSites/PlotSquared
-#RUN /build/PlotSquared-*/gradlew init --overwrite
-RUN cd PlotSquared && ./gradlew build
-#init --overwrite
-#RUN /build/PlotSquared/gradlew build
+##%%%%%%%%%%%%%%%%%%%################################# PLUGINS ##%%%%%%%%%%%%%%%%%%%#################################
 
-#RUN wget -O plt2dyn.zip https://ci.athion.net/job/Plot2Dynmap/lastSuccessfulBuild/artifact/build/libs/*zip*/libs.zip
-#RUN unzip plt2dyn.zip
-RUN wget https://starcatcher.us/Jacob/Dynmap-3.7-beta-7-spigot.zip && \
-    unzip Dynmap-3.7-beta-7-spigot.zip && \
-    rm Dynmap-3.7-beta-7-spigot.zip -f
+# DYNMAP
+RUN wget https://dynmap.us/builds/dynmap/Dynmap-HEAD-spigot.jar
 
-#RUN rm ./libs/*-javadoc.jar
-#RUN rm ./libs/*-sources.jar
-RUN wget -O ess.zip https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/*zip*/jars.zip
-RUN unzip ess.zip
-RUN wget -O join.zip https://jenkins.sirblobman.xyz/job/SirBlobman/job/JoinCommands/job/main/lastSuccessfulBuild/artifact/*zip*/target.zip
-RUN unzip join.zip
-#RUN wget -O mv.zip http://ci.onarandombox.com/job/Multiverse-Core/lastSuccessfulBuild/artifact/target/*zip*/target.zip
-#RUN unzip mv.zip
-RUN wget "https://github.com/Multiverse/Multiverse-Core/releases/download/4.3.14/multiverse-core-4.3.14.jar"
+# ESSENTIALS-X
+RUN wget -O ess.zip https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/*zip*/jars.zip && \
+    unzip ess.zip && rm ess.zip -f
 
-RUN wget https://ci.dmulloy2.net/job/ProtocolLib/lastStableBuild/artifact/build/libs/ProtocolLib.jar
-#RUN wget -O luckPerm.zip https://ci.lucko.me/view/LuckPerms/job/LuckPerms/lastSuccessfulBuild/artifact/bukkit/loader/build/libs/*zip*/libs.zip
-#RUN unzip luckPerm.zip
-RUN wget https://download.luckperms.net/1561/bukkit/loader/LuckPerms-Bukkit-5.4.146.jar
-
-#https://dynmap.us/releases/Dynmap-3.6-spigot.jar
-#RUN wget https://github.com/user-attachments/files/17738419/Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip && \
-#    unzip Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip && \
-#    rm Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip -f
-
-RUN wget https://github.com/MilkBowl/Vault/releases/download/1.7.3/Vault.jar
-RUN wget https://github.com/PryPurity/WorldBorder/releases/download/v2.1.5/WorldBorder.jar
-RUN wget -O worldedit.jar https://dev.bukkit.org/projects/worldedit/files/latest
-#RUN wget https://github.com/kangarko/ChatControl-Pro/releases/download/8.10.5/ChatControl-8.10.5.jar
-## Moved to Premium version see README for more details
-
-# server.properties
-
+# GEYSER
 RUN wget -O Geyser-Spigot.jar https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
 
-FROM jdk as final
+# JOIN COMMANDS
+RUN wget -O join.zip https://jenkins.sirblobman.xyz/job/SirBlobman/job/JoinCommands/job/main/lastSuccessfulBuild/artifact/*zip*/target.zip && \
+    unzip join.zip && rm join.zip -f
+
+# LUCKPERMS
+RUN set -eux; \
+    URL="$(curl -fsSL https://metadata.luckperms.net/data/downloads | jq -r ".downloads.bukkit")"; \
+    curl -fsSL "$URL" -o LuckPerms-Bukkit.jar
+
+# MULTI-VERSE-CORE
+RUN wget -qO Multiverse-Core.jar \
+    $(curl -s https://api.github.com/repos/Multiverse/Multiverse-Core/releases/latest | \
+    grep "browser_download_url.*jar" | \
+    cut -d '"' -f 4)
+
+# PLOTSQUARED
+RUN set -eux; \
+    git clone --depth=1 https://github.com/IntellectualSites/PlotSquared.git /tmp/plotsquared && \
+    cd /tmp/plotsquared && ./gradlew build && \
+    cp /tmp/plotsquared/Bukkit/build/libs/plotsquared-bukkit-*-SNAPSHOT.jar /build/plotsquared-bukkit.jar && \
+    cd /build
+
+# PLOT2DYNMAP
+RUN set -eux; \
+    API_URL="https://api.modrinth.com/v2/project/plot2dynmap/version"; \
+    LATEST_URL="$(curl -fsSL "$API_URL" | jq -r '.[0].files[0].url')"; \
+    wget -O Plot2Dynmap.jar "$LATEST_URL"
+
+# PROTOCOL
+RUN wget -qO ProtocolLib.jar \
+    $(curl -s https://api.github.com/repos/dmulloy2/ProtocolLib/releases/latest | \
+    grep "browser_download_url.*jar" | \
+    cut -d '"' -f 4)
+
+# VAULT
+RUN wget -qO Vault.jar \
+    $(curl -s https://api.github.com/repos/MilkBowl/Vault/releases/latest | \
+    grep "browser_download_url.*jar" | \
+    cut -d '"' -f 4)
+
+# WORLD BORDER
+RUN wget -qO WorldBorder.jar \
+    $(curl -s https://api.github.com/repos/PryPurity/WorldBorder/releases/latest | \
+    grep "browser_download_url.*jar" | \
+    cut -d '"' -f 4)
+
+# WORLD EDIT
+RUN set -uex; \
+    URL=$(curl -fsSL "https://api.modrinth.com/v2/project/worldedit/version" | jq -r '.[0].files[0].url'); \
+    wget -O WorldEdit.jar "$URL"
+
+#####################################################################################################################
+
+FROM jdk AS final
 ADD server.properties commands.yml start.sh advertise.py stats.py /spigot/
 COPY plugins plugins/
-#COPY --from=build /build/ChatControl-*.jar plugins/
 COPY --from=build /build/spigot-*.jar .
-COPY --from=build /build/Dynmap*.jar plugins/
-COPY --from=build /build/Vault.jar plugins/
-COPY --from=build /build/WorldBorder.jar plugins/
-COPY --from=build /build/Geyser-*.jar plugins/
-COPY --from=build /build/Plot2Dynmap-*.jar plugins/
-COPY --from=build /build/PlotSquared/Bukkit/build/libs/plotsquared-bukkit-*-SNAPSHOT.jar plugins/
-#COPY --from=build /build/target/ProtocolLib*.jar plugins/
-COPY --from=build /build/multiverse-Core-*.jar plugins/
-COPY --from=build /build/archive/builder/build/libs/JoinCommands-*.jar plugins/
+
+COPY --from=build /build/Dynmap-*.jar plugins/
 COPY --from=build /build/jars/EssentialsX-*.jar plugins/
 COPY --from=build /build/jars/EssentialsXAntiBuild*.jar plugins/
 COPY --from=build /build/jars/EssentialsXChat*.jar plugins/
 COPY --from=build /build/jars/EssentialsXProtect*.jar plugins/
 COPY --from=build /build/jars/EssentialsXSpawn*.jar plugins/
+COPY --from=build /build/Geyser-*.jar plugins/
+COPY --from=build /build/archive/builder/build/libs/JoinCommands-*.jar plugins/
 COPY --from=build /build/LuckPerms-Bukkit*.jar plugins/
-Copy --from=build /build/worldedit.jar plugins/
+COPY --from=build /build/Multiverse-Core*.jar plugins/
+COPY --from=build /build/plotsquared-bukkit*.jar plugins/
+COPY --from=build /build/Plot2Dynmap*.jar plugins/
+COPY --from=build /build/ProtocolLib*.jar plugins/
+COPY --from=build /build/Vault*.jar plugins/
+COPY --from=build /build/WorldBorder*.jar plugins/
+COPY --from=build /build/WorldEdit*.jar plugins/
 RUN echo "eula=true" > eula.txt
 
 RUN apt-get install nano
