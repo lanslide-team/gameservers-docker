@@ -24,36 +24,23 @@ RUN wget -O BuildTools.jar \
     https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar && \
     java -jar BuildTools.jar --rev $SPIGOT_VERSION
 
+##%%%%%%%%%%%%%%%%%%%################################# PLUGINS ##%%%%%%%%%%%%%%%%%%%#################################
 
-#RUN git clone https://github.com/webbukkit/dynmap
-#RUN /build/PlotSquared-*/gradlew init --overwrite
-#RUN cd dynmap && ./gradlew build
+# DYNMAP
+RUN wget https://dynmap.us/builds/dynmap/Dynmap-HEAD-spigot.jar
 
-#RUN wget https://github.com/user-attachments/files/17738419/Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip && \
-#    unzip Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip && \
-#    rm Dynmap-3.7-beta-7_1.21.3_spigot.jar.zip -f
-
-#RUN wget https://starcatcher.us/Jacob/Dynmap-3.7-beta-7-spigot.zip && \
-#    unzip Dynmap-3.7-beta-7-spigot.zip && \
-#    rm Dynmap-3.7-beta-7-spigot.zip -f
-RUN wget https://cdn.modrinth.com/data/fRQREgAc/versions/ImNNT17B/Dynmap-3.7-beta-8-spigot.jar
-
-#RUN wget https://cdn.modrinth.com/data/fRQREgAc/versions/AdtrWcU2/Dynmap-3.7-beta-7-spigot.jar
-#https://cdn.modrinth.com/data/fRQREgAc/versions/QtTWJjW6/Dynmap-3.7-beta-6-spigot.jar
-#https://cdn.modrinth.com/data/fRQREgAc/versions/5F9fwzR1/Dynmap-3.7-beta-6-spigot.jar
-#https://dynmap.us/releases/Dynmap-3.6-spigot.jar
-
+# GEYSER
 RUN wget -O Geyser-Spigot.jar https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
+
+#####################################################################################################################
 
 FROM jdk as final
 ADD server.properties advertise.py stats.py /spigot/
 COPY plugins plugins
 
-#COPY --from=build /build/ChatControl-*.jar plugins/
 COPY --from=build /build/Geyser-*.jar plugins/
 COPY --from=build /build/spigot-*.jar .
 COPY --from=build /build/Dynmap*.jar plugins/
-#COPY --from=build /build/dynmap/ plugins/dynmap-build
 
 RUN echo "eula=true" > eula.txt
 
