@@ -185,6 +185,7 @@ if os.path.exists('csgo/scripts/mysql-files/fresh_install.sql'):
 
 os.system("hostname -I | python3 stats.py &")
 os.system("python3 config_admins.py > game/csgo/cfg/MatchZy/admins.json")
+os.system("python3 config_whitelist.py > game/csgo/cfg/MatchZy/whitelist.cfg")
 os.system("python3 config_admins.py > game/csgo/addons/counterstrikesharp/configs/admins.json")
 os.system("python3 config_match.py > game/csgo/match.json")
 

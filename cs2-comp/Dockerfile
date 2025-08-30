@@ -9,6 +9,7 @@ WORKDIR /cs2
 # Get counter-strike-source files
 COPY --from=counter-strike-sharp --chown=steam:steam /config_admins.py /cs2
 COPY --from=counter-strike-sharp --chown=steam:steam /config_match.py /cs2
+COPY --from=counter-strike-sharp --chown=steam:steam /config_whitelist.py /cs2
 COPY --from=counter-strike-sharp --chown=steam:steam /css /cs2/game/csgo
 
 USER steam

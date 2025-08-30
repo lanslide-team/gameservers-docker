@@ -1,28 +1,57 @@
 FROM base
 
-RUN apt-get update && apt-get install -y curl
+RUN apt-get update && apt-get install -y curl dotnet-sdk-8.0
 
 RUN mkdir /css
 
 COPY config_admins.py /
 COPY config_match.py /
+COPY config_whitelist.py /
 
-RUN curl -s https://mms.alliedmods.net/mmsdrop/2.0/mmsource-2.0.0-git1314-linux.tar.gz | tar zxf - -C /css 
+RUN mm_minor_version=$(curl -s https://mms.alliedmods.net/mmsdrop/ | grep -Eo "\"2\.[0-9]*" -o | cut -c 4- | sort -rn | head -n 1) && \
+    mm_latest=$(curl -s https://mms.alliedmods.net/mmsdrop/2.${mm_minor_version}/mmsource-latest-linux) && \
+    curl -s https://mms.alliedmods.net/mmsdrop/2.${mm_minor_version}/${mm_latest} | tar zxf - -C /css
 
-#RUN wget -nc "https://github.com/Lan2Play/PugSharp/releases/download/v0.1.7-beta/PugSharp_with_cssharp_and_runtime_linux_0.1.7-beta.zip" -O matchzy.zip && unzip matchzy.zip -d /css && rm matchzy.zip -f
 
-#RUN css_latest=$(curl -s "https://api.github.com/repos/roflmuffin/CounterStrikeSharp/releases/latest" | grep -E "runtime.*linux.*zip" | cut -d : -f 2,3 | tr -d \" | sed -n '2p')
-#RUN wget -nc ${css_latest} -O css.zip && unzip css.zip -d /css && rm css.zip -f
+###########$##i######################## COUNTERSTRIKESHARP ##########################################
 
-#RUN matchzy=$(curl -s "https://api.github.com/repos/shobhit-pathak/MatchZy/releases/latest" | grep -E "with-cssharp-linux.*zip" | cut -d : -f 2,3 | tr -d \" | sed -n '2p' | xargs)
-ARG version="0.8.7"
-ARG matchzy="https://github.com/shobhit-pathak/MatchZy/releases/download/${version}/MatchZy-${version}-with-cssharp-linux.zip"
-RUN wget -nc ${matchzy} -O m.zip && unzip m.zip -d /css && rm m.zip -f
+RUN set -eux; \
+    URL=$(curl -s https://api.github.com/repos/roflmuffin/CounterStrikeSharp/releases/latest \
+        | grep "browser_download_url.*with-runtime-linux" \
+        | cut -d '"' -f 4); \
+    curl -L "$URL" -o cssharp.zip; \
+    unzip -o cssharp.zip -d /css; \
+    rm cssharp.zip
 
-ARG css="https://github.com/roflmuffin/CounterStrikeSharp/releases/download/v294/counterstrikesharp-with-runtime-build-294-linux-466da1b.zip"
-RUN wget -nc ${css} -O c.zip && unzip -o c.zip -d /css && rm c.zip -f
+#############i############################$## PUGSHARP ##############################################
+
+
+#RUN URL="$(curl -fsSL "https://api.github.com/repos/Lan2Play/PugSharp/releases?per_page=1" \
+#      | jq -r '.[0].assets[] | select(.name | test("PugSharp_linux.*\\.zip$")) | .browser_download_url' \
+#      | head -n1 || true)"; \
+#    curl -fL "$URL" -o /tmp/pugsharp.zip; \
+#    unzip -o /tmp/pugsharp.zip -d /css; \
+#    rm -f /tmp/pugsharp.zip
+    
+#############i################################ MATCHZY ##############################################
+RUN git clone https://github.com/shobhit-pathak/MatchZy /tmp/MatchZy && \ 
+    cd /tmp/MatchZy && \
+    git config --global user.name "LAN-slide" && \
+    git config --global user.email "team@lanslide.com.au" && \
+    git fetch origin pull/228/head:pr-228 && \
+    git checkout main && \
+    git merge --no-ff pr-228 -m "Merging PR into main" && \
+    dotnet publish
+
+RUN mkdir -p /css/cfg/MatchZy && cp /tmp/MatchZy/cfg/MatchZy /css/cfg/MatchZy -R
+RUN cp /tmp/MatchZy/bin/Release/net8.0/publish /css/addons/counterstrikesharp/plugins/MatchZy -R
+
+# ARG version="0.8.12"
+# ARG matchzy="https://github.com/shobhit-pathak/MatchZy/releases/download/${version}/MatchZy-${version}-with-cssharp-linux.zip"
+# RUN wget -nc ${matchzy} -O m.zip && unzip m.zip -d /css && rm m.zip -f
+#####################################################################################################
 
 #COPY addons /css/addons`
 #COPY cfg /css/cfg
 #COPY Lanslide /css/addons/counterstrikesharp/plugins/Lanslide
-COPY MatchZy /css/addons/counterstrikesharp/plugins/MatchZy
+#COPY MatchZy /css/addons/counterstrikesharp/plugins/MatchZy

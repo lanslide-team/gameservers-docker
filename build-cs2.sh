@@ -14,8 +14,8 @@ fi
 docker build -t='base:latest' base/
 docker build -t='cs2-base:latest' cs2-base/ --no-cache
 docker build -t='cs2-armsrace:latest' cs2-armsrace/ --no-cache
+docker build -t='sourcemod:latest' sourcemod/
 docker build -t='counter-strike-sharp:latest' counter-strike-sharp/ --no-cache
-#docker build -t='sourcemod:latest' sourcemod/
 #docker build -t='ls-warmod:latest' ls-warmod/
 docker build -t='cs2-vanilla:latest' cs2-vanilla/ --no-cache
 docker build -t='cs2-wingman-vanilla:latest' cs2-wingman-vanilla/ --no-cache
