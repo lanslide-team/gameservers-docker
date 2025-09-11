@@ -105,7 +105,7 @@ class Query:
             except asyncio.exceptions.TimeoutError as e:
                 pr = {'Error': 'Timeout:' + str(e)}
             except Exception as e: 
-                pr = {'Error': 'Timeout:' + str(e)}
+                pr = {'Error': str(e)}
 
             with open('/cs2/stats.json', 'w', encoding='utf-8') as f:
                 json.dump(pr, f, ensure_ascii=False, indent=4)
