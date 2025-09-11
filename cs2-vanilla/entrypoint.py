@@ -114,8 +114,8 @@ if vars.get('MAP'):
 # Set Hostname
 if vars.get('SERVER_NAME'):
     base.append('+hostname {SERVER_NAME}'.format(**vars))
-elif vars.get('HOSTNAME'):
-    base.append('+hostname {HOSTNAME}'.format(**vars))
+elif vars.get('SV_HOSTNAME'):
+    base.append('+hostname {SV_HOSTNAME}'.format(**vars))
 
 
 base.append('+servercfgfile {SERVERCFGFILE}'.format(**vars))
@@ -172,7 +172,7 @@ if vars.get('TV_ENABLE') and vars['TV_ENABLE'] == '1':
 # Set TV name
 if 'TV_NAME' in vars:
     if vars['TV_NAME'] == 'GOTV':
-        vars['TV_NAME'] = '[TV] ' + vars['HOSTNAME']
+        vars['TV_NAME'] = '[TV] ' + vars['SV_HOSTNAME']
 
     base.append('+tv_name {TV_NAME}'.format(**vars))
     base.append('+tv_title {TV_NAME}'.format(**vars))
