@@ -114,7 +114,7 @@ if vars.get('MAP'):
 # Set Hostname
 if vars.get('SERVER_NAME'):
     base.append('+hostname {SERVER_NAME}'.format(**vars))
-elif vars.get('HOSTNAME'):
+elif vars.get('SV_HOSTNAME'):
     base.append('+hostname {SV_HOSTNAME}'.format(**vars))
 
 
