@@ -69,10 +69,10 @@ class Query:
                     except KeyError:
                         pr['Map'] = None
 
-            except asyncio.exceptions.TimeoutError:
-                pr = {'Error': 'Timeout'}
-            except: 
-                pr = {'Error': 'Timeout'}
+            except asyncio.exceptions.TimeoutError as e:
+                pr = {'Error': 'Timeout:' + str(e)}
+            except Exception as e: 
+                pr = {'Error': 'Timeout:' + str(e)}
 
             with open('/cs2/stats.json', 'w', encoding='utf-8') as f:
                 json.dump(pr, f, ensure_ascii=False, indent=4)
