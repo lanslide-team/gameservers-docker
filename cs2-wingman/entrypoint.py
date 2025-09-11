@@ -115,7 +115,7 @@ if vars.get('MAP'):
 if vars.get('SERVER_NAME'):
     base.append('+hostname {SERVER_NAME}'.format(**vars))
 elif vars.get('HOSTNAME'):
-    base.append('+hostname {HOSTNAME}'.format(**vars))
+    base.append('+hostname {SV_HOSTNAME}'.format(**vars))
 
 
 base.append('+servercfgfile {SERVERCFGFILE}'.format(**vars))
