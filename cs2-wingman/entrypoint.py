@@ -170,7 +170,7 @@ if vars.get('TV_ENABLE') and vars['TV_ENABLE'] == '1':
 # Set TV name
 if 'TV_NAME' in vars:
     if vars['TV_NAME'] == 'GOTV':
-        vars['TV_NAME'] = '[TV] ' + vars['HOSTNAME']
+        vars['TV_NAME'] = '[TV] ' + vars['SV_HOSTNAME']
 
     base.append('+tv_name {TV_NAME}'.format(**vars))
     base.append('+tv_title {TV_NAME}'.format(**vars))
