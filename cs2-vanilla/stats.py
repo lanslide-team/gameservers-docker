@@ -15,7 +15,7 @@ class Query:
 
     @classmethod
     def __process_command(cls, client, command):
-        lines = client.run(command).split('\n')
+        lines = client.run(command, encoding="latin-1").split('\n')
         output = ""
 
         for line in lines:
