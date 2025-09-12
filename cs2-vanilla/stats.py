@@ -10,7 +10,7 @@ from rcon.source import Client
 
 class Query:
     SOURCE_RESPONSE: list[str] = ['Name', 'Map', 'Players', 'MaxPlayers', 'GamePort']
-    INITIAL_SLEEP: int = 5
+    INITIAL_SLEEP: int = 10
     DEFAULT_SLEEP: int = 5
 
     @classmethod
@@ -58,30 +58,32 @@ class Query:
     async def process_game(cls, host: str, port: int, rcon_password: str) -> dict:
         pr = {}
 
-        if 'IS_WINGMAN' in os.environ and os.environ['IS_WINGMAN'] == '1':
-            cls.run_command(host, port, rcon_password, f"game_mode 2")
-            time.sleep(1)
-            cls.run_command(host, port, rcon_password, f"map {os.environ['MAP']}")
-            time.sleep(Query.INITIAL_SLEEP)
+#        if 'IS_WINGMAN' in os.environ and os.environ['IS_WINGMAN'] == '1':
+#            cls.run_command(host, port, rcon_password, f"game_mode 2")
+#            time.sleep(1)
+#            cls.run_command(host, port, rcon_password, f"map {os.environ['MAP']}")
+#            time.sleep(Query.INITIAL_SLEEP)
 
         # Load the match config
         cls.run_command(host, port, rcon_password, 'matchzy_loadmatch match.json')
                    
         team1_logo = None
-        if 'TEAM1' in os.environ:
-            team1_logo = cls.process_team_logo(os.environ['TEAM1'])
-            if team1_logo is not None:
-                cls.run_command(host, port, rcon_password, f"mp_teamlogo_1 {team1_logo}")
-        if 'TEAM2' in os.environ:
-            team2_logo = cls.process_team_logo(os.environ['TEAM2'])
-            if team2_logo is not None:
-                cls.run_command(host, port, rcon_password, f"mp_teamlogo_2 {team2_logo}")
+        team2_logo = None
+#        if 'TEAM1' in os.environ:
+#            team1_logo = cls.process_team_logo(os.environ['TEAM1'])
+#        if 'TEAM2' in os.environ:
+#            team2_logo = cls.process_team_logo(os.environ['TEAM2'])
+
+        if team1_logo is not None:
+            cls.run_command(host, port, rcon_password, f"mp_teamlogo_1 {team1_logo}")
+        if team2_logo is not None:
+            cls.run_command(host, port, rcon_password, f"mp_teamlogo_2 {team2_logo}")
 
         while True:
             try:
                 status_json = None
                 with Client(host, int(port), passwd=rcon_password) as client:
-        #            get5_status = json.loads(cls.__process_command(client, 'get5_status'))
+                    # get5_status = json.loads(cls.__process_command(client, 'get5_status'))
                     hostname = cls.__process_command(client, 'hostname')
                     status_json = json.loads(cls.__process_command(client, 'status_json'))
                     sv_visiblemaxplayers = cls.__process_command(client, 'sv_visiblemaxplayers')
@@ -89,7 +91,7 @@ class Query:
 
                     pr['Name'] = hostname
                     pr['MaxPlayers'] = sv_visiblemaxplayers
-        #            pr['Get5Status'] = None if 'Unknown command' in get5_status else get5_status
+                    # pr['Get5Status'] = None if 'Unknown command' in get5_status else get5_status
 
                     try:
                         pr['Players'] = status_json['server']['clients_human']

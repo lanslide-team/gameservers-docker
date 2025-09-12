@@ -10,7 +10,7 @@ from rcon.source import Client
 
 class Query:
     SOURCE_RESPONSE: list[str] = ['Name', 'Map', 'Players', 'MaxPlayers', 'GamePort']
-    INITIAL_SLEEP: int = 5
+    INITIAL_SLEEP: int = 10
     DEFAULT_SLEEP: int = 5
 
     @classmethod
