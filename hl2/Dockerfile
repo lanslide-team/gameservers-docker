@@ -1,5 +1,5 @@
 FROM base
-MAINTAINER LAN-slide
+LABEL maintainer="LAN-slide"
 
 RUN useradd steam && mkdir /hl2 && chown steam:steam /hl2
 

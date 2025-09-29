@@ -1,4 +1,5 @@
 FROM itzg/minecraft-server
+LABEL maintainer="LAN-slide"
 
 RUN apt -y update
 RUN apt install  -y iproute2 python3 python3-pip

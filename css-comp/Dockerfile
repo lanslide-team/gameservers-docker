@@ -1,6 +1,6 @@
 FROM sourcemod
 FROM css-base
-MAINTAINER LAN-slide
+LABEL maintainer="LAN-slide"
 
 USER root
 WORKDIR /css/

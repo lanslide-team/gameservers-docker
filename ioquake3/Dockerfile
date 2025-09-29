@@ -1,5 +1,5 @@
 FROM base
-MAINTAINER LAN-slide
+LABEL maintainer="LAN-slide"
 
 RUN useradd ioquake3 && mkdir /home/ioquake3 && chown ioquake3 /home/ioquake3 /home/
 

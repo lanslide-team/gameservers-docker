@@ -1,5 +1,5 @@
 FROM base
-MAINTAINER LAN-slide
+LABEL maintainer="LAN-slide"
 
 RUN useradd -m steam && mkdir /7days && chown steam:steam /7days
 

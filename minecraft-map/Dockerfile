@@ -1,4 +1,5 @@
 FROM minecraft-base
+LABEL maintainer="LAN-slide"
 
 ADD start.sh /spigot/
 

@@ -1,4 +1,5 @@
 FROM base
+LABEL maintainer="LAN-slide"
 
 RUN apt-get update && apt-get install -y curl dotnet-sdk-8.0
 
@@ -43,7 +44,7 @@ RUN git clone https://github.com/shobhit-pathak/MatchZy /tmp/MatchZy && \
     git merge --no-ff pr-228 -m "Merging PR into main" && \
     dotnet publish
 
-RUN mkdir -p /css/cfg/MatchZy && cp /tmp/MatchZy/cfg/MatchZy /css/cfg/MatchZy -R
+RUN mkdir -p /css/cfg/MatchZy && cp /tmp/MatchZy/cfg/MatchZy/* /css/cfg/MatchZy -R
 RUN cp /tmp/MatchZy/bin/Release/net8.0/publish /css/addons/counterstrikesharp/plugins/MatchZy -R
 
 # ARG version="0.8.12"

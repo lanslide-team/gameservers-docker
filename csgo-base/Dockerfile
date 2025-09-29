@@ -1,5 +1,5 @@
 FROM base
-MAINTAINER LAN-slide
+LABEL maintainer="LAN-slide"
 
 RUN useradd -m steam && mkdir /csgo && chown steam:steam /csgo
     

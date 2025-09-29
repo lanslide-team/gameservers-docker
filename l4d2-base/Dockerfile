@@ -1,7 +1,7 @@
 FROM sourcemod
 FROM base
 
-MAINTAINER LAN-slide
+LABEL maintainer="LAN-slide"
 
 
 RUN useradd steam && mkdir /l4d2 && chown steam:steam /l4d2

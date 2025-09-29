@@ -1,4 +1,5 @@
 FROM base
+LABEL maintainer="LAN-slide"
 
 RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y libstdc++6:i386 p7zip-full && apt-get clean
 

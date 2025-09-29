@@ -1,4 +1,5 @@
 FROM base
+LABEL maintainer="LAN-slide"
 
 # Original Server v436
 ADD data/ut-server-linux-436.tar.gz /

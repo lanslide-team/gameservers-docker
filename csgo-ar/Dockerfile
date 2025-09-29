@@ -1,4 +1,5 @@
 FROM ls-warmod as warmod
+LABEL maintainer="LAN-slide"
 
 FROM csgo-base
 

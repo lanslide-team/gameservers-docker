@@ -1,4 +1,5 @@
 FROM base:latest AS jdk
+LABEL maintainer="LAN-slide"
 ARG spigot_version=1.21.8
 ENV SPIGOT_VERSION=${spigot_version}
 ARG java_version=21

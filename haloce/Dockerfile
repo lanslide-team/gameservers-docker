@@ -1,4 +1,5 @@
 FROM wineconsole/lite
+LABEL maintainer="LAN-slide"
 
 WORKDIR /haloce
 COPY data /haloce

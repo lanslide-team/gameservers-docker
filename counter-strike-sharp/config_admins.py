@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import json
 import os
+import sys
 
 def generate_admins():
     admin_list = []
@@ -13,7 +14,10 @@ def generate_admins():
     admin_json = {}
     for admin in admin_list:
         admin = admin.strip()
-        admin_json[admin] = {'identity': admin, 'flags': ['@css/root']}
+        if len(sys.argv) > 1 and sys.argv[1] == 'simple':
+            admin_json[admin] = 'root'
+        else:
+            admin_json[admin] = {'identity': admin, 'flags': ['@css/root']}
     admin_json = json.dumps(admin_json, indent=4)
 
     print(admin_json)
@@ -21,3 +25,4 @@ def generate_admins():
 
 if __name__ == '__main__':
     generate_admins()
+

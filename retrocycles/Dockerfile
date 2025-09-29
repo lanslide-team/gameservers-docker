@@ -1,5 +1,5 @@
 FROM base
-MAINTAINER LAN-slide
+LABEL maintainer="LAN-slide"
 
 RUN useradd steam && mkdir /retrocycles /home/steam && chown steam:steam /retrocycles /home/steam -R
 

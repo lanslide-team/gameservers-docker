@@ -10,10 +10,10 @@ mkdir -p /opt/minecraft/plotworld -m a+rwX
 
 docker image prune -f
 
-export MYSQL_ROOT_PASSWORD=`echo -n l33t | sha256sum | base64 | head -c 32 ; echo`
+export MARIADB_ROOT_PASSWORD=`echo -n l33t | sha256sum | base64 | head -c 32 ; echo`
 
 docker pull mariadb:latest
-docker start mariadb || docker run --name mariadb --network games -e MYSQL_ROOT_PASSWORD="$MYSQL_ROOT_PASSWORD" -d mariadb
+docker start mariadb || docker run --name mariadb --network games -e MARIADB_ROOT_PASSWORD="$MARIADB_ROOT_PASSWORD" -d mariadb
 
 docker build -t='base:latest' base/
 

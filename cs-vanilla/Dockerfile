@@ -1,5 +1,5 @@
 FROM cs-base
-MAINTAINER LAN-slide
+LABEL maintainer="LAN-slide"
 
 USER steam
 WORKDIR /cs

@@ -1,5 +1,5 @@
 FROM cs2-base
-MAINTAINER LAN-slide
+LABEL maintainer="LAN-slide"
 
 USER root
 RUN mkdir -p /cs2/game/csgo/replays && chown -R steam:steam  /cs2/game/csgo/replays && chmod a+rwX /cs2/game/csgo/replays
@@ -16,15 +16,8 @@ USER steam
 
 RUN sed -i "/Game_LowViolence/a\ \t\t\tGame\tcsgo/addons/metamod" /cs2/game/csgo/gameinfo.gi
 
-COPY --chown=steam:steam entrypoint.py defaultenv.ini stats.py /cs2/
-COPY --chown=steam:steam cfg /cs2/game/csgo/cfg
+COPY --chown=steam:steam defaultenv.ini stats.py /cs2/
 COPY --chown=steam:steam team-logos /cs2/game/csgo/resource/flash/econ/tournaments/teams
 RUN rm -rf /cs2/game/csgo/cfg/gamemode_competitive.cfg
 
-#RUN mkdir -p /cs2/game/csgo/PugSharp/Config
-#RUN mkdir -p /cs2/game/csgo/PugSharp/Demo
-
-ENV PYTHONUNBUFFERED=0
-RUN chmod +x entrypoint.py
-
-ENTRYPOINT ["./entrypoint.py"]
+ENTRYPOINT ["./entrypoint.py", "comp"]

@@ -1,4 +1,5 @@
 FROM wine
+LABEL maintainer="LAN-slide"
 
 # Reference: https://docs.google.com/spreadsheets/d/14zPsXCGRWkIb42XTa6GxDkMw0cSzNZxgbp7_o66GYJ8/edit#gid=797069815
 

@@ -1,4 +1,5 @@
 FROM base
+LABEL maintainer="LAN-slide"
 
 ## Put Trackmania Server zip file in this directory
 ## Download from http://files2.trackmaniaforever.com/TrackmaniaServer_2011-02-21.zip

@@ -1,6 +1,6 @@
 FROM l4d2-base
 
-MAINTAINER LAN-slide
+LABEL maintainer="LAN-slide"
 
 USER steam
 WORKDIR /l4d2

@@ -1,4 +1,5 @@
 FROM base
+LABEL maintainer="LAN-slide"
 
 RUN apt-get update && apt-get install -y curl
 

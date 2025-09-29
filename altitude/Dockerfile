@@ -1,4 +1,5 @@
 FROM ich777/altitude
+LABEL maintainer="LAN-slide"
 
 COPY --chown=altitude:altitude data /altitude
 COPY --chown=altitude:altitude launcher_config.xml /altitude/servers/

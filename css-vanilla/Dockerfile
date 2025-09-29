@@ -1,5 +1,5 @@
 FROM css-base
-MAINTAINER LAN-slide
+LABEL maintainer="LAN-slide"
 
 USER steam
 WORKDIR /css

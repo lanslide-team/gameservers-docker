@@ -1,7 +1,7 @@
 FROM sourcemod as sourcemod
 
 FROM csgo-base
-MAINTAINER LAN-slide
+LABEL maintainer="LAN-slide"
 
 USER steam
 WORKDIR /csgo

@@ -1,5 +1,5 @@
 FROM base
-MAINTAINER LAN-slide
+LABEL maintainer="LAN-slide"
 
 RUN useradd -lm steam && mkdir /css && chown steam:steam /css
 RUN mkdir /root/steam

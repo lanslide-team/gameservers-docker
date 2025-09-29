@@ -1,5 +1,6 @@
 # This may use wine or wine-src
 FROM wine
+LABEL maintainer="LAN-slide"
 
 #RUN useradd -m steam && mkdir /reflex-arena && chown steam:steam /reflex-arena
 RUN mkdir /reflex-arena

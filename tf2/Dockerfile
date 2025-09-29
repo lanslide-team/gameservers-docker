@@ -1,5 +1,6 @@
 FROM sourcemod
 FROM base
+LABEL maintainer="LAN-slide"
 
 
 RUN useradd steam && mkdir /tf2 && chown steam:steam /tf2
