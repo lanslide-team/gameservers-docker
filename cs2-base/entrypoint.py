@@ -147,8 +147,8 @@ if 'TV_NAME' in vars:
         vars['TV_NAME'] = '[TV] ' + vars['SV_HOSTNAME']
 
 #if os.path.exists('csgo/scripts/mysql-files/fresh_install.sql'):
-# mysql_root_password = os.popen('echo -n l33t | sha256sum | base64 | head -c 32 ; echo').read().strip()
-# os.system('mysql -uroot -p"{}" -hmariadb -e "CREATE DATABASE IF NOT EXISTS matchzy;"'.format(mysql_root_password))
+mysql_root_password = os.popen('echo -n l33t | sha256sum | base64 | head -c 32 ; echo').read().strip()
+#os.system('mysql -uroot -p"{}" -hmariadb -e "CREATE DATABASE IF NOT EXISTS matchzy;"'.format(mysql_root_password))
 
 os.system("hostname -I | python3 stats.py &")
 server_cfg = 'game/csgo/cfg/server.cfg'
