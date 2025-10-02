@@ -55,7 +55,7 @@ class Query:
         return None
 
     @classmethod
-    async def process_game(cls, host: str, port: int, rcon_password: str) -> dict:
+    async def process_game(cls, host: str, port: int, rcon_password: str, docker_type: str) -> dict:
         pr = {}
 
 #        if 'IS_WINGMAN' in os.environ and os.environ['IS_WINGMAN'] == '1':
@@ -64,26 +64,29 @@ class Query:
 #            cls.run_command(host, port, rcon_password, f"map {os.environ['MAP']}")
 #            time.sleep(Query.INITIAL_SLEEP)
 
+        is_competitive: bool = docker_type in ['comp', 'wingman'];
+
         # Load the match config
-        cls.run_command(host, port, rcon_password, 'matchzy_loadmatch match.json')
+        if is_competitive:
+            cls.run_command(host, port, rcon_password, 'matchzy_loadmatch match.json')
                    
-        team1_logo = None
-        team2_logo = None
+            team1_logo = None
+            team2_logo = None
 #        if 'TEAM1' in os.environ:
 #            team1_logo = cls.process_team_logo(os.environ['TEAM1'])
 #        if 'TEAM2' in os.environ:
 #            team2_logo = cls.process_team_logo(os.environ['TEAM2'])
 
-        if team1_logo is not None:
-            cls.run_command(host, port, rcon_password, f"mp_teamlogo_1 {team1_logo}")
-        if team2_logo is not None:
-            cls.run_command(host, port, rcon_password, f"mp_teamlogo_2 {team2_logo}")
+            if team1_logo is not None:
+                cls.run_command(host, port, rcon_password, f"mp_teamlogo_1 {team1_logo}")
+            if team2_logo is not None:
+                cls.run_command(host, port, rcon_password, f"mp_teamlogo_2 {team2_logo}")
 
         while True:
             try:
                 status_json = None
-                with Client(host, int(port), passwd=rcon_password) as client:
-                    get5_status = json.loads(cls.__process_command(client, 'get5_status'))
+                with Client(host, int(port), passwd=rcon_password) as client:                  
+                    get5_status = json.loads(cls.__process_command(client, 'get5_status')) if is_competitive else None
                     hostname = cls.__process_command(client, 'hostname')
                     status_json = json.loads(cls.__process_command(client, 'status_json'))
                     sv_visiblemaxplayers = cls.__process_command(client, 'sv_visiblemaxplayers')
@@ -91,7 +94,7 @@ class Query:
 
                     pr['Name'] = hostname
                     pr['MaxPlayers'] = sv_visiblemaxplayers
-                    pr['Get5Status'] = None if 'Unknown command' in get5_status else get5_status
+                    pr['Get5Status'] = get5_status
 
                     try:
                         pr['Players'] = status_json['server']['clients_human']
@@ -118,5 +121,11 @@ if __name__ == '__main__':
     host = input().strip()
     time.sleep(Query.INITIAL_SLEEP)
 
-    asyncio.run(Query.process_game(host=host, port=os.environ['PORT'], rcon_password=os.environ['RCON_PASSWORD']))
+    if len(sys.argv) < 2:
+        print(f"Usage: {sys.argv[0]} <type>")
+        sys.exit(1)
+
+    docker_type = sys.argv[1]
+
+    asyncio.run(Query.process_game(host=host, port=os.environ['PORT'], rcon_password=os.environ['RCON_PASSWORD'], docker_type=docker_type))
 

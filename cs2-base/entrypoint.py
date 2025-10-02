@@ -65,12 +65,28 @@ for k, v in config.items():
     except KeyError:
         continue
 
+# Override default config
+if docker_type == 'armsrace':
+    vars['SV_HOSTNAME'] = 'CS2 Armsrace Server';
+    vars['GAME_ALIAS'] = 'armsrace';
+    vars['MAP'] = 'ar_shoots';
+elif docker_type == 'wingman':
+    vars['SV_HOSTNAME'] = 'CS2 Wingman Server';
+    vars['GAME_ALIAS'] = 'wingman';
+    vars['MAP'] = 'de_inferno';
+    vars['IS_WINGMAN'] = 1;
+    vars['PLAYERS_PER_TEAM'] = 2;
+    vars['WHITELIST_ENABLED'] = 1;
+elif docker_type == 'comp':
+    vars['WHITELIST_ENABLED'] = 1;
+
 # For each envvar stored, check to see if one was set in ENV and set it
 for k, v in vars.items():
     try:
         vars[k] = os.environ[k]
     except KeyError:
         continue
+
 
 max_players = 5 if 'IS_WINGMAN' in vars and vars['IS_WINGMAN'] == '1' else 13
 
@@ -79,8 +95,7 @@ if vars.get('MATCH_ID'):
     logs_folder = f"{logs_folder}/{vars.get('MATCH_ID')}"
 
 base = ["./game/bin/linuxsteamrt64/cs2", "-dedicated", "-console", "-usercon", "-serverlogging", f"+sv_logsdir {logs_folder}",
-        "+sv_logfile 1", f"-maxplayers_override {max_players}", "+sv_reliableavatardata 2", 
-        "+ip 0.0.0.0", "+rcon_connected_clients_allow 1", "-net_port_try 1"]
+        "+sv_logfile 1", f"-maxplayers_override {max_players}", "+ip 0.0.0.0", "+rcon_connected_clients_allow 1"]
 
 if not vars.get('SERVERCFGFILE'):
     vars['SERVERCFGFILE'] = 'server.cfg'
@@ -105,19 +120,19 @@ if vars.get('SV_HIBERNATE_WHEN_EMPTY'):
 if vars.get('RCON_PASSWORD'):
     base.append('+rcon_password {RCON_PASSWORD}'.format(**vars))
 
+cfg_dir = 'game/csgo/cfg';
+server_cfg = f"{cfg_dir}/server.cfg"
+armsrace_cfg = f"{cfg_dir}/gamemode_armsrace_server.cfg"
+competitive_cfg = f"{cfg_dir}/gamemode_competitive_server.cfg"
+wingman_cfg = f"{cfg_dir}/gamemode_competitive2v2_server.cfg"
+
 # Set SV password
 if vars.get('SV_PASSWORD'):
-    f = open(f'{CONFIG_DIR}/' + vars['SERVERCFGFILE'], 'a')
-    f.write('\nsv_password {SV_PASSWORD}'.format(**vars))
-    f.close()
-    base.append('+sv_password {SV_PASSWORD}'.format(**vars))
+    find_or_replace(server_cfg, 'sv_password', f"sv_password \"{vars['SV_PASSWORD']}\"")
 
 # Set Max Players
 if vars.get('MAXPLAYERS_OVERRIDE'):
-#    base.append('-sv_visiblemaxplayers {MAXPLAYERS_OVERRIDE}'.format(**vars))
-    f = open(f'{CONFIG_DIR}/' + vars['SERVERCFGFILE'], 'a')
-    f.write('\nsv_visiblemaxplayers {MAXPLAYERS_OVERRIDE}'.format(**vars))
-    f.close()
+    find_or_replace(server_cfg, 'sv_visiblemaxplayers', f"sv_visiblemaxplayers {vars['MAXPLAYERS_OVERRIDE']}")
 
 # Set Map Group
 #if vars.get('MAP_GROUP'):
@@ -150,8 +165,7 @@ if 'TV_NAME' in vars:
 mysql_root_password = os.popen('echo -n l33t | sha256sum | base64 | head -c 32 ; echo').read().strip()
 #os.system('mysql -uroot -p"{}" -hmariadb -e "CREATE DATABASE IF NOT EXISTS matchzy;"'.format(mysql_root_password))
 
-os.system("hostname -I | python3 stats.py &")
-server_cfg = 'game/csgo/cfg/server.cfg'
+os.system(f"hostname -I | python3 stats.py {docker_type} &")
 
 if docker_type == 'comp' or docker_type == 'wingman':
     os.system("python3 config_admins.py simple > game/csgo/cfg/MatchZy/admins.json")
@@ -162,7 +176,8 @@ if docker_type == 'comp' or docker_type == 'wingman':
     config_root = 'game/csgo/cfg/MatchZy'
     matchzy_cfg = config_root + '/config.cfg'
     database_cfg = config_root + '/database.json'
-    live_cfg = config_root + '/' + ('live' if docker_type == 'comp' else 'live_wingman') + '.cfg'
+    live_cfg = config_root + '/live.cfg'
+    live_wingman_cfg = config_root + '/live_wingman.cfg'
     warmup_cfg = config_root + '/warmup.cfg'
 
     find_or_replace(matchzy_cfg, 'matchzy_whitelist_enabled_default', f"matchzy_whitelist_enabled_default {'true' if vars['WHITELIST_ENABLED'] == '1' else 'false'}")
@@ -204,23 +219,130 @@ if docker_type == 'comp' or docker_type == 'wingman':
     find_or_replace(database_cfg, '"MySqlPassword"', f"    \"MySqlPassword\": \"{mysql_root_password}\",", False)
 
     # Add exta commands to the end
+    find_or_replace(warmup_cfg, 'mp_warmup_pausetimer', f"mp_warmup_pausetimer {vars['MP_WARMUP_PAUSETIMER']}")
+    find_or_replace(warmup_cfg, 'mp_warmuptime', f"mp_warmup_time {vars['MP_WARMUPTIME']}")
+    find_or_replace(warmup_cfg, 'sv_auto_full_alltalk_during_warmup_half_end', f"sv_auto_full_alltalk_during_warmup_half_end 1")
 #    find_or_replace(warmup_cfg, 'matchzy_remote_log_url', f"matchzy_remote_log_url \"https://portal.lanslide.com.au/api/v1/matches/{vars['MATCH_ID']}\"")
 #    find_or_replace(warmup_cfg, 'matchzy_remote_log_header_key', f"matchzy_remote_log_header_key Authorization")
 #    find_or_replace(warmup_cfg, 'matchzy_remote_log_header_value', f"matchzy_remote_log_header_value \"6583bac9a2455\"")
 
+    # LIVE
+    
     # Update live config
-    find_or_replace(live_cfg, 'mp_team_timeout_max', f"mp_team_timeout_max 3")
+    find_or_replace(live_cfg, 'mp_disconnect_kills_players', f"mp_disconnect_kills_players {vars['MP_DISCONNECT_KILLS_PLAYS']}")
     find_or_replace(live_cfg, 'mp_freezetime', f"mp_freezetime {vars['FREEZETIME']}")
     find_or_replace(live_cfg, 'mp_overtime_startmoney', f"mp_overtime_startmoney {vars['OVERTIME_STARTMONEY']}")
-    find_or_replace(live_cfg, 'mp_team_timeout_ot_max', 'mp_team_timeout_ot_max 1')
-    find_or_replace(live_cfg, 'mp_team_timeout_ot_add_once', 'mp_team_timeout_ot_add_once 1')
-    find_or_replace(live_cfg, 'mp_team_timeout_ot_add_each', 'mp_team_timeout_ot_add_each 1')
-    find_or_replace(live_cfg, 'mp_technical_timeout_duration_s', 'mp_technical_timeout_duration_s 300')
+    find_or_replace(live_cfg, 'sv_auto_full_alltalk_during_warmup_half_end', f"sv_auto_full_alltalk_during_warmup_half_end {vars['SV_AUTO_FULL_ALLTALK_DURING_WARMUP_HALF_END']}")
+    find_or_replace(live_cfg, 'sv_hibernate_postgame_delay', f"sv_hibernate_postgame_delay {vars['SV_HIBERNATE_POSTGAME_DELAY']}", True)
+    find_or_replace(live_cfg, 'sv_deadtalk', f"sv_deadtalk {vars['SV_DEADTALK']}")
+    find_or_replace(live_cfg, 'sv_logecho', f"sv_logecho {vars['SV_LOGECHO']}", True)
 
+    # Timeouts
+    find_or_replace(live_cfg, 'mp_team_timeout_max', f"mp_team_timeout_max {vars['MP_TEAM_TIMEOUT_MAX']}")
+    find_or_replace(live_cfg, 'mp_team_timeout_ot_max', f"mp_team_timeout_ot_max {vars['MP_TEAM_TIMEOUT_OT_MAX']}")
+    find_or_replace(live_cfg, 'mp_team_timeout_time', f"mp_team_timeout_time {vars['MP_TEAM_TIMEOUT_TIME']}")
+    find_or_replace(live_cfg, 'mp_team_timeout_ot_add_once', f"mp_team_timeout_ot_add_once {vars['MP_TEAM_TIMEOUT_OT_ADD_ONCE']}")
+    find_or_replace(live_cfg, 'mp_team_timeout_ot_add_each', f"mp_team_timeout_ot_add_each {vars['MP_TEAM_TIMEOUT_OT_ADD_EACH']}")
+    find_or_replace(live_cfg, 'mp_technical_timeout_per_team', f"mp_technical_timeout_per_team {vars['MP_TECHNICAL_TIMEOUT_PER_TEAM']}")
+    find_or_replace(live_cfg, 'mp_technical_timeout_duration_s', f"mp_technical_timeout_duration_s {vars['MP_TECHNICAL_TIMEOUT_DURATION_S']}")
+    
+    # LIVE WINGMAN
 
-# CSTV SETTINGS
+    # Update live config
+    find_or_replace(live_wingman_cfg, 'mp_disconnect_kills_players', f"mp_disconnect_kills_players {vars['MP_DISCONNECT_KILLS_PLAYS']}")
+    find_or_replace(live_wingman_cfg, 'mp_freezetime', f"mp_freezetime {vars['FREEZETIME']}")
+    find_or_replace(live_wingman_cfg, 'mp_overtime_startmoney', f"mp_overtime_startmoney {vars['OVERTIME_STARTMONEY']}")
+    find_or_replace(live_wingman_cfg, 'sv_auto_full_alltalk_during_warmup_half_end', f"sv_auto_full_alltalk_during_warmup_half_end {vars['SV_AUTO_FULL_ALLTALK_DURING_WARMUP_HALF_END']}")
+    find_or_replace(live_wingman_cfg, 'sv_hibernate_postgame_delay', f"sv_hibernate_postgame_delay {vars['SV_HIBERNATE_POSTGAME_DELAY']}", True)
+    find_or_replace(live_wingman_cfg, 'sv_deadtalk', f"sv_deadtalk {vars['SV_DEADTALK']}")
+    find_or_replace(live_wingman_cfg, 'sv_logecho', f"sv_logecho {vars['SV_LOGECHO']}", True)
+
+    # Timeouts
+    find_or_replace(live_wingman_cfg, 'mp_team_timeout_max', f"mp_team_timeout_max {vars['MP_TEAM_TIMEOUT_MAX']}")
+    find_or_replace(live_wingman_cfg, 'mp_team_timeout_ot_max', f"mp_team_timeout_ot_max {vars['MP_TEAM_TIMEOUT_OT_MAX']}")
+    find_or_replace(live_wingman_cfg, 'mp_team_timeout_time', f"mp_team_timeout_time {vars['MP_TEAM_TIMEOUT_TIME']}")
+    find_or_replace(live_wingman_cfg, 'mp_team_timeout_ot_add_once', f"mp_team_timeout_ot_add_once {vars['MP_TEAM_TIMEOUT_OT_ADD_ONCE']}")
+    find_or_replace(live_wingman_cfg, 'mp_team_timeout_ot_add_each', f"mp_team_timeout_ot_add_each {vars['MP_TEAM_TIMEOUT_OT_ADD_EACH']}")
+    find_or_replace(live_wingman_cfg, 'mp_technical_timeout_per_team', f"mp_technical_timeout_per_team {vars['MP_TECHNICAL_TIMEOUT_PER_TEAM']}")
+    find_or_replace(live_wingman_cfg, 'mp_technical_timeout_duration_s', f"mp_technical_timeout_duration_s {vars['MP_TECHNICAL_TIMEOUT_DURATION_S']}")
+ 
+
+# Warmup
+find_or_replace(server_cfg, 'mp_warmup_pausetimer', f"mp_warmup_pausetimer {vars['MP_WARMUP_PAUSETIMER']}")
+find_or_replace(server_cfg, 'mp_warmuptime', f"mp_warmuptime {vars['MP_WARMUPTIME']}")
+
+# Game Settings
+find_or_replace(server_cfg, 'sv_deadtalk', f"sv_deadtalk {vars['SV_DEADTALK']}")
 find_or_replace(server_cfg, 'sv_hibernate_postgame_delay', f"sv_hibernate_postgame_delay {vars['SV_HIBERNATE_POSTGAME_DELAY']}", True)
+find_or_replace(server_cfg, 'sv_logecho', f"sv_logecho {vars['SV_LOGECHO']}", True)
+
+# CSTV Settings
 find_or_replace(server_cfg, 'tv_advertise_watchable', f"tv_advertise_watchable {vars['TV_ADVERTISE_WATCHABLE']}", True)
+find_or_replace(server_cfg, 'tv_delay ', f"tv_delay {vars['TV_DELAY']}", True)
+find_or_replace(server_cfg, 'tv_delay1', f"tv_delay1 {vars['TV_DELAY1']}", True)
+find_or_replace(server_cfg, 'tv_enable ', f"tv_enable {vars['TV_ENABLE']}", True)
+find_or_replace(server_cfg, 'tv_enable1', f"tv_enable1 {vars['TV_ENABLE1']}", True)
+find_or_replace(server_cfg, 'tv_name', f"tv_name \"{vars['TV_NAME']}\"", True)
+find_or_replace(server_cfg, 'tv_nochat', f"tv_nochat {vars['TV_NOCHAT']}", True)
+find_or_replace(server_cfg, 'tv_port', f"tv_port {vars['TV_PORT']}", True)
+find_or_replace(server_cfg, 'tv_timeout', f"tv_timeout {vars['TV_TIMEOUT']}", True)
+find_or_replace(server_cfg, 'tv_title', f"tv_title \"{vars['TV_NAME']}\"", True)
+
+# ARMSRACE OVERRIDES
+find_or_replace(armsrace_cfg, 'mp_disconnect_kills_players', f"mp_disconnect_kills_players {vars['MP_DISCONNECT_KILLS_PLAYS']}")
+find_or_replace(armsrace_cfg, 'mp_freezetime', f"mp_freezetime {vars['FREEZETIME']}")
+
+find_or_replace(armsrace_cfg, 'mp_warmuptime', f"mp_warmuptime {vars['MP_WARMUPTIME']}")
+
+# COMPETITVE OVERRIDES
+find_or_replace(competitive_cfg, 'mp_disconnect_kills_players', f"mp_disconnect_kills_players {vars['MP_DISCONNECT_KILLS_PLAYS']}")
+find_or_replace(competitive_cfg, 'mp_freezetime', f"mp_freezetime {vars['FREEZETIME']}")
+find_or_replace(competitive_cfg, 'mp_overtime_startmoney', f"mp_overtime_startmoney {vars['OVERTIME_STARTMONEY']}")
+
+find_or_replace(competitive_cfg, 'mp_team_timeout_max', f"mp_team_timeout_max {vars['MP_TEAM_TIMEOUT_MAX']}")
+find_or_replace(competitive_cfg, 'mp_team_timeout_ot_max', f"mp_team_timeout_ot_max {vars['MP_TEAM_TIMEOUT_OT_MAX']}")
+find_or_replace(competitive_cfg, 'mp_team_timeout_time', f"mp_team_timeout_time {vars['MP_TEAM_TIMEOUT_TIME']}")
+find_or_replace(competitive_cfg, 'mp_team_timeout_ot_add_once', f"mp_team_timeout_ot_add_once {vars['MP_TEAM_TIMEOUT_OT_ADD_ONCE']}")
+find_or_replace(competitive_cfg, 'mp_team_timeout_ot_add_each', f"mp_team_timeout_ot_add_each {vars['MP_TEAM_TIMEOUT_OT_ADD_EACH']}")
+find_or_replace(competitive_cfg, 'mp_technical_timeout_per_team', f"mp_technical_timeout_per_team {vars['MP_TECHNICAL_TIMEOUT_PER_TEAM']}")
+find_or_replace(competitive_cfg, 'mp_technical_timeout_duration_s', f"mp_technical_timeout_duration_s {vars['MP_TECHNICAL_TIMEOUT_DURATION_S']}")
+
+find_or_replace(competitive_cfg, 'sv_auto_full_alltalk_during_warmup_half_end', f"sv_auto_full_alltalk_during_warmup_half_end {vars['SV_AUTO_FULL_ALLTALK_DURING_WARMUP_HALF_END']}")
+find_or_replace(competitive_cfg, 'sv_deadtalk', f"sv_deadtalk {vars['SV_DEADTALK']}")
+find_or_replace(competitive_cfg, 'sv_hibernate_postgame_delay', f"sv_hibernate_postgame_delay {vars['SV_HIBERNATE_POSTGAME_DELAY']}", True)
+
+find_or_replace(competitive_cfg, 'tv_delay ', f"tv_delay {vars['TV_DELAY']}", True)
+find_or_replace(competitive_cfg, 'tv_delay1', f"tv_delay1 {vars['TV_DELAY1']}", True)
+
+find_or_replace(competitive_cfg, 'mp_warmuptime', f"mp_warmuptime {vars['MP_WARMUPTIME']}")
+
+# SETTINGS.CFG
+
+# WINGMAN OVERRIDES
+find_or_replace(wingman_cfg, 'mp_freezetime', f"mp_freezetime {vars['FREEZETIME']}")
+find_or_replace(wingman_cfg, 'mp_overtime_startmoney', f"mp_overtime_startmoney {vars['OVERTIME_STARTMONEY']}")
+
+find_or_replace(wingman_cfg, 'mp_team_timeout_max', f"mp_team_timeout_max {vars['MP_TEAM_TIMEOUT_MAX']}")
+find_or_replace(wingman_cfg, 'mp_team_timeout_ot_max', f"mp_team_timeout_ot_max {vars['MP_TEAM_TIMEOUT_OT_MAX']}")
+find_or_replace(wingman_cfg, 'mp_team_timeout_time', f"mp_team_timeout_time {vars['MP_TEAM_TIMEOUT_TIME']}")
+find_or_replace(wingman_cfg, 'mp_team_timeout_ot_add_once', f"mp_team_timeout_ot_add_once {vars['MP_TEAM_TIMEOUT_OT_ADD_ONCE']}")
+find_or_replace(wingman_cfg, 'mp_team_timeout_ot_add_each', f"mp_team_timeout_ot_add_each {vars['MP_TEAM_TIMEOUT_OT_ADD_EACH']}")
+find_or_replace(wingman_cfg, 'mp_technical_timeout_per_team', f"mp_technical_timeout_per_team {vars['MP_TECHNICAL_TIMEOUT_PER_TEAM']}")
+find_or_replace(wingman_cfg, 'mp_technical_timeout_duration_s', f"mp_technical_timeout_duration_s {vars['MP_TECHNICAL_TIMEOUT_DURATION_S']}")
+
+find_or_replace(wingman_cfg, 'tv_delay ', f"tv_delay {vars['TV_DELAY']}", True)
+find_or_replace(wingman_cfg, 'tv_delay1', f"tv_delay1 {vars['TV_DELAY1']}", True)
+
+
+os.system(f"echo \"{base}\" >> cmd_params")
+
+subprocess.call(base)
+
+#while True:
+#    time.sleep(1)
+
+# OLD CSTV Settings
+
 #find_or_replace(server_cfg, 'tv_allow_camera_man', f"tv_allow_camera_man {vars['TV_ALLOW_CAMERA_MAN']}", True)
 #find_or_replace(server_cfg, 'tv_allow_static_shots', f"tv_allow_static_shots {vars['TV_ALLOW_STATIC_SHOTS']}", True)
 #find_or_replace(server_cfg, 'tv_autorecord', f"tv_autorecord {vars['TV_AUTORECORD']}", True)
@@ -232,12 +354,10 @@ find_or_replace(server_cfg, 'tv_advertise_watchable', f"tv_advertise_watchable {
 #find_or_replace(server_cfg, 'tv_delaymapchange', f"tv_delaymapchange {vars['TV_DELAYMAPCHANGE']}", True)
 #find_or_replace(server_cfg, 'tv_deltacache', f"tv_deltacache {vars['TV_DELTACACHE']}", True)
 #find_or_replace(server_cfg, 'tv_dispatchmode', f"tv_dispatchmode {vars['TV_DISPATCHMODE']}", True)
-find_or_replace(server_cfg, 'tv_enable', f"tv_enable {vars['TV_ENABLE']}", True)
 #find_or_replace(server_cfg, 'tv_enable1', f"tv_enable1 {vars['TV_ENABLE1']}", True)
 #find_or_replace(server_cfg, 'tv_maxclients', f"tv_maxclients {vars['TV_MAXCLIENTS']}", True)
 #find_or_replace(server_cfg, 'tv_maxrate', f"tv_maxrate {vars['TV_MAXRATE']}", True)
 #find_or_replace(server_cfg, 'tv_name', f"tv_name \"{vars['TV_NAME']}\"", True)
-find_or_replace(server_cfg, 'tv_nochat', f"tv_nochat {vars['TV_NOCHAT']}", True)
 #find_or_replace(server_cfg, 'tv_overridemaster', f"tv_overridemaster {vars['TV_OVERRIDEMASTER']}", True)
 #find_or_replace(server_cfg, 'tv_port', f"tv_port {vars['TV_PORT']}", True)
 #find_or_replace(server_cfg, 'tv_port1', f"tv_port1 {vars['TV_PORT1']}", True)
@@ -246,14 +366,5 @@ find_or_replace(server_cfg, 'tv_nochat', f"tv_nochat {vars['TV_NOCHAT']}", True)
 #find_or_replace(server_cfg, 'tv_relayradio', f"tv_relayradio {vars['TV_RELAYRADIO']}", True)
 #find_or_replace(server_cfg, 'tv_relayvoice', f"tv_relayvoice {vars['TV_RELAYVOICE']}", True)
 #find_or_replace(server_cfg, 'tv_show_allchat', f"tv_show_allchat {vars['TV_SHOW_ALLCHAT']}", True)
-find_or_replace(server_cfg, 'tv_timeout', f"tv_timeout {vars['TV_TIMEOUT']}", True)
 #find_or_replace(server_cfg, 'tv_title', f"tv_title \"{vars['TV_NAME']}\"", True)
 #find_or_replace(server_cfg, 'tv_transmitall', f"tv_transmitall {vars['TV_TRANSMITALL']}", True)
-
-
-os.system(f"echo \"{base}\" >> cmd_params")
-
-subprocess.call(base)
-
-#while True:
-#    time.sleep(1)
