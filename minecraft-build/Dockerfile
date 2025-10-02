@@ -1,7 +1,7 @@
 FROM base:latest AS jdk
 LABEL maintainer="LAN-slide"
 ARG spigot_version=latest
-ENV SPIGOT_VERSION=1.21.8
+ENV SPIGOT_VERSION=1.21.9
 ARG java_version=21
 ENV JAVA_VERSION=${java_version}
 # todo: collapse these to single command
