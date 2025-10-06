@@ -212,6 +212,11 @@ if docker_type == 'comp' or docker_type == 'wingman':
     find_or_replace(matchzy_cfg, 'matchzy_match_start_message', f"matchzy_match_start_message {vars['MATCH_START_MESSAGE']}")
     find_or_replace(matchzy_cfg, 'matchzy_enable_match_scrim', f"matchzy_enable_match_scrim {'true' if vars['ENABLE_MATCH_SCRIM'] == '1' else 'false'}")
 
+    # Backup [Round log details]
+    # find_or_replace(matchzy_cfg, 'matchzy_remote_backup_url', f"matchzy_remote_backup_url \"https://portal.lanslide.com.au/api/v1/backup/\"")
+    # find_or_replace(matchzy_cfg, 'matchzy_remote_backup_header_key', f"matchzy_remote_backup_header_key Authorization")
+    # find_or_replace(matchzy_cfg, 'matchzy_remote_backup_header_value', f"matchzy_remote_backup_header_value \"{vars['MATCH_API_KEY']}\"")
+
     #find_or_replace(database_cfg, '"DatabaseType"', f"    \"DatabaseType\": \"MySQL\",", False)
     find_or_replace(database_cfg, '"MySqlHost"', f"    \"MySqlHost\": \"mariadb\",", False)
     find_or_replace(database_cfg, '"MySqlDatabase"', f"    \"MySqlDatabase\": \"matchzy\",", False)
@@ -220,11 +225,8 @@ if docker_type == 'comp' or docker_type == 'wingman':
 
     # Add exta commands to the end
     find_or_replace(warmup_cfg, 'mp_warmup_pausetimer', f"mp_warmup_pausetimer {vars['MP_WARMUP_PAUSETIMER']}")
-    find_or_replace(warmup_cfg, 'mp_warmuptime', f"mp_warmup_time {vars['MP_WARMUPTIME']}")
+    find_or_replace(warmup_cfg, 'mp_warmuptime', f"mp_warmuptime {vars['MP_WARMUPTIME']}")
     find_or_replace(warmup_cfg, 'sv_auto_full_alltalk_during_warmup_half_end', f"sv_auto_full_alltalk_during_warmup_half_end 1")
-#    find_or_replace(warmup_cfg, 'matchzy_remote_log_url', f"matchzy_remote_log_url \"https://portal.lanslide.com.au/api/v1/matches/{vars['MATCH_ID']}\"")
-#    find_or_replace(warmup_cfg, 'matchzy_remote_log_header_key', f"matchzy_remote_log_header_key Authorization")
-#    find_or_replace(warmup_cfg, 'matchzy_remote_log_header_value', f"matchzy_remote_log_header_value \"6583bac9a2455\"")
 
     # LIVE
     

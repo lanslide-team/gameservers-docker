@@ -91,13 +91,15 @@ def generate_config() -> None:
         config['map_sides'] = os.environ['MAP_SIDES'].rstrip(',').split(',')
 
     cvars = {}
-    cvars['get5_remote_log_url'] = 'https://g5.lanslide.com.au/api'
+    # Matchzy Events
+    cvars['get5_remote_log_url'] = 'https://portal.lanslide.com.au/api/v1/matches'
+#    cvars['get5_remote_log_url'] = 'https://g5.lanslide.com.au/api/v2'
     cvars['get5_remote_log_header_key'] = 'Authorization'
     cvars['get5_remote_log_header_value'] = match_api_key
-    cvars['mp_maxrounds'] = int(max_rounds)
-    cvars['mp_freezetime'] = 10 if is_wingman else 20
-    cvars['mp_overtime_startmoney'] = 12500
-    cvars['sv_competitive_official_5v5'] = 0 if is_wingman else 1
+#    cvars['mp_maxrounds'] = int(max_rounds)
+#    cvars['mp_freezetime'] = 10 if is_wingman else 20
+#    cvars['mp_overtime_startmoney'] = 12500
+#    cvars['sv_competitive_official_5v5'] = 0 if is_wingman else 1
     config['cvars'] = cvars
     config_json: str = json.dumps(config, indent=4)
  
