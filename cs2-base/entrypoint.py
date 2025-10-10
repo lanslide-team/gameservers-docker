@@ -233,6 +233,7 @@ if docker_type == 'comp' or docker_type == 'wingman':
     # Update live config
     find_or_replace(live_cfg, 'mp_disconnect_kills_players', f"mp_disconnect_kills_players {vars['MP_DISCONNECT_KILLS_PLAYS']}")
     find_or_replace(live_cfg, 'mp_freezetime', f"mp_freezetime {vars['FREEZETIME']}")
+    find_or_replace(live_cfg, 'mp_overtime_enable', f"mp_overtime_enable true")
     find_or_replace(live_cfg, 'mp_overtime_startmoney', f"mp_overtime_startmoney {vars['OVERTIME_STARTMONEY']}")
     find_or_replace(live_cfg, 'sv_auto_full_alltalk_during_warmup_half_end', f"sv_auto_full_alltalk_during_warmup_half_end {vars['SV_AUTO_FULL_ALLTALK_DURING_WARMUP_HALF_END']}")
     find_or_replace(live_cfg, 'sv_hibernate_postgame_delay', f"sv_hibernate_postgame_delay {vars['SV_HIBERNATE_POSTGAME_DELAY']}", True)
@@ -267,9 +268,11 @@ if docker_type == 'comp' or docker_type == 'wingman':
     find_or_replace(live_wingman_cfg, 'mp_team_timeout_ot_add_each', f"mp_team_timeout_ot_add_each {vars['MP_TEAM_TIMEOUT_OT_ADD_EACH']}")
     find_or_replace(live_wingman_cfg, 'mp_technical_timeout_per_team', f"mp_technical_timeout_per_team {vars['MP_TECHNICAL_TIMEOUT_PER_TEAM']}")
     find_or_replace(live_wingman_cfg, 'mp_technical_timeout_duration_s', f"mp_technical_timeout_duration_s {vars['MP_TECHNICAL_TIMEOUT_DURATION_S']}")
+    find_or_replace(live_wingman_cfg, 'mp_overtime_enable', f"mp_overtime_enable true")
  
 
 # Warmup
+find_or_replace(server_cfg, 'mp_overtime_enable', f"mp_overtime_enable true")
 find_or_replace(server_cfg, 'mp_warmup_pausetimer', f"mp_warmup_pausetimer {vars['MP_WARMUP_PAUSETIMER']}")
 find_or_replace(server_cfg, 'mp_warmuptime', f"mp_warmuptime {vars['MP_WARMUPTIME']}")
 
@@ -299,6 +302,7 @@ find_or_replace(armsrace_cfg, 'mp_warmuptime', f"mp_warmuptime {vars['MP_WARMUPT
 # COMPETITVE OVERRIDES
 find_or_replace(competitive_cfg, 'mp_disconnect_kills_players', f"mp_disconnect_kills_players {vars['MP_DISCONNECT_KILLS_PLAYS']}")
 find_or_replace(competitive_cfg, 'mp_freezetime', f"mp_freezetime {vars['FREEZETIME']}")
+find_or_replace(competitive_cfg, 'mp_overtime_enable', f"mp_overtime_enable true")
 find_or_replace(competitive_cfg, 'mp_overtime_startmoney', f"mp_overtime_startmoney {vars['OVERTIME_STARTMONEY']}")
 
 find_or_replace(competitive_cfg, 'mp_team_timeout_max', f"mp_team_timeout_max {vars['MP_TEAM_TIMEOUT_MAX']}")
@@ -322,6 +326,7 @@ find_or_replace(competitive_cfg, 'mp_warmuptime', f"mp_warmuptime {vars['MP_WARM
 
 # WINGMAN OVERRIDES
 find_or_replace(wingman_cfg, 'mp_freezetime', f"mp_freezetime {vars['FREEZETIME']}")
+find_or_replace(wingman_cfg, 'mp_overtime_enable', f"mp_overtime_enable true")
 find_or_replace(wingman_cfg, 'mp_overtime_startmoney', f"mp_overtime_startmoney {vars['OVERTIME_STARTMONEY']}")
 
 find_or_replace(wingman_cfg, 'mp_team_timeout_max', f"mp_team_timeout_max {vars['MP_TEAM_TIMEOUT_MAX']}")
