@@ -2,12 +2,16 @@
 set -e
 
 STARTT=$(date +%s.%N)
+VERSION="v1.21.10"
 
-#docker build -t='base:latest' base/
-#docker build -t='minecraft:latest' minecraft/ --no-cache
-docker build -t='minecraft-base:latest' minecraft-base/ --no-cache
-docker build -t='minecraft-build:latest' minecraft-build/ --no-cache
-docker build -t='minecraft-map:latest' minecraft-map/ --no-cache
+docker pull ghcr.io/lanslide-team/spigot-build:$VERSION
+docker pull ghcr.io/lanslide-team/spigot-map:$VERSION
+
+docker tag ghcr.io/lanslide-team/spigot-build:$VERSION minecraft-build:$VERSION
+docker tag ghcr.io/lanslide-team/spigot-map:$VERSION minecraft-map:$VERSION
+
+docker rmi ghcr.io/lanslide-team/spigot-build:$VERSION
+docker rmi ghcr.io/lanslide-team/spigot-map:$VERSION
 
 docker image prune -f
 
