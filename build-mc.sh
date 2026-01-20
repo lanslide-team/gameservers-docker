@@ -2,7 +2,7 @@
 set -e
 
 STARTT=$(date +%s.%N)
-VERSION="v1.21.10"
+VERSION="v1.21.11"
 
 docker pull ghcr.io/lanslide-team/minecraft-build:$VERSION
 docker pull ghcr.io/lanslide-team/minecraft-map:$VERSION
