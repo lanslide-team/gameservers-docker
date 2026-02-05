@@ -178,6 +178,18 @@ zdaemon() {
     )
 }
 
+proton() {
+   declare gs_root=$1
+   declare game=$2
+   steamcmd="steamcmd"
+   script="steamcmd.sh"
+
+   echo ${gs_root}
+   echo ${game}
+
+   ${gs_root}/${steamcmd}/${script} +@sSteamCmdForcePlatformType linux +force_install_dir "${gs_root}/${game}/proton" +login anonymous +app_info_update 1 +app_update 1493710 validate +quit
+}
+
 steamcmd() {
     declare gs_root=$1
 
@@ -205,6 +217,7 @@ steamcmd() {
     games[rust]=258550
     games[tf2]=232250
     games[wreckfest]=361580
+    games[wreckfest2]=3519390
 
     ls ${gs_root}/${steamcmd}/${script} >/dev/null || (
         mkdir -p ${gs_root}/${steamcmd} &&
@@ -223,7 +236,7 @@ steamcmd() {
         elif [ "${game}" = "cs2-base" ]; then
             cp ${gs_root}/${steamcmd}/linux64/steamclient.so ${gs_root}/${game}/ -f 
 	    ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login_user} +app_update ${games[$game]} +quit
-        elif [ "${game}" = "wreckfest" -o "${game}" = "reflex-arena" ]; then
+        elif [ "${game}" = "wreckfest2" -o "${game}" = "wreckfest" -o "${game}" = "reflex-arena" ]; then
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login} +@sSteamCmdForcePlatformType windows +app_update ${games[$game]} +quit
         elif [ "${game}" = "l4d2-base" ]; then
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login} +@sSteamCmdForcePlatformType windows +app_update ${games[$game]} +quit
@@ -239,30 +252,33 @@ steamcmd() {
 #    mv ${gs_root}/csgo-base/data/bin/libstdc++.so.6 ${gs_root}/csgo-base/data/bin/libstdc++.so.6.old
 }
 
+
+proton $gs_root wreckfest2
+
 # CS:GO Surf maps
-csgo_surf $gs_root
+# csgo_surf $gs_root
 
 # Doom 2
-doom2 $gs_root
+# doom2 $gs_root
 
 # Halo CE
-haloce $gs_root
+# haloce $gs_root
 
 # Minecraft volumes
-mc_vols
+# mc_vols
 
 # TrackMania Forever
-tmf $gs_root
+# tmf $gs_root
 
 # Unreal Tournament 99 (GOTY)
-ut99 $gs_root
+# ut99 $gs_root
 
 # UT2004
-ut2004 $gs_root
+# ut2004 $gs_root
 
 # Zdeamon
-zdaemon $gs_root
+# zdaemon $gs_root
 
 # Steamcmd
-steamcmd $gs_root
+# steamcmd $gs_root
 

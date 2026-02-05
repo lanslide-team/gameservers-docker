@@ -1,0 +1,33 @@
+{
+    "bbmeta": "$BBMETA_SERVER",
+    "net server config": [
+        {
+            "bbmeta": "$BBMETA_NET",
+            "name": "$NAME",
+            "description": "$DESCRIPTION",
+            "password": "$PASSWORD",
+            "game port": $GAME_PORT
+        }
+    ],
+    "game server config": [
+        {
+            "bbmeta": "$BBMETA_GAME",
+            "cup settings": [
+                {
+                    "bbmeta": "$BBMETA_CUP",
+                    "point distribution": "$POINT_DISTRIBUTION",
+                    "start order": "$START_ORDER",
+                    "points for best lap time": $POINTS_FOR_BEST_LAP_TIME,
+                    "points for highest score": $POINTS_FOR_HIGHEST_SCORE,
+                    "last race multiplier": $LAST_RACE_MULTIPLIER,
+                    "number of races": $NUMBER_OF_RACES
+                }
+            ],
+
+            "event loop name": "$EVENT_LOOP_NAME",
+            "countdown time": $COUNTDOWN_TIME,
+            "flags": "$GAME_FLAGS"
+        }
+    ]
+}
+

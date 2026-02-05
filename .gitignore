@@ -26,6 +26,8 @@ trackmania-forever/*.zip
 trackmania-forever-rcon/.svn/*
 trackmania-forever-rcon/RemoteControlExamples
 wreckfest/data
+wreckfest2/data
+wreckfest2/proton
 ut2004/dedicatedserver*.7z
 ut99/data
 zdaemon/wads

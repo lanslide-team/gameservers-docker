@@ -1,0 +1,30 @@
+{
+    "bbmeta": "$BBMETA_LOOP",
+    "events": [
+        {
+            "bbmeta": "$BBMETA_EVENTS",
+            "level": [
+                {
+                    "bbmeta": "$BBMETA_LEVEL",
+                    "level id": "$LEVEL_ID",
+                    "weather path": "data/property/weather/$WEATHER_PATH.weat",
+                    "ai set path": "career/$AI_SET_PATH",
+                    "game mode id": "$GAME_MODE_ID"
+                }
+            ],
+            "rules": [
+                {
+                    "bbmeta": "$BBMETA_RULES",
+                    "laps": $LAPS,
+                    "time limit": $TIME_LIMIT,
+                    "number of teams": $NUMBER_OF_TEAMS,
+                    "max number of participants": $MAX_NUMBER_OF_PARTICIPANTS,
+                    "flags": "$RULES_FLAGS",
+                    "car reset delay (seconds)": $CAR_RESET_DELAY,
+                    "vehicle damage id": "$VEHICLE_DAMAGE_ID"
+                }
+            ],
+            "bot count": $BOT_COUNT
+        }
+    ]
+}

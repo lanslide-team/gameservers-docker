@@ -67,6 +67,7 @@ docker build -t='trackmania-forever-rcon:latest' trackmania-forever-rcon/
 docker build -t='ut2004:latest' ut2004/
 docker build -t='ut99:latest' ut99/
 docker build -t='wreckfest:latest' wreckfest/
+docker build -t='wreckfest2:latest' wreckfest2/
 docker build -t='zdaemon:latest' zdaemon/
 
 docker image prune -f
