@@ -255,30 +255,30 @@ steamcmd() {
 
 proton $gs_root wreckfest2
 
-# CS:GO Surf maps
+#  CS:GO Surf maps
 # csgo_surf $gs_root
 
 # Doom 2
-# doom2 $gs_root
+doom2 $gs_root
 
 # Halo CE
-# haloce $gs_root
+haloce $gs_root
 
 # Minecraft volumes
-# mc_vols
+mc_vols
 
 # TrackMania Forever
-# tmf $gs_root
+tmf $gs_root
 
 # Unreal Tournament 99 (GOTY)
-# ut99 $gs_root
+ut99 $gs_root
 
 # UT2004
-# ut2004 $gs_root
+ut2004 $gs_root
 
 # Zdeamon
-# zdaemon $gs_root
+zdaemon $gs_root
 
 # Steamcmd
-# steamcmd $gs_root
+steamcmd $gs_root
 
