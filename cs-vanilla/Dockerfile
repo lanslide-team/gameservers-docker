@@ -1,6 +1,8 @@
 FROM cs-base
 LABEL maintainer="LAN-slide"
 
+RUN apt-get update && apt-get install -y gdb
+
 USER steam
 WORKDIR /cs
 

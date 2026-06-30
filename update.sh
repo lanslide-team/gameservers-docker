@@ -231,7 +231,7 @@ steamcmd() {
         if [ "${game}" = "altitude" -o "${game}" = "retrocycles" ]; then
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login_user} +app_update ${games[$game]} +quit
         elif [ "${game}" = "cs-base" ]; then
-#            cp ${gs_root}/${steamcmd}/linux64/steamclient.so ${gs_root}/${game}/ -f 
+            cp ${gs_root}/${steamcmd}/linux32/steamclient.so ${gs_root}/${game}/ -f 
 	    ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login_user} +app_set_config ${games[$game]} mod cstrike +app_update ${games[$game]} -beta steam_legacy validate +quit
         elif [ "${game}" = "cs2-base" ]; then
             cp ${gs_root}/${steamcmd}/linux64/steamclient.so ${gs_root}/${game}/ -f 

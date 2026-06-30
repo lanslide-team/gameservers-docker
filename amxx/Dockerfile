@@ -54,7 +54,8 @@ RUN wget -nc "${regamedllcs_url}${regamedllcs}" && unzip "${regamedllcs}" -d reg
 #UN wget "${pugmod_url}" -O ${pugmod} && unzip ${pugmod} "PugMod-master/*" && rm "${pugmod}" -f
 #RUN curl -o ${pugmod} -OJL "${pugmod_url}" && unzip ${pugmod} && rm "${pugmod}" -f
 
-RUN wget -nc "${match_deluxe_url}" -O "${match_deluxe}" && unzip "${match_deluxe}" -d "match-deluxe" && rm "${match_deluxe}" -f
+COPY amx_match_deluxe_811.zip amx_match_deluxe_811.zip
+RUN unzip "${match_deluxe}" -d "match-deluxe" && rm "${match_deluxe}" -f
 RUN sed -i 's|amx_match_hostname "1"|amx_match_hostname "0"|g' "${match_deluxe_cfg}"
 RUN sed -i 's|amx_match_password "1"|amx_match_password "0"|g' "${match_deluxe_cfg}"
 RUN sed -i 's|amx_match_password2 "scrim"|amx_match_password2 ""|g' "${match_deluxe_cfg}"

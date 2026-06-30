@@ -68,7 +68,7 @@ elif vars.get('HOSTNAME'):
 base.append('+servercfgfile {SERVERCFGFILE}'.format(**vars))
 
 os.system("python3 config_admins.py > /cs/cstrike/addons/amxmodx/configs/users.ini")
-os.system("python3 config_admins_mb.py >> /cs/cstrike/addons/matchbot/users.txt")
+os.system("python3 config_admins.py >> /cs/cstrike/addons/matchbot/users.txt")
 
 subprocess.call(base)
 
