@@ -47,7 +47,7 @@ docker build -t='wineconsole/lite:latest' wineconsole/
 docker build -t='7days:latest' 7days/
 docker build -t='altitude:latest' altitude/
 docker pull factoriotools/factorio:latest
-docker build -t='haloce:latest' haloce/
+docker build --platform linux/386 -t='haloce:latest' haloce/
 docker build -t='hl2:latest' hl2/
 docker build -t='l4d2-base:latest' l4d2-base/
 docker build -t='l4d2-vanilla:latest' l4d2-vanilla/
