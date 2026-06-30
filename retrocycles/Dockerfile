@@ -15,4 +15,4 @@ COPY --chown=steam:steam entrypoint.sh entrypoint.sh
 
 RUN chmod +x entrypoint.sh
 
-ENTRYPOINT /retrocycles/entrypoint.sh
+ENTRYPOINT ["/retrocycles/entrypoint.sh"]
