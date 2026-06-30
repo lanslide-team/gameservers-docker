@@ -7,4 +7,4 @@ COPY --chown=altitude:altitude entrypoint.sh /opt/scripts/
 
 RUN chmod +x /opt/scripts/entrypoint.sh
 
-ENTRYPOINT /opt/scripts/entrypoint.sh
+ENTRYPOINT ["/opt/scripts/entrypoint.sh"]
