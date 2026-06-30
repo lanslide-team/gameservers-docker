@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ServerLauncherConfig ip="" upnpEnabled="true" updatePort="$UPDATE_PORT">
+<ServerLauncherConfig ip="" upnpEnabled="true" updatePort="27275">
   <servers>
-    <AltitudeServerConfig port="$PORT" downloadMaxKilobytesPerSecond="$DOWNLOAD_MAX_KILOBYTES_PER_SECOND" downloadHttpSource="$DOWNLOAD_HTTP_SOURCE" serverName="$SERVER_NAME" maxPlayerCount="$MAX_PLAYER_COUNT" hardcore="$HARDCORE" autoBalanceTeams="$AUTO_BALANCE_TEAMS" preventTeamSwitching="$PREVENT_TEAM_SWITCHING" disableBalanceTeamsPopup="$DISABLE_BALANCE_TEAMS_POPUP" lanServer="$LAN_SERVER" callEndOfRoundVote="$CALL_END_OF_ROUND_VOTE" disallowDemoUsers="$DISALLOW_DEMO_USERS" rconEnabled="$RCON_ENABLED" rconPassword="$RCON_PASSWORD" maxPing="$MAX_PING" minLevel="$MIN_LEVEL" maxLevel="$MAX_LEVEL" secretCode="$SECRET_CODE" cameraViewScalePercent="$CAMERA_VIEW_SCALE_PERCENT">
+    <AltitudeServerConfig port="27276" downloadMaxKilobytesPerSecond="40" downloadHttpSource="" serverName="Altitude Server" maxPlayerCount="14" hardcore="true" autoBalanceTeams="true" preventTeamSwitching="false" disableBalanceTeamsPopup="false" lanServer="false" callEndOfRoundVote="true" disallowDemoUsers="false" rconEnabled="true" rconPassword="adminDocker" maxPing="350" minLevel="0" maxLevel="0" secretCode="" cameraViewScalePercent="100">
       <adminsByVaporID />
       <mapList>
         <String value="1bd_core" />
@@ -106,16 +106,19 @@
         <String value="|tdm|" />
       </mapList>
       <mapRotationList>
-$MAPLIST
+        <String value="|ball|" />
+        <String value="|ffa|" />
+        <String value="|tbd|" />
+        <String value="|tdm|" />
       </mapRotationList>
-      <BotConfig numberOfBots="$NUMBER_OF_BOTS" botDifficulty="$BOT_DIFFICULTY" botsBalanceTeams="$BOTS_BALANCE_TEAMS" botSpectateThreshold="$BOT_SPECTATE_THRESHOLD" />
+      <BotConfig numberOfBots="2" botDifficulty="MEDIUM" botsBalanceTeams="true" botSpectateThreshold="6" />
       <disallowedPlaneRandomTypes />
-      <FreeForAllGameMode scoreLimit="$FFA_SCORE_LIMIT" RoundLimit="$FFA_ROUND_LIMIT" roundTimeSeconds="$FFA_ROUND_TIME_SECONDS" warmupTimeSeconds="$FFA_WARMUP_TIME_SECONDS" />
-      <BaseDestroyGameMode RoundLimit="$BD_ROUND_LIMIT" roundTimeSeconds="$BD_ROUND_TIME_SECONDS" warmupTimeSeconds="$BD_WARMUP_TIME_SECONDS" />
-      <ObjectiveGameMode gamesPerRound="$OBJ_GAMES_PER_ROUND" gamesPerSwitchSides="$OBJ_GAMES_PER_SWITCH_SIDES" gameWinMargin="$OBJ_GAMES_WIN_MARGIN" betweenGameTimeSeconds="$OBJ_BETWEEN_GAME_TIME_SECONDS" RoundLimit="$OBJ_ROUND_LIMIT" roundTimeSeconds="$OBJ_ROUND_TIME_SECONDS" warmupTimeSeconds="$OBJ_WARMUP_TIME_SECONDS" />
-      <PlaneBallGameMode goalsPerRound="$PLANE_GOALS_PER_ROUND" RoundLimit="$PLANE_ROUND_LIMIT" roundTimeSeconds="$PLANE_ROUND_TIME_SECONDS" warmupTimeSeconds="$PLANE_WARMUP_TIME_SECONDS" />
-      <TeamDeathmatchGameMode scoreLimit="$TDM_SCORE_LIMIT" RoundLimit="$TDM_ROUND_LIMIT" roundTimeSeconds="$TDM_ROUND_TIME_SECONDS" warmupTimeSeconds="$TDM_WARMUP_TIME_SECONDS" />
-      <customCAmmands />
+      <FreeForAllGameMode scoreLimit="0" RoundLimit="1" roundTimeSeconds="420" warmupTimeSeconds="10" />
+      <BaseDestroyGameMode RoundLimit="1" roundTimeSeconds="0" warmupTimeSeconds="10" />
+      <ObjectiveGameMode gamesPerRound="9" gamesPerSwitchSides="2" gameWinMargin="1" betweenGameTimeSeconds="6" RoundLimit="1" roundTimeSeconds="0" warmupTimeSeconds="10" />
+      <PlaneBallGameMode goalsPerRound="11" RoundLimit="1" roundTimeSeconds="0" warmupTimeSeconds="10" />
+      <TeamDeathmatchGameMode scoreLimit="0" RoundLimit="1" roundTimeSeconds="600" warmupTimeSeconds="10" />
+      <customCommands />
       <consoleCommandPermissions>
         <AltitudeServerConsoleCommandPermissions ConsoleCommand="balanceTeams">
           <AllowedGroups>
