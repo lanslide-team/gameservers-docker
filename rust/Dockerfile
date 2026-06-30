@@ -14,4 +14,4 @@ COPY --chown=steam:steam entrypoint.sh entrypoint.sh
 
 RUN chmod +x entrypoint.sh
 
-ENTRYPOINT /rust/entrypoint.sh
+ENTRYPOINT ["/rust/entrypoint.sh"]
