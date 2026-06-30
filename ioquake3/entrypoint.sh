@@ -48,4 +48,6 @@ sed -i "s/\$GAME_TYPE/$GAME_TYPE/" $SERVER_CFG
 
 hostname -I | python3 stats.py &
 
-./ioq3ded.x86_64 +set dedicated $DEDICATED +set com_hunkmegs $HUNK_MEMORY +set fs_game baseq3 +exec server.cfg +g_gametype $GAME_TYPE +set bot_min_players $BOT_MIN_PLAYERS +set g_allowvote $ALLOW_VOTE +set net_port $NET_PORT
+/home/ioquake3/ioq3ded +set dedicated $DEDICATED +set com_hunkmegs $HUNK_MEMORY +set fs_game baseq3 +exec server.cfg +g_gametype $GAME_TYPE +set bot_min_players $BOT_MIN_PLAYERS +set g_allowvote $ALLOW_VOTE +set net_port $NET_PORT
+bash
+
