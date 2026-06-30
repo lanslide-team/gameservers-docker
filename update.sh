@@ -241,6 +241,7 @@ steamcmd() {
         elif [ "${game}" = "l4d2-base" ]; then
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login} +@sSteamCmdForcePlatformType windows +app_update ${games[$game]} +quit
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login} +@sSteamCmdForcePlatformType linux +app_update ${games[$game]} +quit
+            cp ${gs_root}/${steamcmd}/linux32/steamclient.so ${gs_root}/${game}/ -f
             rm ${gs_root}/${game}/${target_folder}/left4dead2/host.txt -f
             rm ${gs_root}/${game}/${target_folder}/left4dead2/motd.txt -f
         else
