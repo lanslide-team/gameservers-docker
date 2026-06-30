@@ -20,6 +20,8 @@ RUN chmod 777 /var/www/html/logs -R
 RUN chmod 666 /var/www/html/config/adminlevel.cfg.php
 RUN chmod 666 /var/www/html/config/adminserv.cfg.php
 RUN chmod 666 /var/www/html/config/servers.cfg.php
+RUN chown tm /var/www/html -R
+RUN mkdir -p /etc/apache/conf-available && chown tm /etc/apache/conf-available/ -R
 
 ADD tracklist*.cfg /tm/GameData/Tracks/
 ADD dedicated_cfg.txt /tm/GameData/Config/
