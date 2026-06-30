@@ -15,4 +15,4 @@ COPY --chown=steam:steam stats.py stats.py
 
 RUN chmod +x entrypoint.sh
 
-ENTRYPOINT /7days/entrypoint.sh
+ENTRYPOINT ["/7days/entrypoint.sh"]

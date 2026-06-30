@@ -34,5 +34,5 @@ class Query:
 
 if __name__ == '__main__':
     host = input().strip()
-    asyncio.run(Query.process_game(protocol=Source, response_keys=Query.SOURCE_RESPONSE, host=host, port=os.environ['SERVER_PORT'], timeout=1))
+    asyncio.run(Query.process_game(protocol=Source, response_keys=Query.SOURCE_RESPONSE, host=host, port=os.environ['SERVERPORT'], timeout=1))
 
