@@ -5,14 +5,14 @@ from opengsq.protocols import Source
 
 
 class Query:
-    SOURCE_RESPONSE: list[str] = ['Name', 'Map', 'Players', 'MaxPlayers', 'GamePort']
+    SOURCE_RESPONSE: list[str] = ['name', 'map', 'players', 'max_players', 'port']
     DEFAULT_SLEEP: int = 5
 
     @classmethod
     def __process_info(cls, response: dict, response_keys: list[str]) -> dict:
         result = {}
         for tag in response_keys:
-            result[tag] = response[tag]
+            result[tag] = getattr(response, tag)
         return result
 
     @classmethod
