@@ -8,6 +8,16 @@ ENV_VAR_ARR2='BBMETA_LOOP BBMETA_EVENTS BBMETA_LEVEL LEVEL_ID WEATHER_PATH AI_SE
 
 BBMETA_SERVER="${BBMETA_SERVER:-scnf v0 n1}"
 BBMETA_NET="${BBMETA_NET:-ncnf v2 n1}"
+#!/bin/bash
+set -euo pipefail
+
+echo "[Wreckfest2] Starting container…"
+
+ENV_VAR_ARR1='BBMETA_SERVER BBMETA_NET NAME DESCRIPTION PASSWORD LOG_FILE_NAME GAME_PORT BBMETA_GAME BBMETA_CUP POINT_DISTRIBUTION START_ORDER POINTS_FOR_BEST_LAP_TIME POINTS_FOR_HIGHEST_SCORE LAST_RACE_MULTIPLIER NUMBER_OF_RACES EVENT_LOOP_NAME COUNTDOWN_TIME GAME_FLAGS';
+ENV_VAR_ARR2='BBMETA_LOOP BBMETA_EVENTS BBMETA_LEVEL LEVEL_ID WEATHER_PATH AI_SET_PATH GAME_MODE_ID BBMETA_RULES LAPS TIME_LIMIT NUMBER_OF_TEAMS MAX_NUMBER_OF_PARTICIPANTS RULES_FLAGS CAR_RESET_DELAY VEHICLE_DAMAGE_ID BOT_COUNT';
+
+BBMETA_SERVER="${BBMETA_SERVER:-scnf v0 n1}"
+BBMETA_NET="${BBMETA_NET:-ncnf v2 n1}"
 NAME="${NAME:-Wreckfest 2 Server}"
 DESCRIPTION="${DESCRIPTION:-Wreck dem all}"
 PASSWORD="${PASSWORD:-}"
@@ -50,7 +60,6 @@ SERVER_CFG2="/wreckfest2/save/default_loop.becl"
 
 # ---- Paths ----
 SERVER_DIR="/wreckfest2"
-PROTON_BIN="/proton/proton"
 
 # ---- Proton / Wine env ----
 export WINEPREFIX="${WINEPREFIX:-/compat}"
@@ -60,26 +69,6 @@ export STEAM_COMPAT_CLIENT_INSTALL_PATH="${STEAM_COMPAT_CLIENT_INSTALL_PATH:-/pr
 # Disable noisy logging unless debugging
 export PROTON_LOG="${PROTON_LOG:-1}"
 export WINEDEBUG="${WINEDEBUG:--all}"
-
-# ---- Sanity checks ----
-if [[ ! -x "$PROTON_BIN" ]]; then
-  echo "[ERROR] Proton launcher not found or not executable at: $PROTON_BIN" >&2
-  exit 1
-fi
-
-if [[ ! -f "$SERVER_DIR/Wreckfest2.exe" ]]; then
-  echo "[ERROR] Wreckfest2.exe not found in $SERVER_DIR" >&2
-  ls -la "$SERVER_DIR"
-  exit 1
-fi
-
-mkdir -p "$WINEPREFIX"
-
-echo "[Wreckfest2] Using Proton: $PROTON_BIN"
-echo "[Wreckfest2] Wine prefix: $WINEPREFIX"
-echo "[Wreckfest2] Server dir: $SERVER_DIR"
-
-cd "$SERVER_DIR"
 
 for ENV_VAR in $ENV_VAR_ARR1
 do
@@ -91,16 +80,4 @@ do
      sed -i "s/\$$ENV_VAR/${!ENV_VAR}/" $SERVER_CFG2
 done
 
-# ---- Default args (can be overridden via docker run) ----
-DEFAULT_ARGS=(
-  "./Wreckfest2.exe"
-  "--server"
-  "--save-dir=save"
-)
-
-set +e
-"$PROTON_BIN" run "${DEFAULT_ARGS[@]}" 2>&1 | tee -a /compat/proton-wreckfest2.log
-rc=${PIPESTATUS[0]}
-set -e
-
-sleep infinity
+exec wine Wreckfest2.exe --server --save-dir=save 
