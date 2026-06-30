@@ -40,7 +40,11 @@ RUN python3 /prepare.py i
 EXPOSE 5580/tcp 7777/udp 7778/udp 7779/udp 7780/udp 7781/udp 8777/udp 27500/tcp 27500/udp 27900/tcp 27900/udp
 VOLUME /ut-data
 
+RUN useradd ut &&  chown ut /ut-server /ut-data -R
+
 # Run the startup script
-RUN chmod +x startup.sh
+RUN chmod +x /startup.sh
+
+USER ut
 CMD ["/startup.sh"]
 HEALTHCHECK --interval=30s --timeout=3s --start-period=1m --retries=3 CMD python3 health.py || exit 1
