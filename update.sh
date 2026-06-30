@@ -244,6 +244,9 @@ steamcmd() {
             rm ${gs_root}/${game}/${target_folder}/left4dead2/host.txt -f
             rm ${gs_root}/${game}/${target_folder}/left4dead2/motd.txt -f
         else
+            if [ "${game}" = "css-base" ]; then
+                cp ${gs_root}/${steamcmd}/linux32/steamclient.so ${gs_root}/${game}/ -f
+            fi
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login} +app_update ${games[$game]} +quit
         fi
     done

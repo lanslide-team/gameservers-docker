@@ -81,7 +81,7 @@ if vars['TV_ENABLE'] == '1':
     f.close()
 
 
-os.system("python3 /css/cstrike/config_admins.py >> /css/cstrike/addons/sourcemod/configs/admins_simple.ini && rm /css/cstrike/config_admins.py -f")
+#os.system("python3 /css/cstrike/config_admins.py >> /css/cstrike/addons/sourcemod/configs/admins_simple.ini && rm /css/cstrike/config_admins.py -f")
 
 subprocess.call(base)
 
