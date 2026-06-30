@@ -178,16 +178,57 @@ zdaemon() {
     )
 }
 
+
 proton() {
-   declare gs_root=$1
-   declare game=$2
-   steamcmd="steamcmd"
-   script="steamcmd.sh"
+    local gs_root="$1"
+    local proton_dir="${gs_root}/proton"
+    local state_file="${proton_dir}/.last_commit"
 
-   echo ${gs_root}
-   echo ${game}
+    local latest_commit
+    latest_commit=$(git ls-remote https://github.com/ValveSoftware/Proton.git HEAD | awk '{print $1}')
 
-   ${gs_root}/${steamcmd}/${script} +@sSteamCmdForcePlatformType linux +force_install_dir "${gs_root}/${game}/proton" +login anonymous +app_info_update 1 +app_update 1493710 validate +quit
+    mkdir -p "${proton_dir}"
+
+    if [[ -f "${state_file}" ]]; then
+        local current_commit
+        current_commit=$(<"${state_file}")
+
+        if [[ "${current_commit}" == "${latest_commit}" ]]; then
+            cp ${proton_dir}/src/build/dist/proton ${gs_root}/wreckfest2/proton -f          
+            cp ${proton_dir}/src/build/dist/files ${gs_root}/wreckfest2/ -Rf     
+            echo "Proton already up to date (${latest_commit})"
+            return 0
+        fi
+    fi
+
+    echo "Building Proton ${latest_commit}"
+
+    rm -rf "${proton_dir}/src"
+
+    git clone \
+        --depth 1 \
+        --recurse-submodules \
+        https://github.com/ValveSoftware/Proton.git \
+        "${proton_dir}/src"
+
+    pushd "${proton_dir}/src" >/dev/null
+
+    mkdir -p build
+    pushd build >/dev/null
+
+    ../configure.sh --build-name=proton-localbuild
+    make -j"$(nproc)"
+
+    popd >/dev/null
+
+    echo "${latest_commit}" > "${state_file}"
+
+    popd >/dev/null
+
+    echo "Proton build complete"
+
+    cp ${proton_dir}/src/build/dist/proton ${gs_root}/wreckfest2/proton -f          
+    cp ${proton_dir}/src/build/dist/files ${gs_root}/wreckfest2/ -Rf          
 }
 
 steamcmd() {
@@ -263,26 +304,26 @@ proton $gs_root wreckfest2
 # csgo_surf $gs_root
 
 # Doom 2
-doom2 $gs_root
+#doom2 $gs_root
 
 # Halo CE
-haloce $gs_root
+#haloce $gs_root
 
 # Minecraft volumes
-mc_vols
+#mc_vols
 
 # TrackMania Forever
-tmf $gs_root
+#tmf $gs_root
 
 # Unreal Tournament 99 (GOTY)
-ut99 $gs_root
+#ut99 $gs_root
 
 # UT2004
-ut2004 $gs_root
+#ut2004 $gs_root
 
 # Zdeamon
-zdaemon $gs_root
+#zdaemon $gs_root
 
 # Steamcmd
-steamcmd $gs_root
+#steamcmd $gs_root
 
