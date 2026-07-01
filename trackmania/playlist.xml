@@ -19,6 +19,10 @@
         <timeattack_synchstartperiod>$TIMEATTACK_SYNCHSTARTPERIOD</timeattack_synchstartperiod>
     </gameinfos>
 
+    <mode_script_settings>
+        <setting name="S_TimeLimit" type="integer" value="$TIMEATTACK_LIMIT"/>
+    </mode_script_settings>
+
     <hotseat>
         <game_mode>$GAME_MODE</game_mode>
     </hotseat>
