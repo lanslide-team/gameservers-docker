@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<playlist>
+    <gameinfos>
+        <game_mode>$GAME_MODE</game_mode>
+	<script_name>Trackmania/$SCRIPT_NAME</script_name>
+	<chat_time>$CHAT_TIME</chat_time>
+        <finishtimeout>$FINISHTIMEOUT</finishtimeout>
+        <allwarmupduration>$ALLWARMUPDURATION</allwarmupduration>
+        <disablerespawn>$DISABLERESPAWN</disablerespawn>
+        <forceshowallopponents>$FORCESHOWALLOPPONENTS</forceshowallopponents>
+        <rounds_pointslimit>$ROUNDS_POINTSLIMIT</rounds_pointslimit>
+        <rounds_usenewrules>$ROUNDS_USENEWRULES</rounds_usenewrules>
+        <rounds_forcedlaps>$ROUNDS_FORCEDLAPS</rounds_forcedlaps>
+        <rounds_pointslimitnewrules>$ROUNDS_NEWRULESPOINTSLIMIT</rounds_pointslimitnewrules>
+        <team_pointslimit>$TEAM_POINTSLIMIT</team_pointslimit>
+        <team_maxpoints>$TEAM_MAXPOINTS</team_maxpoints>
+        <team_usenewrules>$TEAM_USENEWRULES</team_usenewrules>
+        <timeattack_limit>$TIMEATTACK_LIMIT</timeattack_limit>
+        <timeattack_synchstartperiod>$TIMEATTACK_SYNCHSTARTPERIOD</timeattack_synchstartperiod>
+    </gameinfos>
+
+    <hotseat>
+        <game_mode>$GAME_MODE</game_mode>
+    </hotseat>
+
+    <filter>
+        <is_lan>1</is_lan>
+        <is_internet>0</is_internet>
+        <is_solo>0</is_solo>
+        <is_hotseat>0</is_hotseat>
+        <sort_index>1000</sort_index>
+        <random_map_order>0</random_map_order>
+    </filter>
+
+    <startindex>0</startindex>
+
+    <map>
+        <file>Downloaded/$TRACK.Map.Gbx</file>
+    </map>
+</playlist>

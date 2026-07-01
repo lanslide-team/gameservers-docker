@@ -62,6 +62,7 @@ docker build -t='reflex-arena:latest' reflex-arena/
 docker build -t='rust:latest' rust/
 docker build -t='factorio:latest' factorio/
 docker build -t='tf2:latest' tf2/
+docker build -t='trackmania:latest' trackmania/
 docker build -t='trackmania-forever:latest' trackmania-forever/
 docker build -t='trackmania-forever-rcon:latest' trackmania-forever-rcon/
 docker build -t='ut2004:latest' ut2004/
