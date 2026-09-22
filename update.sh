@@ -73,6 +73,7 @@ mc() {
 mc_vols() {
     mkdir -p /opt/minecraft/creative/plotworld
     mkdir -p /opt/minecraft/survival/world
+    mkdir -p /opt/moria/SaveGamesDedicated
     chmod 777 /opt/minecraft -R
 }
 
@@ -253,6 +254,7 @@ steamcmd() {
 #    games[csgo-base]=740
     games[hl2]=232370
     games[l4d2-base]=222860
+    games[moria]=3349480
     games[reflex-arena]=329740
     games[retrocycles]=1306180
     games[rust]=258550

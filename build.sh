@@ -56,6 +56,7 @@ docker build -t='minecraft:latest' minecraft/
 docker build -t='minecraft-base:latest' minecraft-base/
 docker build -t='minecraft-build:latest' minecraft-build/
 docker build -t='minecraft-map:latest' minecraft-map/
+docker build -t='moria:latest' moria/
 docker build -t='retrocycles:latest' retrocycles/
 docker build -t='ioquake3:latest' ioquake3/
 docker build -t='reflex-arena:latest' reflex-arena/
