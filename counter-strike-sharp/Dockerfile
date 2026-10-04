@@ -1,7 +1,7 @@
 FROM base
 LABEL maintainer="LAN-slide"
 
-RUN apt-get update && apt-get install -y curl dotnet-sdk-8.0
+RUN apt-get update && apt-get install -y curl dotnet-sdk-10.0
 
 RUN mkdir /css
 
@@ -35,7 +35,7 @@ RUN set -eux; \
 #    rm -f /tmp/pugsharp.zip
     
 #############i################################ MATCHZY ##############################################
-RUN git clone https://github.com/shobhit-pathak/MatchZy /tmp/MatchZy && \ 
+RUN git clone https://github.com/shobhit-pathak/MatchZy /tmp/MatchZy && \
     cd /tmp/MatchZy && \
     git config --global user.name "LAN-slide" && \
     git config --global user.email "team@lanslide.com.au" && \
@@ -45,7 +45,7 @@ RUN git clone https://github.com/shobhit-pathak/MatchZy /tmp/MatchZy && \
     dotnet publish
 
 RUN mkdir -p /css/cfg/MatchZy && cp /tmp/MatchZy/cfg/MatchZy/* /css/cfg/MatchZy -R
-RUN cp /tmp/MatchZy/bin/Release/net8.0/publish /css/addons/counterstrikesharp/plugins/MatchZy -R
+RUN cp /tmp/MatchZy/bin/Release/net10.0/publish /css/addons/counterstrikesharp/plugins/MatchZy -R
 
 # ARG version="0.8.12"
 # ARG matchzy="https://github.com/shobhit-pathak/MatchZy/releases/download/${version}/MatchZy-${version}-with-cssharp-linux.zip"
