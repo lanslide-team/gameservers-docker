@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ENV_VAR_ARR='TRACK GAME_MODE SCRIPT_NAME CHAT_TIME FINISHTIMEOUT ALLWARMUPDURATION DISABLERESPAWN FORCESHOWALLOPPONENTS ROUNDS_POINTSLIMIT ROUNDS_USENEWRULES ROUNDS_FORCEDLAPS ROUNDS_NEWRULESPOINTSLIMIT TEAM_POINTSLIMIT TEAM_MAXPOINTS  TEAM_USENEWRULES TIMEATTACK_LIMIT TIMEATTACK_SYNCHSTARTPERIOD'
+ENV_VAR_ARR='MAPS_PER_MATCH GAME_MODE SCRIPT_NAME CHAT_TIME FINISHTIMEOUT ALLWARMUPDURATION DISABLERESPAWN FORCESHOWALLOPPONENTS ROUNDS_POINTSLIMIT ROUNDS_USENEWRULES ROUNDS_FORCEDLAPS ROUNDS_NEWRULESPOINTSLIMIT TEAM_POINTSLIMIT TEAM_MAXPOINTS  TEAM_USENEWRULES TIMEATTACK_LIMIT TIMEATTACK_SYNCHSTARTPERIOD DISABLE_VOTING'
 TM_LOGIN="${TM_LOGIN:-admin}"
 TM_PASSWORD="${TM_PASSWORD:-admin}"
 
@@ -8,7 +8,7 @@ USER_DATA="/tm/UserData"
 DEFAULT_CFG="dedicated_cfg.default.txt"
 SERVER_CFG="dedicated_cfg.txt"
 MATCH_CFG="playlist.xml"
-TRACK="${TRACK:-Australia 2026_(311081)}"
+TRACKLIST="${TRACKLIST:-Australia 2026_(311081)}"
 MAPPACK="${MAPPACK:-Trackmania_esports_2026_(TMX_7414).zip}"
 DOWNLOADED="Maps/Downloaded"
 
@@ -26,8 +26,8 @@ ROUNDS_NEWRULESPOINTSLIMIT="${ROUNDS_NEWRULESPOINTSLIMIT:-5}"
 TEAM_POINTSLIMIT="${TEAM_POINTSLIMIT:-5}"
 TEAM_MAXPOINTS="${TEAM_MAXPOINTS:-6}"
 TEAM_USENEWRULES="${TEAM_USENEWRULES:-0}"
-TIMEATTACK_LIMIT="${TIMEATTACK_LIMIT:-300000}"
 TIMEATTACK_SYNCHSTARTPERIOD="${TIMEATTACK_SYNCHSTARTPERIOD:-0}"
+DISABLE_VOTING="${DISABLE_VOTING:-0}"
 
 # Extract Maps
 unzip -o "/tm/${MAPPACK}" -d "${USER_DATA}/${DOWNLOADED}" && rm -f "${MAPPACK}"
@@ -44,11 +44,40 @@ xmlstarlet ed -L \
   -v "$TM_PASSWORD" \
   ${USER_DATA}/Config/${SERVER_CFG}
 
+if [ "$DISABLE_VOTING" = "1" ]; then
+    xmlstarlet ed -L \
+      -s "/dedicated/server_options/callvote_ratios" -t elem -n "voteratio" \
+      -i "/dedicated/server_options/callvote_ratios/voteratio[last()]" -t attr -n "command" -v "RestartMap" \
+      -i "/dedicated/server_options/callvote_ratios/voteratio[last()]" -t attr -n "ratio" -v "-1" \
+      "${USER_DATA}/Config/${SERVER_CFG}"
+fi
+
+IFS=',' read -ra TRACKS <<< "$TRACKLIST"
+MAPS_PER_MATCH=${#TRACKS[@]}
+MAPS_FILE=$(mktemp)
+
+if [ "${#TRACKS[@]}" -gt 1 ]; then
+    TIMEATTACK_LIMIT="${TIMEATTACK_LIMIT:-0}"
+else
+    TIMEATTACK_LIMIT=0
+fi
+
 # Update Match Settings
 for ENV_VAR in $ENV_VAR_ARR
 do
-     sed -i "s/\$$ENV_VAR/${!ENV_VAR}/" ${USER_DATA}/Maps/MatchSettings/${MATCH_CFG}
+     sed -i "s|\$$ENV_VAR|${!ENV_VAR}|" ${USER_DATA}/Maps/MatchSettings/${MATCH_CFG}
 done
 
-./TrackmaniaServer /dedicated_cfg=${SERVER_CFG} /game_settings=MatchSettings/${MATCH_CFG}
-bash
+for TRACK in "${TRACKS[@]}"; do
+    printf '    <map>\n        <file>Downloaded/%s.Map.Gbx</file>\n    </map>\n' "$TRACK" >> "$MAPS_FILE"
+done
+
+sed -i "/<!-- TRACKLIST -->/{
+    r $MAPS_FILE
+    d
+}" "${USER_DATA}/Maps/MatchSettings/${MATCH_CFG}"
+
+rm "$MAPS_FILE"
+
+SUPER_ADMIN='SuperAdmin' python3 restartmap.py &
+exec ./TrackmaniaServer /dedicated_cfg=${SERVER_CFG} /game_settings=MatchSettings/${MATCH_CFG} /nodaemon

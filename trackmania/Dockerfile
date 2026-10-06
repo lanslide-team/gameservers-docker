@@ -2,9 +2,7 @@ FROM base:latest
 
 LABEL maintainer="LAN-slide"
 
-RUN useradd -m tm && \
-    mkdir -p /tm && \
-    chown -R tm:tm /tm
+RUN mkdir -p /tm && chown -R ls:ls /tm
 
 RUN apt-get update && \
     apt-get install -y \
@@ -31,12 +29,13 @@ RUN wget -O TM2020-Gamemodes-master.zip \
 
 COPY entrypoint.sh /tm/entrypoint.sh
 COPY playlist.xml /tm/UserData/Maps/MatchSettings/playlist.xml
+COPY restartmap.py /tm/restartmap.py
 COPY *.zip /tm
 
-RUN chmod +x /tm/entrypoint.sh
-RUN chown tm:tm /tm -R
+RUN chmod +x /tm/entrypoint.sh && \
+    chown -R ls:ls /tm
 
-USER tm
+USER ls
 
 EXPOSE 2350/udp
 EXPOSE 3450/udp
