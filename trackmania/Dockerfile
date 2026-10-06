@@ -21,6 +21,14 @@ RUN wget -O TrackmaniaServer_Latest.zip \
     unzip TrackmaniaServer_Latest.zip && \
     rm -f TrackmaniaServer_Latest.zip
 
+RUN wget -O TM2020-Gamemodes-master.zip \
+    https://git.virtit.fr/beu/TM2020-Gamemodes/archive/master.zip && \
+    unzip TM2020-Gamemodes-master.zip -d /tmp && \
+    mkdir -p /tm/UserData/Scripts && \
+    cp -a /tmp/tm2020-gamemodes/*.Script.txt /tm/UserData/Scripts/ && \
+    cp -a /tmp/tm2020-gamemodes/Libs /tm/UserData/Scripts/ && \
+    rm -rf /tmp/tm2020-gamemodes TM2020-Gamemodes-master.zip
+
 COPY entrypoint.sh /tm/entrypoint.sh
 COPY playlist.xml /tm/UserData/Maps/MatchSettings/playlist.xml
 COPY *.zip /tm
