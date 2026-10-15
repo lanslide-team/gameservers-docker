@@ -88,7 +88,7 @@ for k, v in vars.items():
         continue
 
 
-max_players = 5 if 'IS_WINGMAN' in vars and vars['IS_WINGMAN'] == '1' else 13
+max_players = vars['MAXPLAYERS_OVERRIDE'];
 
 logs_folder = 'LAN_LOGS'
 if vars.get('MATCH_ID'):
@@ -131,8 +131,8 @@ if vars.get('SV_PASSWORD'):
     find_or_replace(server_cfg, 'sv_password', f"sv_password \"{vars['SV_PASSWORD']}\"")
 
 # Set Max Players
-if vars.get('MAXPLAYERS_OVERRIDE'):
-    find_or_replace(server_cfg, 'sv_visiblemaxplayers', f"sv_visiblemaxplayers {vars['MAXPLAYERS_OVERRIDE']}")
+if vars.get('SV_VISIBLEMAXPLAYERS'):
+    find_or_replace(server_cfg, 'sv_visiblemaxplayers', f"sv_visiblemaxplayers {vars['SV_VISIBLEMAXPLAYERS']}")
 
 # Set Map Group
 #if vars.get('MAP_GROUP'):
@@ -151,15 +151,25 @@ elif vars.get('SV_HOSTNAME'):
 
 base.append('+servercfgfile {SERVERCFGFILE}'.format(**vars))
 
-# Enable TV
-if vars.get('TV_ENABLE') and vars['TV_ENABLE'] == '1':
-    base.append('-addhltv')
-    base.append('-addhltv1')
-
 # Set TV name
 if 'TV_NAME' in vars:
     if vars['TV_NAME'] == 'GOTV':
         vars['TV_NAME'] = '[TV] ' + vars['SV_HOSTNAME']
+
+# Enable TV
+if vars.get('TV_ENABLE') and vars['TV_ENABLE'] == '1':
+     base.append('+tv_enable 1');
+     base.append('+tv_name {TV_NAME}'.format(**vars))
+     base.append('+tv_title {TV_NAME}'.format(**vars))
+     base.append('+tv_port {TV_PORT}'.format(**vars))
+     base.append('+tv_advertise_watchable 0')
+     base.append('-addhltv')
+
+if vars.get('TV_ENABLE1') and vars['TV_ENABLE1'] == '1':
+    base.append('+tv_enable1 1');
+    base.append('+tv_port1 {TV_PORT1}'.format(**vars))
+    base.append('-addhltv1')
+
 
 #if os.path.exists('csgo/scripts/mysql-files/fresh_install.sql'):
 mysql_root_password = os.popen('echo -n l33t | sha256sum | base64 | head -c 32 ; echo').read().strip()
@@ -286,7 +296,7 @@ find_or_replace(server_cfg, 'tv_advertise_watchable', f"tv_advertise_watchable {
 find_or_replace(server_cfg, 'tv_delay ', f"tv_delay {vars['TV_DELAY']}", True)
 find_or_replace(server_cfg, 'tv_delay1', f"tv_delay1 {vars['TV_DELAY1']}", True)
 find_or_replace(server_cfg, 'tv_enable ', f"tv_enable {vars['TV_ENABLE']}", True)
-find_or_replace(server_cfg, 'tv_enable1', f"tv_enable1 {vars['TV_ENABLE1']}", True)
+find_or_replace(server_cfg, 'tv_enable_dynamic', f"tv_enable_dynamic {vars['TV_ENABLE_DYNAMIC']}", True)
 find_or_replace(server_cfg, 'tv_name', f"tv_name \"{vars['TV_NAME']}\"", True)
 find_or_replace(server_cfg, 'tv_nochat', f"tv_nochat {vars['TV_NOCHAT']}", True)
 find_or_replace(server_cfg, 'tv_port', f"tv_port {vars['TV_PORT']}", True)
@@ -326,7 +336,7 @@ find_or_replace(competitive_cfg, 'mp_warmuptime', f"mp_warmuptime {vars['MP_WARM
 
 # WINGMAN OVERRIDES
 find_or_replace(wingman_cfg, 'mp_freezetime', f"mp_freezetime {vars['FREEZETIME']}")
-find_or_replace(wingman_cfg, 'mp_overtime_enable', f"mp_overtime_enable true")
+#find_or_replace(wingman_cfg, 'mp_overtime_enable', f"mp_overtime_enable true")
 find_or_replace(wingman_cfg, 'mp_overtime_startmoney', f"mp_overtime_startmoney {vars['OVERTIME_STARTMONEY']}")
 
 find_or_replace(wingman_cfg, 'mp_team_timeout_max', f"mp_team_timeout_max {vars['MP_TEAM_TIMEOUT_MAX']}")
