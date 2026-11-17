@@ -1,0 +1,33 @@
+{
+  "Game": {
+    "FarmName": "LAN-slide",
+    "FarmType": 0,
+    "ProfitMargin": 1.0,
+    "StartingCabins": 1,
+    "SpawnMonstersAtNight": "auto",
+    "RemixBundles": false,
+    "RemixMines": false,
+    "CommunityCenterYear1": false,
+    "CabinLayoutNearby": false,
+    "UseLegacyRandom": false,
+    "RandomSeed": null,
+    "PetBreed": 1,
+    "PetName": "Apples",
+    "MushroomCave": true,
+    "BuyJoja": false
+  },
+  "Server": {
+    "MaxPlayers": 100,
+    "CabinStrategy": "CabinStack",
+    "SeparateWallets": false,
+    "ExistingCabinBehavior": "KeepExisting",
+    "VerboseLogging": false,
+    "AllowIpConnections": true,
+    "AllowCabinRelocation": true,
+    "EnforceFarmhandOwnership": true,
+    "LobbyMode": "Shared",
+    "ActiveLobbyLayout": "default",
+    "AdminSteamIds": [],
+    "NetworkBroadcastPeriod": 1
+  }
+}

@@ -63,6 +63,7 @@ docker build -t='ioquake3:latest' ioquake3/
 docker build -t='reflex-arena:latest' reflex-arena/
 docker build -t='rust:latest' rust/
 docker build -t='factorio:latest' factorio/
+docker build -t='stardew-valley:latest' stardew/
 docker build -t='tf2:latest' tf2/
 docker build -t='trackmania:latest' trackmania/
 docker build -t='trackmania-forever:latest' trackmania-forever/

@@ -246,22 +246,21 @@ steamcmd() {
     login_user="stupidsteamlogin ssl_2022"
 
     # Declare games to update here
-    games[cs-base]=90
-    games[css-base]=232330
-    games[cs2-base]=730
-    games[altitude]=41300
-    games[7days]=294420
-#    games[csgo-base]=740
-    games[hl2]=232370
-    games[l4d2-base]=222860
-    games[moria]=3349480
-    games[reflex-arena]=329740
-    games[retrocycles]=1306180
-    games[rust]=258550
+#    games[cs-base]=90
+#    games[css-base]=232330
+#    games[cs2-base]=730
+#    games[altitude]=41300
+#    games[7days]=294420
+#    games[hl2]=232370
+#    games[l4d2-base]=222860
+#    games[moria]=3349480
+#    games[reflex-arena]=329740
+#    games[retrocycles]=1306180
+#    games[rust]=258550
     games[stardew]=413150
-    games[tf2]=232250
-    games[wreckfest]=361580
-    games[wreckfest2]=3519390
+#    games[tf2]=232250
+#    games[wreckfest]=361580
+#    games[wreckfest2]=3519390
 
     ls ${gs_root}/${steamcmd}/${script} >/dev/null || (
         mkdir -p ${gs_root}/${steamcmd} &&
@@ -272,8 +271,11 @@ steamcmd() {
     for game in "${!games[@]}"
     do
         echo "Updating game [${game}]"
-        if [ "${game}" = "altitude" -o "${game}" = "retrocycles" ]; then
+        if [ "${game}" = "altitude" -o "${game}" = "retrocycles" -o "${game}" = "stardew" ]; then
             ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login_user} +app_update ${games[$game]} +quit
+             if [ "${game}" = "stardew" ]; then
+                 cp ${gs_root}/${steamcmd}/linux64/steamclient.so ${gs_root}/${game}/ -f
+             fi
         elif [ "${game}" = "cs-base" ]; then
             cp ${gs_root}/${steamcmd}/linux32/steamclient.so ${gs_root}/${game}/ -f 
 	    ${gs_root}/${steamcmd}/${script} +force_install_dir ${gs_root}/${game}/${target_folder} +login ${login_user} +app_set_config ${games[$game]} mod cstrike +app_update ${games[$game]} -beta steam_legacy validate +quit

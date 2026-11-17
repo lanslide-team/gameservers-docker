@@ -12,7 +12,8 @@ RUN userdel ubuntu && \
 RUN apt-get update && apt-get install -y software-properties-common \
             git gcc make unzip p7zip-full curl wget iproute2 vim bzip2 jq \ 
             software-properties-common apt-transport-https python3 python3-pip libc6 \
-            lib32stdc++6 lib32gcc-s1 lib32z1 libicu-dev && \
+            lib32stdc++6i libstdc++6:i386 lib32gcc-s1 libgcc-s1:i386 lib32z1 libicu-dev ca-certificates \
+	    libcurl4-gnutls-dev:i386 libncurses6:i386 libtinfo6:i386 && \
         apt-get install -y --no-install-recommends locales && \
         apt-get clean && \ 
     	echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
