@@ -109,7 +109,10 @@ if vars.get('SV_LAN'):
     base.append('+sv_lan {SV_LAN}'.format(**vars))
 
 # Set GAME_ALIAS
-if vars.get('GAME_ALIAS'):
+if docker_type == 'rush':
+    base.append('+game_mode {GAME_MODE}'.format(**vars))
+    base.append('+game_type {GAME_TYPE}'.format(**vars))
+elif vars.get('GAME_ALIAS'):
     base.append('+game_alias {GAME_ALIAS}'.format(**vars))
 
 # Set hibernation
@@ -125,6 +128,7 @@ server_cfg = f"{cfg_dir}/server.cfg"
 armsrace_cfg = f"{cfg_dir}/gamemode_armsrace_server.cfg"
 competitive_cfg = f"{cfg_dir}/gamemode_competitive_server.cfg"
 wingman_cfg = f"{cfg_dir}/gamemode_competitive2v2_server.cfg"
+rush_cfg = f"{cfg_dir}/gamemode_rush.cfg"
 
 # Set SV password
 if vars.get('SV_PASSWORD'):
@@ -177,11 +181,13 @@ mysql_root_password = os.popen('echo -n l33t | sha256sum | base64 | head -c 32 ;
 
 os.system(f"hostname -I | python3 stats.py {docker_type} &")
 
-if docker_type == 'comp' or docker_type == 'wingman':
+if docker_type == 'comp' or docker_type == 'wingman' or docker_type == 'rush':
     os.system("python3 config_admins.py simple > game/csgo/cfg/MatchZy/admins.json")
     os.system("python3 config_whitelist.py > game/csgo/cfg/MatchZy/whitelist.cfg")
     os.system("python3 config_admins.py > game/csgo/addons/counterstrikesharp/configs/admins.json")
-    os.system("python3 config_match.py > game/csgo/match.json")
+
+    if docker_type != 'rush':
+        os.system("python3 config_match.py > game/csgo/match.json")
 
     config_root = 'game/csgo/cfg/MatchZy'
     matchzy_cfg = config_root + '/config.cfg'
@@ -221,6 +227,7 @@ if docker_type == 'comp' or docker_type == 'wingman':
     find_or_replace(matchzy_cfg, 'matchzy_enable_damage_report', f"matchzy_enable_damage_report {'true' if vars['ENABLE_DAMAGE_REPORT'] == '1' else 'false'}")
     find_or_replace(matchzy_cfg, 'matchzy_match_start_message', f"matchzy_match_start_message {vars['MATCH_START_MESSAGE']}")
     find_or_replace(matchzy_cfg, 'matchzy_enable_match_scrim', f"matchzy_enable_match_scrim {'true' if vars['ENABLE_MATCH_SCRIM'] == '1' else 'false'}")
+    find_or_replace(matchzy_cfg, 'matchzy_scrim_allow_spectators', f"matchzy_scrim_allow_spectators {'true' if vars['ENABLE_MATCH_SPECTATORS'] == '1' else 'false'}")
 
     # Backup [Round log details]
     # find_or_replace(matchzy_cfg, 'matchzy_remote_backup_url', f"matchzy_remote_backup_url \"https://portal.lanslide.com.au/api/v1/backup/\"")
@@ -238,12 +245,56 @@ if docker_type == 'comp' or docker_type == 'wingman':
     find_or_replace(warmup_cfg, 'mp_warmuptime', f"mp_warmuptime {vars['MP_WARMUPTIME']}")
     find_or_replace(warmup_cfg, 'sv_auto_full_alltalk_during_warmup_half_end', f"sv_auto_full_alltalk_during_warmup_half_end 1")
 
+    if docker_type == 'rush':
+        find_or_replace(warmup_cfg, 'mp_maxrounds', f"mp_maxrounds 15")
+
     # LIVE
     
     # Update live config
+    if docker_type == 'rush':
+        find_or_replace(live_cfg, 'mp_overtime_enable', 'mp_overtime_enable 0')
+        find_or_replace(live_cfg, 'mp_maxrounds', 'mp_maxrounds 15')
+        find_or_replace(live_cfg, 'mp_halftime', 'mp_halftime 0')
+        find_or_replace(live_cfg, 'mp_roundtime', 'mp_roundtime 0.67')
+        find_or_replace(live_cfg, 'mp_roundtime_defuse', 'mp_roundtime_defuse 0.67')
+        find_or_replace(live_cfg, 'mp_roundtime_hostage', 'mp_roundtime_hostage 0.67')
+        #find_or_replace(live_cfg, 'mp_freezetime', 'mp_freezetime 11')
+        find_or_replace(live_cfg, 'mp_buytime', 'mp_buytime 15')
+        find_or_replace(live_cfg, 'mp_maxmoney', 'mp_maxmoney 10000')
+        find_or_replace(live_cfg, 'mp_starting_losses', 'mp_starting_losses 0')
+        find_or_replace(live_cfg, 'mp_respawn_immunitytime', 'mp_respawn_immunitytime -1')
+        find_or_replace(live_cfg, 'mp_match_end_restart', 'mp_match_end_restart 1')
+        find_or_replace(live_cfg, 'mp_weapons_allow_zeus', 'mp_weapons_allow_zeus 5')
+        find_or_replace(live_cfg, 'ammo_grenade_limit_flashbang', 'ammo_grenade_limit_flashbang 1')
+        find_or_replace(live_cfg, 'ammo_grenade_limit_total', 'ammo_grenade_limit_total 1')
+        find_or_replace(live_cfg, 'mp_round_restart_delay', 'mp_round_restart_delay 5')
+        find_or_replace(live_cfg, 'mp_team_intro_time', 'mp_team_intro_time 9')
+        find_or_replace(live_cfg, 'mp_death_drop_defuser', 'mp_death_drop_defuser 0')
+        find_or_replace(live_cfg, 'bot_quota', 'bot_quota 2')
+        find_or_replace(live_cfg, 'cash_player_bomb_defused', 'cash_player_bomb_defused 0')
+        find_or_replace(live_cfg, 'cash_player_bomb_planted', 'cash_player_bomb_planted 0')
+        find_or_replace(live_cfg, 'cash_player_damage_hostage', 'cash_player_damage_hostage 0')
+        find_or_replace(live_cfg, 'cash_player_interact_with_hostage', 'cash_player_interact_with_hostage 0')
+        find_or_replace(live_cfg, 'cash_player_killed_hostage', 'cash_player_killed_hostage 0')
+        find_or_replace(live_cfg, 'cash_player_rescued_hostage', 'cash_player_rescued_hostage 0')
+        find_or_replace(live_cfg, 'cash_team_elimination_bomb_map', 'cash_team_elimination_bomb_map 0')
+        find_or_replace(live_cfg, 'cash_team_elimination_hostage_map_ct', 'cash_team_elimination_hostage_map_ct 2500')
+        find_or_replace(live_cfg, 'cash_team_elimination_hostage_map_t', 'cash_team_elimination_hostage_map_t 2500')
+        find_or_replace(live_cfg, 'cash_team_loser_bonus', 'cash_team_loser_bonus 2100')
+        find_or_replace(live_cfg, 'cash_team_loser_bonus_consecutive_rounds', 'cash_team_loser_bonus_consecutive_rounds 750')
+        find_or_replace(live_cfg, 'cash_team_planted_bomb_but_defused', 'cash_team_planted_bomb_but_defused 0')
+        find_or_replace(live_cfg, 'cash_team_rescued_hostage', 'cash_team_rescued_hostage 0')
+        find_or_replace(live_cfg, 'cash_team_terrorist_win_bomb', 'cash_team_terrorist_win_bomb 0')
+        find_or_replace(live_cfg, 'cash_team_win_by_defusing_bomb', 'cash_team_win_by_defusing_bomb 0')
+        find_or_replace(live_cfg, 'cash_team_win_by_hostage_rescue', 'cash_team_win_by_hostage_rescue 2500')
+        find_or_replace(live_cfg, 'cash_team_win_by_time_running_out_bomb', 'cash_team_win_by_time_running_out_bomb 0')
+        find_or_replace(live_cfg, 'cash_team_win_by_time_running_out_hostage', 'cash_team_win_by_time_running_out_hostage 2500')
+
+    else:
+        find_or_replace(live_cfg, 'mp_overtime_enable', f"mp_overtime_enable false")
+
     find_or_replace(live_cfg, 'mp_disconnect_kills_players', f"mp_disconnect_kills_players {vars['MP_DISCONNECT_KILLS_PLAYS']}")
     find_or_replace(live_cfg, 'mp_freezetime', f"mp_freezetime {vars['FREEZETIME']}")
-    find_or_replace(live_cfg, 'mp_overtime_enable', f"mp_overtime_enable true")
     find_or_replace(live_cfg, 'mp_overtime_startmoney', f"mp_overtime_startmoney {vars['OVERTIME_STARTMONEY']}")
     find_or_replace(live_cfg, 'sv_auto_full_alltalk_during_warmup_half_end', f"sv_auto_full_alltalk_during_warmup_half_end {vars['SV_AUTO_FULL_ALLTALK_DURING_WARMUP_HALF_END']}")
     find_or_replace(live_cfg, 'sv_hibernate_postgame_delay', f"sv_hibernate_postgame_delay {vars['SV_HIBERNATE_POSTGAME_DELAY']}", True)
@@ -279,7 +330,11 @@ if docker_type == 'comp' or docker_type == 'wingman':
     find_or_replace(live_wingman_cfg, 'mp_technical_timeout_per_team', f"mp_technical_timeout_per_team {vars['MP_TECHNICAL_TIMEOUT_PER_TEAM']}")
     find_or_replace(live_wingman_cfg, 'mp_technical_timeout_duration_s', f"mp_technical_timeout_duration_s {vars['MP_TECHNICAL_TIMEOUT_DURATION_S']}")
     find_or_replace(live_wingman_cfg, 'mp_overtime_enable', f"mp_overtime_enable true")
- 
+
+    if docker_type == 'rush':
+        find_or_replace(live_cfg, 'mp_maxrounds', 'mp_maxrounds 15')
+        find_or_replace(live_cfg, 'mp_halftime', 'mp_halftime 0')
+        find_or_replace(live_cfg, 'mp_overtime_enable', 'mp_overtime_enable false')
 
 # Warmup
 find_or_replace(server_cfg, 'mp_overtime_enable', f"mp_overtime_enable true")

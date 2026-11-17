@@ -43,6 +43,8 @@ def generate_config() -> None:
 #    veto_map: str|None = process_env('VETO_MAP', 'de_dust2')
     veto_map_pool: str|None = process_env('VETO_MAP_POOL', None)
     veto_mode: str|None = process_env('VETO_MODE', None)
+    spectators: str|None = process_env('SPECTATORS', None)
+    spectatorList: list = None if spectators is None else spectators.rstrip(',').split(',')
 
     is_wingman: bool = process_env('IS_WINGMAN', '0') == '1'
     players_per_team: int = process_env('PLAYERS_PER_TEAM', 5)
@@ -67,6 +69,7 @@ def generate_config() -> None:
     config['veto_mode'] = [] if veto_mode is None else veto_mode.rstrip(',').split(',')
     config['team1'] = {'id': team1_id, 'name': team1, 'tag': team1_tag, 'flag': team1_flag, 'logo': team1_logo, 'players': None}
     config['team2'] = {'id': team2_id, 'name': team2, 'tag': team2_tag, 'flag': team2_flag, 'logo': team2_logo, 'players': None}
+    config['spectators'] = {'players': spectatorList}
     config['matchid'] = str(match_id)
     config['num_maps'] = int(num_maps)
     config['players_per_team'] = int(players_per_team)         # 2 = wingman, 5 = comp

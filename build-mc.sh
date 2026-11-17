@@ -4,9 +4,11 @@ set -e
 STARTT=$(date +%s.%N)
 VERSION="v26.3"
 
+docker pull ghcr.io/lanslide-team/minecraft-bedwars:$VERSION
 docker pull ghcr.io/lanslide-team/minecraft-build:$VERSION
 docker pull ghcr.io/lanslide-team/minecraft-map:$VERSION
 
+docker tag ghcr.io/lanslide-team/minecraft-bedwars:$VERSION minecraft-bedwars:$VERSION
 docker tag ghcr.io/lanslide-team/minecraft-build:$VERSION minecraft-build:$VERSION
 docker tag ghcr.io/lanslide-team/minecraft-map:$VERSION minecraft-map:$VERSION
 

@@ -32,6 +32,7 @@ docker build -t='cs2-vanilla:latest' cs2-vanilla/
 docker build -t='cs2-wingman-vanilla:latest' cs2-wingman-vanilla/ --no-cache
 docker build -t='cs2-comp:latest' cs2-comp/
 docker build -t='cs2-wingman:latest' cs2-wingman/
+docker build -t='cs2-rush:latest' cs2-rush/
 
 #docker build -t='csgo-base:latest' csgo-base/
 #docker build -t='ls-warmod:latest' ls-warmod/

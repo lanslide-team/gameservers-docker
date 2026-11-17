@@ -64,11 +64,12 @@ class Query:
 #            cls.run_command(host, port, rcon_password, f"map {os.environ['MAP']}")
 #            time.sleep(Query.INITIAL_SLEEP)
 
-        is_competitive: bool = docker_type in ['comp', 'wingman'];
+        is_competitive: bool = docker_type in ['comp', 'wingman', 'rush'];
 
         # Load the match config
         if is_competitive:
-            cls.run_command(host, port, rcon_password, 'matchzy_loadmatch match.json')
+            if docker_type != 'rush':
+                cls.run_command(host, port, rcon_password, 'matchzy_loadmatch match.json')
                    
             team1_logo = None
             team2_logo = None
