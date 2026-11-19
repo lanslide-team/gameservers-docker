@@ -79,5 +79,5 @@ sed -i "/<!-- TRACKLIST -->/{
 
 rm "$MAPS_FILE"
 
-SUPER_ADMIN='SuperAdmin' python3 restartmap.py &
+SUPER_ADMIN='SuperAdmin' python3 trackmania_api.py &
 exec ./TrackmaniaServer /dedicated_cfg=${SERVER_CFG} /game_settings=MatchSettings/${MATCH_CFG} /nodaemon

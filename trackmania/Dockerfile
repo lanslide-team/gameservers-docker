@@ -29,7 +29,7 @@ RUN wget -O TM2020-Gamemodes-master.zip \
 
 COPY entrypoint.sh /tm/entrypoint.sh
 COPY playlist.xml /tm/UserData/Maps/MatchSettings/playlist.xml
-COPY restartmap.py /tm/restartmap.py
+COPY trackmania_api.py /tm/trackmania_api.py
 COPY *.zip /tm
 
 RUN chmod +x /tm/entrypoint.sh && \
